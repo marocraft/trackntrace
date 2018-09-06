@@ -20,8 +20,8 @@ public class TestController {
 	}
 
 	
-	public boolean compare() {
+	public boolean compare(String o) {
 		String h = "e";
-		return false;
+		return o.equals(h);
 	}
 }
