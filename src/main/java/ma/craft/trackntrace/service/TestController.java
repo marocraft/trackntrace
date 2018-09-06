@@ -14,8 +14,14 @@ public class TestController {
 
 	public int multiplication(int a, int b) {
 		int c= a*b;
+		
 		return a * b;
 
 	}
 
+	
+	public boolean compare() {
+		String h = "e";
+		return false;
+	}
 }
