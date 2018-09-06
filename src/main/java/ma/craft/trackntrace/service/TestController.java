@@ -22,6 +22,11 @@ public class TestController {
 	
 	public boolean compare(String o) {
 		String h = "e";
-		return o.equals(h);
+		int target = -5;
+		int num = 3;
+
+		target =- num;  // Noncompliant; target = -3. Is that really what's meant?
+		target =+ num; // Noncompliant; target = 3
+		return o.equals(h);	
 	}
 }
