@@ -18,12 +18,10 @@ public class AnnotationAspectTest {
 		//assertEquals("classe : com.example.demo.controllers.Controller, name : tes,arguments : (), execution time: 0 ms",exempleAspect);
 	}
 	
-	//@Test
-	/*public void shouldLogHaveCorrectFormat() {
+	@Test
+	public void shouldLogHaveCorrectFormat() {
 		String log = LogBuilder.build("Controller", "myMethod", new Object[] {}, 20L);
 		assertEquals("", log);
-		
 	}
-	*/
 
 }
