@@ -3,24 +3,33 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>ma.craft</groupId>
-	<artifactId>trackntrace</artifactId>
+	<groupId>ma.craft.trackntrace</groupId>
+	<artifactId>annotation-interceptor</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>trackntrace</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Intercept method calls and produce logs</description>
 	<developers>
 		<developer>
 			<id>HT</id>
 			<email>ht.housseine@gmail.com</email>
 			<name>Housseine Tassa</name>
 		</developer>
-		
+		<developer>
+			<id>OR</id>
+			<email>rayomar2016@gmail.com</email>
+			<name>Omar Ray</name>
+		</developer>
+		<developer>
+			<id>SK</id>
+			<email>sallah.kokaina@gmail.com</email>
+			<name>Sallah KOKAINA</name>
+		</developer>
 	</developers>
 	
 	<scm>
-		<url>https://github.com/skokaina/devops</url>
+		<url>https://github.com/marocraft/trackntrace</url>
 		<connection>scm:git:git://github.com/marocraft/trackntrace.git</connection>
 		<developerConnection>scm:git:git@github.com:marocraft/trackntrace.git</developerConnection>
 	</scm>
@@ -57,24 +66,9 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-actuator</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		
 		<!-- Spring AOP + AspectJ -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -87,13 +81,11 @@
 			<artifactId>aspectjrt</artifactId>
 			<version>1.6.11</version>
 		</dependency>
-		
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjweaver</artifactId>
 			<version>1.6.11</version>
 		</dependency>
-		
 	</dependencies>
 	
 
