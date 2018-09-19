@@ -1,0 +1,1 @@
+template: "{ className: '{{className}}', methodName: '{{methodName}}', executionTime: '{{executionTime}} ms'}"
