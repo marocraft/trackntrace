@@ -12,7 +12,6 @@ public class LogBuilder {
 		logMessage.append("classe : ");
 		logMessage.append(className);
 		logMessage.append(",");
-		logMessage.append('\n');
 		logMessage.append("name : ");
 		logMessage.append(methodName);
 		logMessage.append(",");

@@ -21,7 +21,7 @@ public class AnnotationAspectTest {
 	@Test
 	public void shouldLogHaveCorrectFormat() {
 		String log = LogBuilder.build("Controller", "myMethod", new Object[] {}, 20L);
-		assertEquals("", log);
+		assertEquals("classe : Controller,name : myMethod,arguments :  (), execution time: 20 ms", log);
 	}
 
 }
