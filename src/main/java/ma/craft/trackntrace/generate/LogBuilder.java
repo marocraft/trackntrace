@@ -1,4 +1,4 @@
-package ma.craft.trackntrace;
+package ma.craft.trackntrace.generate;
 
 import ma.craft.trackntrace.domain.LogTrace;
 

@@ -4,6 +4,8 @@ import ma.craft.trackntrace.aspect.AnnotationAspect;
 import ma.craft.trackntrace.collect.LogCollector;
 import ma.craft.trackntrace.domain.LogLevel;
 import ma.craft.trackntrace.domain.LogTrace;
+import ma.craft.trackntrace.generate.LogBuilder;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

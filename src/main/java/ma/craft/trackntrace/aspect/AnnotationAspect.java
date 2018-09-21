@@ -1,9 +1,9 @@
 package ma.craft.trackntrace.aspect;
 
-import ma.craft.trackntrace.LogBuilder;
 import ma.craft.trackntrace.collect.LogCollector;
 import ma.craft.trackntrace.domain.LogLevel;
 import ma.craft.trackntrace.domain.LogTrace;
+import ma.craft.trackntrace.generate.LogBuilder;
 import ma.craft.trackntrace.generate.LogGenerator;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
