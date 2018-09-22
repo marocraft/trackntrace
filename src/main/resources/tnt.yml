@@ -1,5 +1,1 @@
-# template: "{ className: '{{className}}', methodName: '{{methodName}}', executionTime: '{{executionTime}} ms'}"
-className: className
-methodName: mamethode
-executionTime: 20
-logLevel: critical
+format: "{ className: '{{className}}', methodName: '{{methodName}}',logLevel: '{{logLevel}}', executionTime: '{{executionTime}} ms'}"

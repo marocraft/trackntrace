@@ -22,6 +22,9 @@ public class LogTrace {
 		this.className = className;
 		this.logLevel = logLevel;
 	}
+	public int getColumnCount() {
+	    return getClass().getDeclaredFields().length;
+	}
 
 
 

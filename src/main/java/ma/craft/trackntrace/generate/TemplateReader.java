@@ -7,34 +7,44 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.core.io.Resource;
 import org.springframework.util.ResourceUtils;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 import ma.craft.trackntrace.domain.LogTrace;
+import ma.craft.trackntrace.domain.Template;
 
 public class TemplateReader {
 
-	public static void main(String[] args) {
+	public static String readTmplate() {
 		ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
 		try {
 
-			File file = fileLoader();
-			LogTrace logTrace = mapper.readValue(file, LogTrace.class);
-			System.out.println(
-					"housseine " + ReflectionToStringBuilder.toString(logTrace, ToStringStyle.MULTI_LINE_STYLE));
+			File file = readFile();
+			Template template = mapper.readValue(file, Template.class);
+			return ReflectionToStringBuilder.toString(template, ToStringStyle.MULTI_LINE_STYLE);
+
 		} catch (Exception e) {
 
 			e.printStackTrace();
 		}
+		return null;
 
 	}
 
-	public static File fileLoader() {
+	public static File readFile() {
 		ClassLoader classLoader = TemplateReader.class.getClassLoader();
 		File file = new File(classLoader.getResource("tnt.yml").getFile());
 		return file;
+	}
+
+	public static Template parse(File file) throws JsonParseException, JsonMappingException, IOException {
+		ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
+		// TODO Auto-generated method stub
+		return mapper.readValue(file, Template.class);
 	}
 
 }
