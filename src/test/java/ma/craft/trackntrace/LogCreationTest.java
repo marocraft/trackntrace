@@ -38,7 +38,7 @@ public class LogCreationTest {
 	public void shouldCreateLogTraceClassWithData(){
 		LogCollector collector = new LogCollector();
 		LogTrace logTrace = collector.collect("controller", "myMethod", LogLevel.TRIVIAL, 20L);
-		Assert.assertNotNull(logTrace.className);
+		Assert.assertNotNull(logTrace.getClassName());
 	}
 
 
