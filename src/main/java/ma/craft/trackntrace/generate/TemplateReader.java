@@ -21,7 +21,6 @@ public class TemplateReader {
             return template;
         } catch (Exception e) {
             log.error("Error while reading template", e);
-            e.printStackTrace();
         }
         return null;
     }
