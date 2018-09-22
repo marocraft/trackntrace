@@ -13,10 +13,10 @@ public class LogCollector {
 
 	public LogTrace collect(String className, String methodName, @Nonnull LogLevel logLevel, long executionTime) {
 		LogTrace trace = new LogTrace();
-		trace.className = className;
-		trace.methodName = methodName;
-		trace.logLevel = logLevel.name();
-		trace.executionTime = executionTime;
+		trace.setClassName(className);
+		trace.setMethodName(methodName);
+		trace.setLogLevel(logLevel.name());
+		trace.setExecutionTime(executionTime);
 		return trace;
 	}
 
