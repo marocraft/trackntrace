@@ -2,7 +2,9 @@ package ma.craft.trackntrace;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
+import ma.craft.trackntrace.domain.Variable;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -39,15 +41,27 @@ public class FormatTest {
 	}
 
 	@Test
-	public void shouldHaveSameNumberTemplateVariablesAsClasssTemplateVariables() {
-		LogTrace logTrace = new LogTrace();
-		String format = TemplateReader.readTmplate();
-		int nbrFieldsFromTemplateFile = RegExManager.getNumberOfVariablesFromFormatFile(format);
+	public void shouldHaveCorretNumberTemplateVariables() {
+		Template template = TemplateReader.readTemplate();
+		int nbrFieldsFromTemplateFile = RegExManager.getNumberOfVariablesFromFormatFile(template.getFormat());
 		Assert.assertEquals(4, nbrFieldsFromTemplateFile);
 	}
-	
-	
-	// position des variable
-	// noms des variables
+
+
+	@Test
+	public void shouldHaveVariablesWithCorrectPositions() {
+		Template template = TemplateReader.readTemplate();
+		List<Variable> variables = RegExManager.extractVariables(template.getFormat());
+		Variable variable = variables.get(0);
+		Assert.assertEquals(14, variable.getStart());
+		Assert.assertEquals(25, variable.getStart() + variable.getName().length() + 2);
+	}
+
+	@Test
+	public void shouldHaveCorrectNames() {
+		Template template = TemplateReader.readTemplate();
+		List<Variable> variables = RegExManager.extractVariables(template.getFormat());
+		Assert.assertEquals("className", variables.get(0).getName());
+	}
 
 }
