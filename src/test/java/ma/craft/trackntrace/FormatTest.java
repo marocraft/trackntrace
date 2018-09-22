@@ -41,12 +41,18 @@ public class FormatTest {
 	}
 
 	@Test
-	public void shouldHaveCorretNumberTemplateVariables() {
+	public void shouldHaveRightNumberTemplateVariables() {
 		Template template = TemplateReader.readTemplate();
 		int nbrFieldsFromTemplateFile = RegExManager.getNumberOfVariablesFromFormatFile(template.getFormat());
 		Assert.assertEquals(4, nbrFieldsFromTemplateFile);
 	}
 
+	@Test
+	public void shouldHaveNoVariables() {
+		List<Variable> variables = RegExManager.extractVariables("No variables here");
+		Assert.assertNotNull(variables);
+		Assert.assertEquals(0, variables.size());
+	}
 
 	@Test
 	public void shouldHaveVariablesWithCorrectPositions() {

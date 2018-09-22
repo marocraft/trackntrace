@@ -16,9 +16,6 @@ public class RegExManager {
 		final String regex = "\\{\\{([0-9a-zA-Z_]+)\\}\\}";
 		final Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
 		final Matcher matcher = pattern.matcher(expression);
-
-		if(matcher.groupCount() == 0){ return null; }
-
 		final List<Variable> variables = new ArrayList<>(matcher.groupCount());
 		while (matcher.find()) {
 			Variable variable = new Variable();
