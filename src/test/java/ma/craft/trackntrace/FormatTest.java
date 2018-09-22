@@ -43,8 +43,7 @@ public class FormatTest {
 		LogTrace logTrace = new LogTrace();
 		String format = TemplateReader.readTmplate();
 		int nbrFieldsFromTemplateFile = RegExManager.getNumberOfVariablesFromFormatFile(format);
-		int nbrFieldsFromTemplateClass = logTrace.getColumnCount();
-		Assert.assertEquals(nbrFieldsFromTemplateClass, nbrFieldsFromTemplateFile);
+		Assert.assertEquals(4, nbrFieldsFromTemplateFile);
 	}
 	
 	
