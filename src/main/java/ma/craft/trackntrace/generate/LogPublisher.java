@@ -3,15 +3,15 @@ package ma.craft.trackntrace.generate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LogGenerator {
+public class LogPublisher {
 
-    private static final LogGenerator INSTANCE = new LogGenerator();
+    private static final LogPublisher INSTANCE = new LogPublisher();
     private List<String> logs = new ArrayList<>();
 
-    private LogGenerator(){
+    private LogPublisher(){
     }
 
-    public static LogGenerator instance(){
+    public static LogPublisher instance(){
         return INSTANCE;
     }
 

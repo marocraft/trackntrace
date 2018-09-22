@@ -1,24 +1,16 @@
 package ma.craft.trackntrace.generate;
 
-import java.io.File;
-
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-import org.springframework.core.io.Resource;
-import org.springframework.util.ResourceUtils;
-
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import lombok.extern.slf4j.Slf4j;
+import ma.craft.trackntrace.domain.Template;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Scanner;
 
-import ma.craft.trackntrace.domain.LogTrace;
-import ma.craft.trackntrace.domain.Template;
-
+@Slf4j
 public class TemplateReader {
 
     public static Template readTemplate() {
@@ -28,11 +20,10 @@ public class TemplateReader {
             Template template = mapper.readValue(file, Template.class);
             return template;
         } catch (Exception e) {
-
+            log.error("Error while reading template", e);
             e.printStackTrace();
         }
         return null;
-
     }
 
     public static File readFile() {

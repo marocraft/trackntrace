@@ -4,7 +4,7 @@ import ma.craft.trackntrace.collect.LogCollector;
 import ma.craft.trackntrace.domain.LogLevel;
 import ma.craft.trackntrace.domain.LogTrace;
 import ma.craft.trackntrace.generate.LogBuilder;
-import ma.craft.trackntrace.generate.LogGenerator;
+import ma.craft.trackntrace.generate.LogPublisher;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
@@ -17,7 +17,7 @@ import org.springframework.util.StopWatch;
 @Component
 public class AnnotationAspect {
 
-	private final LogGenerator logGenerator = LogGenerator.instance();
+	private final LogPublisher logPublisher = LogPublisher.instance();
 
 	/**
 	 * Business Log aspect
@@ -69,7 +69,7 @@ public class AnnotationAspect {
 				LogLevel,
 				stopWatch.getTotalTimeMillis());
 		String logMessage = LogBuilder.build(logTrace);
-		logGenerator.publish(logMessage);
+		logPublisher.publish(logMessage);
 	}
 
 	private Object executeAnnotedMethod(final ProceedingJoinPoint joinPoint) throws Throwable {

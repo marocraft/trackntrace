@@ -2,7 +2,7 @@ package ma.craft.trackntrace;
 
 
 import ma.craft.trackntrace.context.SpringAOPContext;
-import ma.craft.trackntrace.generate.LogGenerator;
+import ma.craft.trackntrace.generate.LogPublisher;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,17 +19,17 @@ public class AspectAnnotationTest {
 
     @Test
     public void shouldLogHaveInfoLevel() {
-        Assert.assertTrue(LogGenerator.instance().empty());
+        Assert.assertTrue(LogPublisher.instance().empty());
         testService.sleep(300);
-        Assert.assertFalse(LogGenerator.instance().empty());
-        Assert.assertEquals((Integer) 1, LogGenerator.instance().logStackSize());
+        Assert.assertFalse(LogPublisher.instance().empty());
+        Assert.assertEquals((Integer) 1, LogPublisher.instance().logStackSize());
     }
 
     @Test
     public void shouldClearLogGeneratorStack() {
         testService.sleep(300);
-        LogGenerator.instance().clear();
-        Assert.assertEquals((Integer) 0, LogGenerator.instance().logStackSize());
+        LogPublisher.instance().clear();
+        Assert.assertEquals((Integer) 0, LogPublisher.instance().logStackSize());
     }
 
 
