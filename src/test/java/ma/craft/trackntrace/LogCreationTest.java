@@ -11,6 +11,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import lombok.extern.slf4j.Slf4j;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
@@ -47,6 +49,6 @@ public class LogCreationTest {
 		LogCollector collector = new LogCollector();
 		LogTrace logTrace = collector.collect("controller", "myMethod", LogLevel.TRIVIAL, 20L);
 		String log = LogBuilder.build(logTrace);
-		assertEquals("classe : controller,name : myMethod,level :  (TRIVIAL), execution time: 20 ms", log);
+		assertEquals("{ className: controller, methodName: myMethod,logLevel: TRIVIAL, executionTime: 20 ms}", log);
 	}
 }

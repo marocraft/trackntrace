@@ -1,1 +1,1 @@
-format: "{ className: '{{className}}', methodName: '{{methodName}}',logLevel: '{{logLevel}}', executionTime: '{{executionTime}} ms'}"
+format: "{ className: '{{className}}', methodName: '{{methodName}}',logLevel: '{{logLevel}}', executionTime: '{{executionTime}}' ms}"
