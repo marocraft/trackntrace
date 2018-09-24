@@ -58,7 +58,7 @@ public class FormatTest {
 	public void shouldHaveVariablesWithCorrectPositions() {
 		Template template = TemplateReader.readTemplate();
 		List<Variable> variables = RegExManager.extractVariables(template.getFormat());
-		Variable variable = variables.get(1);
+		Variable variable = variables.get(0);
 		Assert.assertEquals(14, variable.getStart());
 		Assert.assertEquals(25, variable.getStart() + variable.getName().length() + 2);
 		System.out.println(variable.getName()+" "+variable.getStart()+" "+variable.getEnd());
