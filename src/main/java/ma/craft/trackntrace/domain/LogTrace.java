@@ -12,4 +12,5 @@ public class LogTrace {
     private String methodName;
     private String className;
     private String logLevel;
+    
 }

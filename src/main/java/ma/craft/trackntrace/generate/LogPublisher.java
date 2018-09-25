@@ -1,8 +1,14 @@
 package ma.craft.trackntrace.generate;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.Getter;
+
+@Getter 
 public class LogPublisher {
 
     private static final LogPublisher INSTANCE = new LogPublisher();
@@ -29,5 +35,15 @@ public class LogPublisher {
 
     public Integer logStackSize(){
         return logs.size();
+    }
+    
+    public void exportFile(String path, List<String> logs ) throws IOException   {
+    	
+        BufferedWriter writer = new BufferedWriter(new FileWriter(path));
+       
+        for (String log : logs) {
+        	 writer.write(log);
+		}
+        writer.close();
     }
 }

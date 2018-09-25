@@ -16,7 +16,7 @@ public class LogBuilder {
 		format = format.replaceAll("'\\{\\{" + variables.get(1).getName() + "\\}\\}'", logTrace.getMethodName());
 		format = format.replaceAll("'\\{\\{" + variables.get(2).getName() + "\\}\\}'", logTrace.getLogLevel());
 		format = format.replaceAll("'\\{\\{" + variables.get(3).getName() + "\\}\\}'",
-				""+ logTrace.getExecutionTime());
+				"" + logTrace.getExecutionTime());
 		StringBuffer logMessage = new StringBuffer();
 		logMessage.append(format);
 		return logMessage.toString();

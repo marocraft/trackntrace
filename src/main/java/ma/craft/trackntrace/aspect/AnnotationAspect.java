@@ -20,9 +20,8 @@ public class AnnotationAspect {
 	private final LogPublisher logPublisher = LogPublisher.instance();
 
 	/**
-	 * Business Log aspect
-	 * Collect data about annotated methods
-	 * Generate a log message based on a specific template
+	 * Business Log aspect Collect data about annotated methods Generate a log
+	 * message based on a specific template
 	 * 
 	 * @param joinPoint
 	 * @throws Throwable
@@ -35,26 +34,26 @@ public class AnnotationAspect {
 		collectAndGenerateLog(joinPoint, stopWatch);
 		return proceed;
 	}
-	
+
 	/**
-	 * Rest Log aspect
-	 * Collect data about annotated methods having also a @Path annotation
-	 * Generate a log message containing URI call information based on a specific template
+	 * Rest Log aspect Collect data about annotated methods having also a @Path
+	 * annotation Generate a log message containing URI call information based on a
+	 * specific template
 	 * 
 	 * @param joinPoint
 	 * @throws Throwable
 	 */
 	@Around(value = "@annotation(ma.craft.trackntrace.annotation.RestLog)")
 	public Object whenAnnotatedWithRestLog(final ProceedingJoinPoint joinPoint) throws Throwable {
-		//0. check if method is annotated with @Path
+		// 0. check if method is annotated with @Path
 
 		StopWatch stopWatch = startTimer();
 		Object proceed = executeAnnotedMethod(joinPoint);
 		stopTimer(stopWatch);
-		
-		//1.collect rest data from @Path annotation and http dispatcher
+
+		// 1.collect rest data from @Path annotation and http dispatcher
 		// non blocking
-		
+
 		collectAndGenerateLog(joinPoint, stopWatch);
 		return proceed;
 	}
@@ -64,12 +63,11 @@ public class AnnotationAspect {
 		LogLevel LogLevel = collector.collectLogLevel(joinPoint);
 		Signature methodSignature = joinPoint.getSignature();
 		Object clazz = joinPoint.getTarget();
-		LogTrace logTrace = collector.collect(clazz.getClass().getName(),
-				methodSignature.getName(),
-				LogLevel,
+		LogTrace logTrace = collector.collect(clazz.getClass().getName(), methodSignature.getName(), LogLevel,
 				stopWatch.getTotalTimeMillis());
 		String logMessage = LogBuilder.build(logTrace);
 		logPublisher.publish(logMessage);
+		
 	}
 
 	private Object executeAnnotedMethod(final ProceedingJoinPoint joinPoint) throws Throwable {

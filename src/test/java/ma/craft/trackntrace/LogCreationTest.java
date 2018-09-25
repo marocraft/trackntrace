@@ -5,6 +5,7 @@ import ma.craft.trackntrace.collect.LogCollector;
 import ma.craft.trackntrace.domain.LogLevel;
 import ma.craft.trackntrace.domain.LogTrace;
 import ma.craft.trackntrace.generate.LogBuilder;
+import ma.craft.trackntrace.generate.LogPublisher;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -16,6 +17,8 @@ import lombok.extern.slf4j.Slf4j;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
+
+import java.io.IOException;
 
 
 @RunWith(JUnit4.class)
@@ -51,4 +54,12 @@ public class LogCreationTest {
 		String log = LogBuilder.build(logTrace);
 		assertEquals("{ className: controller, methodName: myMethod,logLevel: TRIVIAL, executionTime: 20 ms}", log);
 	}
+    @Test
+    public void shouldCreateLogsfile() throws IOException {
+        
+        LogPublisher.instance().clear();
+        LogPublisher.instance().exportFile("C:\\logstnt\\logs.txt", LogPublisher.instance().getLogs());
+        Assert.assertEquals((Integer) 0, LogPublisher.instance().logStackSize());
+    }
+
 }
