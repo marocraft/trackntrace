@@ -3,6 +3,7 @@ package ma.craft.trackntrace.generate;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,10 +40,10 @@ public class LogPublisher {
     
     public void exportFile(String path, List<String> logs ) throws IOException   {
     	
-        BufferedWriter writer = new BufferedWriter(new FileWriter(path));
+        PrintWriter writer = new PrintWriter(new FileWriter(path));
        
         for (String log : logs) {
-        	 writer.write(log);
+        	 writer.write(log+"\r\n");
 		}
         writer.close();
     }

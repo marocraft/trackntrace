@@ -5,11 +5,23 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter @Setter @AllArgsConstructor @NoArgsConstructor
+@Getter @Setter 
 public class Template {
 	
 	private String format;
-	private String logspath;
+	private String logsPath;
+	public Template(String format, String logspath) {
+		super();
+		this.format = format;
+		this.logsPath = logspath;
+	}
+	public Template() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+	
 
 }
 

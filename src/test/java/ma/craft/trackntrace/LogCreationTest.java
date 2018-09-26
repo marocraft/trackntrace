@@ -54,12 +54,5 @@ public class LogCreationTest {
 		String log = LogBuilder.build(logTrace);
 		assertEquals("{ className: controller, methodName: myMethod,logLevel: TRIVIAL, executionTime: 20 ms}", log);
 	}
-    @Test
-    public void shouldCreateLogsfile() throws IOException {
-        
-        LogPublisher.instance().clear();
-        LogPublisher.instance().exportFile("C:\\logstnt\\logs.txt", LogPublisher.instance().getLogs());
-        Assert.assertEquals((Integer) 0, LogPublisher.instance().logStackSize());
-    }
 
 }

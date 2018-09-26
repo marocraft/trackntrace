@@ -41,7 +41,7 @@ public class FormatTest {
 	}
 
 	@Test
-	public void shouldHaveRightNumberTemplateVariables() {
+	public void shouldHaveRightNumberTemplateVariables() { 
 		Template template = TemplateReader.readTemplate();
 		int nbrFieldsFromTemplateFile = RegExManager.getNumberOfVariablesFromFormatFile(template.getFormat());
 		Assert.assertEquals(4, nbrFieldsFromTemplateFile);
@@ -59,8 +59,8 @@ public class FormatTest {
 		Template template = TemplateReader.readTemplate();
 		List<Variable> variables = RegExManager.extractVariables(template.getFormat());
 		Variable variable = variables.get(0);
-		Assert.assertEquals(14, variable.getStart());
-		Assert.assertEquals(25, variable.getStart() + variable.getName().length() + 2);
+		Assert.assertEquals(13, variable.getStart());
+		Assert.assertEquals(24, variable.getStart() + variable.getName().length() + 2);
 	}
 
 	@Test

@@ -33,6 +33,7 @@ public class TemplateReader {
 
     public static Template parse(File file) throws JsonParseException, JsonMappingException, IOException {
         ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
+        
         return mapper.readValue(file, Template.class);
     }
 

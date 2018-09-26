@@ -2,7 +2,12 @@ package ma.craft.trackntrace;
 
 
 import ma.craft.trackntrace.context.SpringAOPContext;
+import ma.craft.trackntrace.domain.Template;
 import ma.craft.trackntrace.generate.LogPublisher;
+import ma.craft.trackntrace.generate.TemplateReader;
+
+import java.io.IOException;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,6 +35,16 @@ public class AspectAnnotationTest {
         testService.sleep(300);
         LogPublisher.instance().clear();
         Assert.assertEquals((Integer) 0, LogPublisher.instance().logStackSize());
+    }
+
+    @Test
+    public void shouldCreateLogsfile() throws IOException {
+        
+    	testService.sleep(300);
+    	Template template = TemplateReader.readTemplate();
+    	
+        LogPublisher.instance().exportFile(template.getLogsPath(), LogPublisher.instance().getLogs());
+       
     }
 
 
