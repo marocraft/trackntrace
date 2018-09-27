@@ -46,6 +46,6 @@ public class LogCreationTest {
 		LogCollector collector = new LogCollector();
 		LogTrace logTrace = collector.collect("controller", "myMethod", LogLevel.TRIVIAL, 20L);
 		String log = LogBuilder.build(logTrace);
-		assertEquals("{ methodName: myMethod, className: controller,logLevel: TRIVIAL, executionTime: 20 ms}", log);
+		assertEquals("{methodName: myMethod,className: controller,logLevel: TRIVIAL,executionTime: 20 ms}", log);
 	}
 }
