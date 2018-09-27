@@ -1,0 +1,1 @@
+format: "{methodName: '{{methodName}}',className: '{{className}}',logLevel: '{{logLevel}}',executionTime: '{{executionTime}}' ms}"

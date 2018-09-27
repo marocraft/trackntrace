@@ -4,10 +4,14 @@ import ma.craft.trackntrace.aspect.AnnotationAspect;
 import ma.craft.trackntrace.collect.LogCollector;
 import ma.craft.trackntrace.domain.LogLevel;
 import ma.craft.trackntrace.domain.LogTrace;
+import ma.craft.trackntrace.generate.LogBuilder;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
+
+import lombok.extern.slf4j.Slf4j;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -23,7 +27,6 @@ public class LogCreationTest {
 		assertNotNull(exempleAspect);
 	}
 
-
 	@Test
 	public void shouldCreateLogTraceClass(){
 		LogCollector collector = new LogCollector();
@@ -31,20 +34,18 @@ public class LogCreationTest {
 		Assert.assertNotNull(logTrace);
 	}
 
-
 	@Test
 	public void shouldCreateLogTraceClassWithData(){
 		LogCollector collector = new LogCollector();
 		LogTrace logTrace = collector.collect("controller", "myMethod", LogLevel.TRIVIAL, 20L);
-		Assert.assertNotNull(logTrace.className);
+		Assert.assertNotNull(logTrace.getClazz());
 	}
 
-
 	@Test
-	public void shouldLogHaveCorrectFormat() {
+	public void shouldLogHaveCorrectFormat() throws IllegalAccessException {
 		LogCollector collector = new LogCollector();
 		LogTrace logTrace = collector.collect("controller", "myMethod", LogLevel.TRIVIAL, 20L);
 		String log = LogBuilder.build(logTrace);
-		assertEquals("classe : controller,name : myMethod,level :  (TRIVIAL), execution time: 20 ms", log);
+		assertEquals("{methodName: myMethod,className: controller,logLevel: TRIVIAL,executionTime: 20 ms}", log);
 	}
 }

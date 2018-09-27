@@ -1,196 +1,225 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-    <groupId>ma.craft.trackntrace</groupId>
-    <artifactId>annotation-interceptor</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
+	<groupId>ma.craft.trackntrace</groupId>
+	<artifactId>annotation-interceptor</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
 
-    <name>trackntrace</name>
-    <description>Intercept method calls and produce logs</description>
-    <developers>
-        <developer>
-            <id>HT</id>
-            <email>ht.housseine@gmail.com</email>
-            <name>Housseine Tassa</name>
-        </developer>
-        <developer>
-            <id>OR</id>
-            <email>rayomar2016@gmail.com</email>
-            <name>Omar Ray</name>
-        </developer>
-        <developer>
-            <id>SK</id>
-            <email>sallah.kokaina@gmail.com</email>
-            <name>Sallah KOKAINA</name>
-        </developer>
-    </developers>
+	<name>trackntrace</name>
+	<description>Intercept method calls and produce logs</description>
+	<developers>
+		<developer>
+			<id>HT</id>
+			<email>ht.housseine@gmail.com</email>
+			<name>Housseine Tassa</name>
+		</developer>
+		<developer>
+			<id>OR</id>
+			<email>rayomar2016@gmail.com</email>
+			<name>Omar Ray</name>
+		</developer>
+		<developer>
+			<id>SK</id>
+			<email>sallah.kokaina@gmail.com</email>
+			<name>Sallah KOKAINA</name>
+		</developer>
+	</developers>
 
-    <scm>
-        <url>https://github.com/marocraft/trackntrace</url>
-        <connection>scm:git:git://github.com/marocraft/trackntrace.git</connection>
-        <developerConnection>scm:git:git@github.com:marocraft/trackntrace.git</developerConnection>
-    </scm>
-    <issueManagement>
-        <url>https://github.com/marocraft/trackntrace.git</url>
-        <system>GitHub Issues</system>
-    </issueManagement>
-    <licenses>
-        <license>
-            <name>The Apache License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-        </license>
-    </licenses>
+	<scm>
+		<url>https://github.com/marocraft/trackntrace</url>
+		<connection>scm:git:git://github.com/marocraft/trackntrace.git</connection>
+		<developerConnection>scm:git:git@github.com:marocraft/trackntrace.git</developerConnection>
+	</scm>
+	<issueManagement>
+		<url>https://github.com/marocraft/trackntrace.git</url>
+		<system>GitHub Issues</system>
+	</issueManagement>
+	<licenses>
+		<license>
+			<name>The Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+		</license>
+	</licenses>
 
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.0.4.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
-    </parent>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.0.4.RELEASE</version>
+		<relativePath /> <!-- lookup parent from repository -->
+	</parent>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.8</java.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.8</java.version>
-        <junit.version>4.12</junit.version>
-        <spring-test.version>${spring.version}</spring-test.version>
-        <aop.version>1.8.11</aop.version>
-        <jacoco-maven-plugin.version>0.7.4.201502262128</jacoco-maven-plugin.version>
-        <jacoco.it.execution.data.file>${project.build.directory}/jacoco-it.exec</jacoco.it.execution.data.file>
-        <jacoco.ut.execution.data.file>${project.build.directory}/jacoco.exec</jacoco.ut.execution.data.file>
-    </properties>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+		<junit.version>4.12</junit.version>
+		<spring-test.version>${spring.version}</spring-test.version>
+		<aop.version>1.8.11</aop.version>
+		<slf4j.version>1.7.25</slf4j.version>
+		<jacoco-maven-plugin.version>0.7.4.201502262128</jacoco-maven-plugin.version>
+		<jacoco.it.execution.data.file>${project.build.directory}/jacoco-it.exec</jacoco.it.execution.data.file>
+		<jacoco.ut.execution.data.file>${project.build.directory}/jacoco.exec</jacoco.ut.execution.data.file>
+	</properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <!-- Spring AOP + AspectJ -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-aop</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.aspectj</groupId>
-            <artifactId>aspectjrt</artifactId>
-            <version>${aop.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.aspectj</groupId>
-            <artifactId>aspectjweaver</artifactId>
-            <version>${aop.version}</version>
-        </dependency>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<!-- Spring AOP + AspectJ -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>${aop.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>${aop.version}</version>
+		</dependency>
 
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
 
-        <dependency>
-            <groupId>com.google.code.findbugs</groupId>
-            <artifactId>jsr305</artifactId>
-            <version>3.0.2</version>
-        </dependency>
+		<dependency>
+			<groupId>com.google.code.findbugs</groupId>
+			<artifactId>jsr305</artifactId>
+			<version>3.0.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+
+		<!-- test -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+			<version>${junit.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring-test.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-yaml</artifactId>
+			<version>2.3.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.2.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.16.16</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
 
 
-        <!-- test -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-            <version>${junit.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-            <version>${spring-test.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-    </dependencies>
-
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.sonarsource.scanner.maven</groupId>
-                <artifactId>sonar-maven-plugin</artifactId>
-                <version>3.2</version>
-            </plugin>
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>${jacoco-maven-plugin.version}</version>
-                <executions>
-                    <execution>
-                        <id>pre-unit-test</id>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                        <configuration>
-                            <destFile>${jacoco.ut.execution.data.file}</destFile>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>pre-integration-test</id>
-                        <phase>pre-integration-test</phase>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                        <configuration>
-                            <destFile>${jacoco.it.execution.data.file}</destFile>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-        <pluginManagement>
-            <plugins>
-                <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
-                <plugin>
-                    <groupId>org.eclipse.m2e</groupId>
-                    <artifactId>lifecycle-mapping</artifactId>
-                    <version>1.0.0</version>
-                    <configuration>
-                        <lifecycleMappingMetadata>
-                            <pluginExecutions>
-                                <pluginExecution>
-                                    <pluginExecutionFilter>
-                                        <groupId>org.jacoco</groupId>
-                                        <artifactId>
-                                            jacoco-maven-plugin
-                                        </artifactId>
-                                        <versionRange>
-                                            [0.7.4.201502262128,)
-                                        </versionRange>
-                                        <goals>
-                                            <goal>prepare-agent</goal>
-                                        </goals>
-                                    </pluginExecutionFilter>
-                                    <action>
-                                        <ignore></ignore>
-                                    </action>
-                                </pluginExecution>
-                            </pluginExecutions>
-                        </lifecycleMappingMetadata>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-    </build>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.sonarsource.scanner.maven</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>3.2</version>
+			</plugin>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>${jacoco-maven-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>pre-unit-test</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+						<configuration>
+							<destFile>${jacoco.ut.execution.data.file}</destFile>
+						</configuration>
+					</execution>
+					<execution>
+						<id>pre-integration-test</id>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+						<configuration>
+							<destFile>${jacoco.it.execution.data.file}</destFile>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.jacoco</groupId>
+										<artifactId>
+											jacoco-maven-plugin
+										</artifactId>
+										<versionRange>
+											[0.7.4.201502262128,)
+										</versionRange>
+										<goals>
+											<goal>prepare-agent</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
 
 
 </project>
