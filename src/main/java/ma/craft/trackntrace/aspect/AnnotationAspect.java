@@ -59,7 +59,7 @@ public class AnnotationAspect {
 		return proceed;
 	}
 
-	private void collectAndGenerateLog(final JoinPoint joinPoint, StopWatch stopWatch) {
+	private void collectAndGenerateLog(final JoinPoint joinPoint, StopWatch stopWatch) throws IllegalAccessException {
 		LogCollector collector = new LogCollector();
 		LogLevel LogLevel = collector.collectLogLevel(joinPoint);
 		Signature methodSignature = joinPoint.getSignature();
