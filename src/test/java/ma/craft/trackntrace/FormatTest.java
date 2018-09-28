@@ -69,5 +69,12 @@ public class FormatTest {
 		List<Variable> variables = RegExManager.extractVariables(template.getFormat());
 		Assert.assertEquals("className", variables.get(0).getName());
 	}
+	
+	@Test
+	public void  shouldDetectVariablePositionChange() {
+		String format = "{codeName: '{{codeName}}',methodName: '{{methodName}}',className: '{{className}}',logLevel: '{{logLevel}}', executionTime: '{{executionTime}}' ms}";
+		List<Variable> variables = RegExManager.extractVariables(format);
+		Assert.assertEquals("methodName", variables.get(1).getName());
+	}
 
 }
