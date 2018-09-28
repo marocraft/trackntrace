@@ -18,63 +18,60 @@ import ma.craft.trackntrace.generate.TemplateReader;
 
 public class FormatTest {
 
-	@Test
-	public void shouldFormatBeNotNull() {
-		File file = TemplateReader.readFile();
-		Assert.assertNotNull(file);
-	}
+    String format = "{methodName: '{{methodName}}',className: '{{className}}',logLevel: '{{logLevel}}', executionTime: '{{executionTime}}' ms}";
 
-	@Test
-	public void shouldCreateTemxplateObject() throws JsonParseException, JsonMappingException, IOException {
-		File file = TemplateReader.readFile();
-		Template template = TemplateReader.parse(file);
-		Assert.assertNotNull(template);
-		Assert.assertNotNull(template.getFormat());
-	}
+    @Test
+    public void shouldFormatBeNotNull() {
+        File file = TemplateReader.readFile();
+        Assert.assertNotNull(file);
+    }
 
-	@Test
-	public void shouldHaveExpectedNumber() throws JsonParseException, JsonMappingException, IOException {
-		File file = TemplateReader.readFile();
-		Template template = TemplateReader.parse(file);
-		Assert.assertNotNull(template);
-		Assert.assertNotNull(template.getFormat());
-	}
+    @Test
+    public void shouldCreateTemxplateObject() throws JsonParseException, JsonMappingException, IOException {
+        File file = TemplateReader.readFile();
+        Template template = TemplateReader.parse(file);
+        Assert.assertNotNull(template);
+        Assert.assertNotNull(template.getFormat());
+    }
 
-	@Test
-	public void shouldHaveRightNumberTemplateVariables() { 
-		Template template = TemplateReader.readTemplate();
-		int nbrFieldsFromTemplateFile = RegExManager.getNumberOfVariablesFromFormatFile(template.getFormat());
-		Assert.assertEquals(4, nbrFieldsFromTemplateFile);
-	}
 
-	@Test
-	public void shouldHaveNoVariables() {
-		List<Variable> variables = RegExManager.extractVariables("No variables here");
-		Assert.assertNotNull(variables);
-		Assert.assertEquals(0, variables.size());
-	}
+    @Test
+    public void shouldHaveExpectedNumber() throws JsonParseException, JsonMappingException, IOException {
+        File file = TemplateReader.readFile();
+        Template template = TemplateReader.parse(file);
+        Assert.assertNotNull(template);
+        Assert.assertNotNull(template.getFormat());
+    }
 
-	@Test
-	public void shouldHaveVariablesWithCorrectPositions() {
-		Template template = TemplateReader.readTemplate();
-		List<Variable> variables = RegExManager.extractVariables(template.getFormat());
-		Variable variable = variables.get(0);
-		Assert.assertEquals(13, variable.getStart());
-		Assert.assertEquals(24, variable.getStart() + variable.getName().length() + 2);
-	}
+    @Test
+    public void shouldHaveRightNumberTemplateVariables() {
+        Template template = TemplateReader.readTemplate();
+        int nbrFieldsFromTemplateFile = RegExManager.getNumberOfVariablesFromFormatFile(format);
+        Assert.assertEquals(4, nbrFieldsFromTemplateFile);
+    }
 
-	@Test
-	public void shouldHaveCorrectNames() {
-		Template template = TemplateReader.readTemplate();
-		List<Variable> variables = RegExManager.extractVariables(template.getFormat());
-		Assert.assertEquals("className", variables.get(0).getName());
-	}
-	
-	@Test
-	public void  shouldDetectVariablePositionChange() {
-		String format = "{codeName: '{{codeName}}',methodName: '{{methodName}}',className: '{{className}}',logLevel: '{{logLevel}}', executionTime: '{{executionTime}}' ms}";
-		List<Variable> variables = RegExManager.extractVariables(format);
-		Assert.assertEquals("methodName", variables.get(1).getName());
-	}
+    @Test
+    public void shouldHaveNoVariables() {
+        List<Variable> variables = RegExManager.extractVariables("No variables here");
+        Assert.assertNotNull(variables);
+        Assert.assertEquals(0, variables.size());
+    }
+
+    @Test
+    public void shouldHaveVariablesWithCorrectPositions() {
+        Template template = TemplateReader.readTemplate();
+        List<Variable> variables = RegExManager.extractVariables(format);
+        Variable variable = variables.get(0);
+        Assert.assertEquals(14, variable.getStart());
+        Assert.assertEquals(26, variable.getStart() + variable.getName().length() + 2);
+        System.out.println(variable.getName() + " " + variable.getStart() + " " + variable.getEnd());
+    }
+
+    @Test
+    public void shouldHaveCorrectNames() {
+        Template template = TemplateReader.readTemplate();
+        List<Variable> variables = RegExManager.extractVariables(format);
+        Assert.assertEquals("className", variables.get(1).getName());
+    }
 
 }

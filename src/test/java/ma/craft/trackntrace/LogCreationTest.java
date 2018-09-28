@@ -30,7 +30,6 @@ public class LogCreationTest {
 		assertNotNull(exempleAspect);
 	}
 
-
 	@Test
 	public void shouldCreateLogTraceClass(){
 		LogCollector collector = new LogCollector();
@@ -38,21 +37,19 @@ public class LogCreationTest {
 		Assert.assertNotNull(logTrace);
 	}
 
-
 	@Test
 	public void shouldCreateLogTraceClassWithData(){
 		LogCollector collector = new LogCollector();
 		LogTrace logTrace = collector.collect("controller", "myMethod", LogLevel.TRIVIAL, 20L);
-		Assert.assertNotNull(logTrace.getClassName());
+		Assert.assertNotNull(logTrace.getClazz());
 	}
 
-
 	@Test
-	public void shouldLogHaveCorrectFormat() {
+	public void shouldLogHaveCorrectFormat() throws IllegalAccessException {
 		LogCollector collector = new LogCollector();
 		LogTrace logTrace = collector.collect("controller", "myMethod", LogLevel.TRIVIAL, 20L);
 		String log = LogBuilder.build(logTrace);
-		assertEquals("{className: controller, methodName: myMethod,logLevel: TRIVIAL, executionTime: 20 ms}", log);
+		assertEquals("{methodName: myMethod,className: controller,logLevel: TRIVIAL,executionTime: 20 ms}", log);
 	}
 
 }

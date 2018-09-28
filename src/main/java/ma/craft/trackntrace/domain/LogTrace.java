@@ -1,6 +1,7 @@
 package ma.craft.trackntrace.domain;
 
-        import lombok.*;
+import lombok.*;
+import ma.craft.trackntrace.annotation.Mapping;
 
 @Getter
 @Setter
@@ -8,9 +9,15 @@ package ma.craft.trackntrace.domain;
 @NoArgsConstructor
 @AllArgsConstructor
 public class LogTrace {
-    private long executionTime;
-    private String methodName;
-    private String className;
-    private String logLevel;
-    
+    @Mapping(field = "executionTime")
+    private long time;
+    @Mapping(field = "methodName")
+    private String method;
+    @Mapping(field = "className")
+    private String clazz;
+    @Mapping(field = "logLevel")
+    private String level;
+    @Mapping(field = "codeName")
+    private String code;
+
 }
