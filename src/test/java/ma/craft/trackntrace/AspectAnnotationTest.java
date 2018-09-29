@@ -1,6 +1,5 @@
 package ma.craft.trackntrace;
 
-
 import ma.craft.trackntrace.context.SpringAOPContext;
 import ma.craft.trackntrace.domain.Template;
 import ma.craft.trackntrace.generate.LogPublisher;
@@ -19,33 +18,30 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(classes = SpringAOPContext.class)
 public class AspectAnnotationTest {
 
-    @Autowired
-    TestService testService;
+	@Autowired
+	TestService testService;
+	
+	@Test
+	public void shouldLogHaveInfoLevel() {
+		Assert.assertTrue(LogPublisher.instance().empty());
+		testService.sleep(300);
+		Assert.assertFalse(LogPublisher.instance().empty());
+		Assert.assertEquals((Integer) 1, LogPublisher.instance().logStackSize());
+	}
 
-    @Test
-    public void shouldLogHaveInfoLevel() {
-        Assert.assertTrue(LogPublisher.instance().empty());
-        testService.sleep(300);
-        Assert.assertFalse(LogPublisher.instance().empty());
-        Assert.assertEquals((Integer) 1, LogPublisher.instance().logStackSize());
-    }
+	@Test
+	public void shouldClearLogGeneratorStack() {
+		testService.sleep(300);
+		LogPublisher.instance().clear();
+		Assert.assertEquals((Integer) 0, LogPublisher.instance().logStackSize());
+	}
 
-    @Test
-    public void shouldClearLogGeneratorStack() {
-        testService.sleep(300);
-        LogPublisher.instance().clear();
-        Assert.assertEquals((Integer) 0, LogPublisher.instance().logStackSize());
-    }
+	@Test
+	public void shouldCreateLogsfile() throws IOException {
+		testService.sleep(200);
+		Template template = TemplateReader.readTemplate();
+		LogPublisher.instance().exportFile(template.getLogsPath(), LogPublisher.instance().getLogs());
 
-    @Test
-    public void shouldCreateLogsfile() throws IOException {
-        
-    	testService.sleep(300);
-    	Template template = TemplateReader.readTemplate();
-    	
-        LogPublisher.instance().exportFile(template.getLogsPath(), LogPublisher.instance().getLogs());
-       
-    }
-
+	}
 
 }

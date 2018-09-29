@@ -3,8 +3,13 @@ package ma.craft.trackntrace.aspect;
 import ma.craft.trackntrace.collect.LogCollector;
 import ma.craft.trackntrace.domain.LogLevel;
 import ma.craft.trackntrace.domain.LogTrace;
+import ma.craft.trackntrace.domain.Template;
 import ma.craft.trackntrace.generate.LogBuilder;
 import ma.craft.trackntrace.generate.LogPublisher;
+import ma.craft.trackntrace.generate.TemplateReader;
+
+import java.io.IOException;
+
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
@@ -58,7 +63,7 @@ public class AnnotationAspect {
 		return proceed;
 	}
 
-	private void collectAndGenerateLog(final JoinPoint joinPoint, StopWatch stopWatch) throws IllegalAccessException {
+	private void collectAndGenerateLog(final JoinPoint joinPoint, StopWatch stopWatch) throws IllegalAccessException, IOException {
 		LogCollector collector = new LogCollector();
 		LogLevel LogLevel = collector.collectLogLevel(joinPoint);
 		Signature methodSignature = joinPoint.getSignature();
@@ -66,7 +71,11 @@ public class AnnotationAspect {
 		LogTrace logTrace = collector.collect(clazz.getClass().getName(), methodSignature.getName(), LogLevel,
 				stopWatch.getTotalTimeMillis());
 		String logMessage = LogBuilder.build(logTrace);
+		System.out.println("publishing logs ...");
 		logPublisher.publish(logMessage);
+		Template template = TemplateReader.readTemplate();
+		System.out.println("exporting logs ...");
+		LogPublisher.instance().exportFile(template.getLogsPath(), LogPublisher.instance().getLogs());
 		
 	}
 
