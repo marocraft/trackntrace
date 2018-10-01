@@ -1,5 +1,6 @@
 package ma.craft.trackntrace.generate;
 
+import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -39,7 +40,7 @@ public class LogPublisher {
     
     public void exportFile(String path, List<String> logs ) throws IOException   {
     	
-        PrintWriter writer = new PrintWriter(new FileWriter(path));
+        PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(path, true)));
        
         for (String log : logs) {
         	 writer.write(log+"\r\n");

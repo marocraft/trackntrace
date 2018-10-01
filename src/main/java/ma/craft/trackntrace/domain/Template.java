@@ -17,7 +17,7 @@ public class Template {
 	}
 	public Template() {
 		super();
-		// TODO Auto-generated constructor stub
+		
 	}
 	
 	

@@ -19,5 +19,4 @@ public class LogTrace {
     private String level;
     @Mapping(field = "codeName")
     private String code;
-
 }
