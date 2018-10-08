@@ -23,7 +23,7 @@ public class LogBuilder {
 
 	static String replace(String format, String field, LogTrace logTrace) throws IllegalAccessException {
 		Object valueOfField = ValueCollector.valueOf(field, logTrace);
-		return format.replaceAll("'\\{\\{" + field + "\\}\\}'", valueOfField.toString());
+		return format.replaceAll("'\\{\\{" + field + "\\}\\}'", ""+valueOfField.toString())+"";
 
 	}
 

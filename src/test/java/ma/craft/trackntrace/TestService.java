@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class TestService {
 
-    @BusinessLog(level = LogLevel.NORMAL)
+    @BusinessLog(level = LogLevel.NORMAL,message="new message")
     public void sleep(long sleep){
         try {
             Thread.sleep(sleep);

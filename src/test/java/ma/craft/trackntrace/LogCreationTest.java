@@ -33,23 +33,23 @@ public class LogCreationTest {
 	@Test
 	public void shouldCreateLogTraceClass(){
 		LogCollector collector = new LogCollector();
-		LogTrace logTrace = collector.collect(null, null, LogLevel.TRIVIAL, 0);
+		LogTrace logTrace = collector.collect(null, null, LogLevel.TRIVIAL, 0,"log");
 		Assert.assertNotNull(logTrace);
 	}
 
 	@Test
 	public void shouldCreateLogTraceClassWithData(){
 		LogCollector collector = new LogCollector();
-		LogTrace logTrace = collector.collect("controller", "myMethod", LogLevel.TRIVIAL, 20L);
+		LogTrace logTrace = collector.collect("controller", "myMethod", LogLevel.TRIVIAL, 20L,"");
 		Assert.assertNotNull(logTrace.getClazz());
 	}
 
 	@Test
 	public void shouldLogHaveCorrectFormat() throws IllegalAccessException {
 		LogCollector collector = new LogCollector();
-		LogTrace logTrace = collector.collect("controller", "myMethod", LogLevel.TRIVIAL, 20L);
+		LogTrace logTrace = collector.collect("controller", "myMethod", LogLevel.TRIVIAL, 20L,"my message");
 		String log = LogBuilder.build(logTrace);
-		assertEquals("{methodName: myMethod,className: controller,logLevel: TRIVIAL,executionTime: 20 ms}", log);
+		assertEquals("{methodName: myMethod,className: controller,logLevel: TRIVIAL,executionTime: 20 ms,logMessage: my message}", log);
 	}
 
 }

@@ -19,4 +19,6 @@ public class LogTrace {
     private String level;
     @Mapping(field = "codeName")
     private String code;
+    @Mapping(field = "logMessage")
+    private String message;
 }

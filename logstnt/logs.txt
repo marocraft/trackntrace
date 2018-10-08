@@ -6,3 +6,27 @@
 {methodName: sleep,className: ma.craft.trackntrace.TestService,logLevel: NORMAL,executionTime: 200 ms}
 {methodName: sleep,className: ma.craft.trackntrace.TestService,logLevel: NORMAL,executionTime: 300 ms}
 {methodName: sleep,className: ma.craft.trackntrace.TestService,logLevel: NORMAL,executionTime: 200 ms}
+{methodName: sleep,className: ma.craft.trackntrace.TestService,logLevel: NORMAL,executionTime: 349 ms,logMessage: new message}
+{methodName: sleep,className: ma.craft.trackntrace.TestService,logLevel: NORMAL,executionTime: 331 ms,logMessage: new message}
+{methodName: sleep,className: ma.craft.trackntrace.TestService,logLevel: NORMAL,executionTime: 331 ms,logMessage: new message}
+{methodName: sleep,className: ma.craft.trackntrace.TestService,logLevel: NORMAL,executionTime: 202 ms,logMessage: new message}
+{methodName: sleep,className: ma.craft.trackntrace.TestService,logLevel: NORMAL,executionTime: 331 ms,logMessage: new message}
+{methodName: sleep,className: ma.craft.trackntrace.TestService,logLevel: NORMAL,executionTime: 202 ms,logMessage: new message}
+{methodName: sleep,className: ma.craft.trackntrace.TestService,logLevel: NORMAL,executionTime: 321 ms,logMessage: new message}
+{methodName: sleep,className: ma.craft.trackntrace.TestService,logLevel: NORMAL,executionTime: 314 ms,logMessage: new message}
+{methodName: sleep,className: ma.craft.trackntrace.TestService,logLevel: NORMAL,executionTime: 314 ms,logMessage: new message}
+{methodName: sleep,className: ma.craft.trackntrace.TestService,logLevel: NORMAL,executionTime: 206 ms,logMessage: new message}
+{methodName: sleep,className: ma.craft.trackntrace.TestService,logLevel: NORMAL,executionTime: 314 ms,logMessage: new message}
+{methodName: sleep,className: ma.craft.trackntrace.TestService,logLevel: NORMAL,executionTime: 206 ms,logMessage: new message}
+{methodName: sleep,className: ma.craft.trackntrace.TestService,logLevel: NORMAL,executionTime: 332 ms,logMessage: new message}
+{methodName: sleep,className: ma.craft.trackntrace.TestService,logLevel: NORMAL,executionTime: 306 ms,logMessage: new message}
+{methodName: sleep,className: ma.craft.trackntrace.TestService,logLevel: NORMAL,executionTime: 306 ms,logMessage: new message}
+{methodName: sleep,className: ma.craft.trackntrace.TestService,logLevel: NORMAL,executionTime: 212 ms,logMessage: new message}
+{methodName: sleep,className: ma.craft.trackntrace.TestService,logLevel: NORMAL,executionTime: 306 ms,logMessage: new message}
+{methodName: sleep,className: ma.craft.trackntrace.TestService,logLevel: NORMAL,executionTime: 212 ms,logMessage: new message}
+{methodName: sleep,className: ma.craft.trackntrace.TestService,logLevel: NORMAL,executionTime: 347 ms,logMessage: new message}
+{methodName: sleep,className: ma.craft.trackntrace.TestService,logLevel: NORMAL,executionTime: 306 ms,logMessage: new message}
+{methodName: sleep,className: ma.craft.trackntrace.TestService,logLevel: NORMAL,executionTime: 306 ms,logMessage: new message}
+{methodName: sleep,className: ma.craft.trackntrace.TestService,logLevel: NORMAL,executionTime: 203 ms,logMessage: new message}
+{methodName: sleep,className: ma.craft.trackntrace.TestService,logLevel: NORMAL,executionTime: 306 ms,logMessage: new message}
+{methodName: sleep,className: ma.craft.trackntrace.TestService,logLevel: NORMAL,executionTime: 203 ms,logMessage: new message}

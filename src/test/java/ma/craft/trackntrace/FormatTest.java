@@ -14,7 +14,7 @@ import ma.craft.trackntrace.generate.TemplateReader;
 
 public class FormatTest {
 
-	String format = "{methodName: '{{methodName}}',className: '{{className}}',logLevel: '{{logLevel}}', executionTime: '{{executionTime}}' ms}";
+	String format = "{methodName: '{{methodName}}',className: '{{className}}',logLevel: '{{logLevel}}', executionTime: '{{executionTime}}' ms,logMessage: '{{executionTime}}'}";
 
 	@Test
 	public void shouldFormatBeNotNull() {
@@ -41,7 +41,7 @@ public class FormatTest {
 	@Test
 	public void shouldHaveRightNumberTemplateVariables() {
 		int nbrFieldsFromTemplateFile = RegExManager.getNumberOfVariablesFromFormatFile(format);
-		Assert.assertEquals(4, nbrFieldsFromTemplateFile);
+		Assert.assertEquals(5, nbrFieldsFromTemplateFile);
 	}
 
 	@Test

@@ -66,15 +66,14 @@ public class AnnotationAspect {
 	private void collectAndGenerateLog(final JoinPoint joinPoint, StopWatch stopWatch) throws IllegalAccessException, IOException {
 		LogCollector collector = new LogCollector();
 		LogLevel LogLevel = collector.collectLogLevel(joinPoint);
+		String logMessage = collector.logMessage(joinPoint);
 		Signature methodSignature = joinPoint.getSignature();
 		Object clazz = joinPoint.getTarget();
 		LogTrace logTrace = collector.collect(clazz.getClass().getName(), methodSignature.getName(), LogLevel,
-				stopWatch.getTotalTimeMillis());
-		String logMessage = LogBuilder.build(logTrace);
-		System.out.println("publishing logs ...");
-		logPublisher.publish(logMessage);
+				stopWatch.getTotalTimeMillis(),logMessage);
+		String log = LogBuilder.build(logTrace);
+		logPublisher.publish(log);
 		Template template = TemplateReader.readTemplate();
-		System.out.println("exporting logs ...");
 		LogPublisher.instance().exportFile(template.getLogsPath(), LogPublisher.instance().getLogs());
 		
 	}
