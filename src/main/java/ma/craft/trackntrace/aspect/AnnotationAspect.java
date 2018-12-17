@@ -1,5 +1,16 @@
 package ma.craft.trackntrace.aspect;
 
+import java.io.IOException;
+
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.Signature;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.util.StopWatch;
+
 import ma.craft.trackntrace.collect.LogCollector;
 import ma.craft.trackntrace.domain.LogLevel;
 import ma.craft.trackntrace.domain.LogTrace;
@@ -8,21 +19,13 @@ import ma.craft.trackntrace.generate.LogBuilder;
 import ma.craft.trackntrace.generate.LogPublisher;
 import ma.craft.trackntrace.generate.TemplateReader;
 
-import java.io.IOException;
-
-import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.Signature;
-import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
-import org.springframework.stereotype.Component;
-import org.springframework.util.StopWatch;
-
 @Aspect
 @Component
 public class AnnotationAspect {
 
 	private final LogPublisher logPublisher = LogPublisher.instance();
+	@Autowired
+	LogBuilder logBuilder;
 
 	/**
 	 * Business Log aspect Collect data about annotated methods Generate a log
@@ -63,19 +66,21 @@ public class AnnotationAspect {
 		return proceed;
 	}
 
-	private void collectAndGenerateLog(final JoinPoint joinPoint, StopWatch stopWatch) throws IllegalAccessException, IOException {
+	private void collectAndGenerateLog(final JoinPoint joinPoint, StopWatch stopWatch)
+			throws IllegalAccessException, IOException {
 		LogCollector collector = new LogCollector();
 		LogLevel LogLevel = collector.collectLogLevel(joinPoint);
 		String logMessage = collector.logMessage(joinPoint);
 		Signature methodSignature = joinPoint.getSignature();
 		Object clazz = joinPoint.getTarget();
 		LogTrace logTrace = collector.collect(clazz.getClass().getName(), methodSignature.getName(), LogLevel,
-				stopWatch.getTotalTimeMillis(),logMessage);
-		String log = LogBuilder.build(logTrace);
+				stopWatch.getTotalTimeMillis(), logMessage);
+
+		String log = logBuilder.build(logTrace);
 		logPublisher.publish(log);
 		Template template = TemplateReader.readTemplate();
 		LogPublisher.instance().exportFile(template.getLogsPath(), LogPublisher.instance().getLogs());
-		
+
 	}
 
 	private Object executeAnnotedMethod(final ProceedingJoinPoint joinPoint) throws Throwable {

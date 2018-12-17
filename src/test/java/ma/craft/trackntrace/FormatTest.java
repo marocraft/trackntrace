@@ -3,18 +3,30 @@ package ma.craft.trackntrace;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import ma.craft.trackntrace.domain.Variable;
+
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+
+import ma.craft.trackntrace.context.SpringAOPContext;
 import ma.craft.trackntrace.domain.Template;
+import ma.craft.trackntrace.domain.Variable;
 import ma.craft.trackntrace.generate.RegExManager;
 import ma.craft.trackntrace.generate.TemplateReader;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = SpringAOPContext.class)
 public class FormatTest {
 
 	String format = "{methodName: '{{methodName}}',className: '{{className}}',logLevel: '{{logLevel}}', executionTime: '{{executionTime}}' ms,logMessage: '{{executionTime}}'}";
+	@Autowired
+	Template template;
 
 	@Test
 	public void shouldFormatBeNotNull() {
@@ -24,8 +36,6 @@ public class FormatTest {
 
 	@Test
 	public void shouldCreateTemxplateObject() throws JsonParseException, JsonMappingException, IOException {
-		File file = TemplateReader.readFile();
-		Template template = TemplateReader.parse(file);
 		Assert.assertNotNull(template);
 		Assert.assertNotNull(template.getFormat());
 	}
