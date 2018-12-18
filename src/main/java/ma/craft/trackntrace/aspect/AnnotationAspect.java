@@ -17,7 +17,6 @@ import ma.craft.trackntrace.domain.LogTrace;
 import ma.craft.trackntrace.domain.Template;
 import ma.craft.trackntrace.generate.LogBuilder;
 import ma.craft.trackntrace.generate.LogPublisher;
-import ma.craft.trackntrace.generate.TemplateReader;
 
 @Aspect
 @Component
@@ -26,6 +25,10 @@ public class AnnotationAspect {
 	private final LogPublisher logPublisher = LogPublisher.instance();
 	@Autowired
 	LogBuilder logBuilder;
+
+	@Autowired
+
+	Template template;
 
 	/**
 	 * Business Log aspect Collect data about annotated methods Generate a log
@@ -78,7 +81,6 @@ public class AnnotationAspect {
 
 		String log = logBuilder.build(logTrace);
 		logPublisher.publish(log);
-		Template template = TemplateReader.readTemplate();
 		LogPublisher.instance().exportFile(template.getLogsPath(), LogPublisher.instance().getLogs());
 
 	}

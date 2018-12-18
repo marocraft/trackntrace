@@ -4,11 +4,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
 @Component
 @PropertySource("classpath:/application.yml")
 public class Template {
@@ -27,6 +22,26 @@ public class Template {
 	public Template() {
 		super();
 
+	}
+
+	public String getFormat() {
+		return format;
+	}
+
+	public void setFormat(String format) {
+		this.format = format;
+	}
+
+	public String getLogsPath() {
+		if (logsPath.substring(0, 1).contentEquals("\"")) {
+			logsPath = logsPath.substring(1, logsPath.length() - 1);
+		}
+
+		return logsPath;
+	}
+
+	public void setLogsPath(String logsPath) {
+		this.logsPath = logsPath;
 	}
 
 }

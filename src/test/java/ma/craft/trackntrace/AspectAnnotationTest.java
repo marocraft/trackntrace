@@ -1,5 +1,6 @@
 package ma.craft.trackntrace;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.junit.Assert;
@@ -12,7 +13,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ma.craft.trackntrace.context.SpringAOPContext;
 import ma.craft.trackntrace.domain.Template;
 import ma.craft.trackntrace.generate.LogPublisher;
-import ma.craft.trackntrace.generate.TemplateReader;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = SpringAOPContext.class)
@@ -24,7 +24,7 @@ public class AspectAnnotationTest {
 	Template template;
 
 	@Test
-	public void shouldLogHaveInfoLevel() {
+	public void shouldLogHaveInfoLevel() throws InterruptedException, IOException, FileNotFoundException {
 		Assert.assertTrue(LogPublisher.instance().empty());
 		testService.sleep(300);
 		Assert.assertFalse(LogPublisher.instance().empty());
@@ -32,16 +32,15 @@ public class AspectAnnotationTest {
 	}
 
 	@Test
-	public void shouldClearLogGeneratorStack() {
+	public void shouldClearLogGeneratorStack() throws InterruptedException, FileNotFoundException {
 		testService.sleep(300);
 		LogPublisher.instance().clear();
 		Assert.assertEquals((Integer) 0, LogPublisher.instance().logStackSize());
 	}
 
 	@Test
-	public void shouldCreateLogsfile() throws IOException {
+	public void shouldCreateLogsfile() throws IOException, InterruptedException, FileNotFoundException {
 		testService.sleep(200);
-		template = TemplateReader.readTemplate();
 		LogPublisher.instance().exportFile(template.getLogsPath(), LogPublisher.instance().getLogs());
 
 	}
