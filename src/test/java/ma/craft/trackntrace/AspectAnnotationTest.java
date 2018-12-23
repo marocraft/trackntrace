@@ -45,4 +45,11 @@ public class AspectAnnotationTest {
 
 	}
 
+	@Test
+	public void shouldCreateLogsfileWithExportMdc() throws IOException, InterruptedException, FileNotFoundException {
+		testService.sleep(200);
+		LogPublisher.instance().exportmdc(LogPublisher.instance().getLogs());
+
+	}
+
 }

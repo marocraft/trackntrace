@@ -9,8 +9,12 @@ import ma.craft.trackntrace.domain.LogLevel;
 public class TestService {
 
 	@BusinessLog(level = LogLevel.NORMAL, message = "new message")
-	public void sleep(long sleep) throws InterruptedException {
-		Thread.sleep(sleep);
+	public void sleep(long sleep) {
+		try {
+			Thread.sleep(sleep);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 
 	}
 }

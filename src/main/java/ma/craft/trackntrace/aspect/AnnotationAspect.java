@@ -81,8 +81,7 @@ public class AnnotationAspect {
 
 		String log = logBuilder.build(logTrace);
 		logPublisher.publish(log);
-		LogPublisher.instance().exportFile(template.getLogsPath(), LogPublisher.instance().getLogs());
-
+		LogPublisher.instance().exportmdc(LogPublisher.instance().getLogs());
 	}
 
 	private Object executeAnnotedMethod(final ProceedingJoinPoint joinPoint) throws Throwable {
