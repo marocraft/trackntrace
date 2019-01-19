@@ -38,6 +38,7 @@
 		<url>https://github.com/marocraft/trackntrace.git</url>
 		<system>GitHub Issues</system>
 	</issueManagement>
+	
 	<licenses>
 		<license>
 			<name>The Apache License, Version 2.0</name>
@@ -145,7 +146,7 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.16.16</version>
+			<version>1.18.4</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
