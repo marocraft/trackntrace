@@ -30,5 +30,8 @@ mvnw.cmd
 ## Mac OS ###
 .DS_Store
 
+###folders###
+/logstnt/*
+
 
 
