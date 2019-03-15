@@ -31,7 +31,7 @@ mvnw.cmd
 .DS_Store
 
 ###folders###
-/logstnt/*
+#/logstnt/*
 
 
 
