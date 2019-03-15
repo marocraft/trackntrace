@@ -32,6 +32,6 @@ mvnw.cmd
 
 ###folders###
 #/logstnt/*
-
+/.mvn/
 
 
