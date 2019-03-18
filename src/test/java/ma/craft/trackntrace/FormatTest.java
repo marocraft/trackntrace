@@ -11,7 +11,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 
 import ma.craft.trackntrace.context.SpringAOPContext;
 import ma.craft.trackntrace.domain.Template;
@@ -27,13 +26,13 @@ public class FormatTest {
 	Template template;
 
 	@Test
-	public void shouldCreateTemxplateObject() throws JsonParseException, JsonMappingException, IOException {
+	public void shouldCreateTemxplateObject() throws JsonParseException, IOException {
 		Assert.assertNotNull(template);
 		Assert.assertNotNull(template.getFormat());
 	}
 
 	@Test
-	public void shouldHaveExpectedNumber() throws JsonParseException, JsonMappingException, IOException {
+	public void shouldHaveExpectedNumber() throws JsonParseException, IOException {
 		Assert.assertNotNull(template);
 		Assert.assertNotNull(template.getFormat());
 		template.getFormat();
