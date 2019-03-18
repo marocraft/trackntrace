@@ -4,8 +4,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>ma.craft.trackntrace</groupId>
-	<artifactId>tnt-core</artifactId>
+	<groupId>ma.marocraft.trackntrace</groupId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
@@ -216,4 +215,5 @@
 	</build>
 
 
+	<artifactId>tnt-core</artifactId>
 </project>
