@@ -1,6 +1,6 @@
 package ma.craft.trackntrace.collect;
 
-import ma.craft.trackntrace.annotation.BusinessLog;
+import ma.craft.trackntrace.annotation.Trace;
 import ma.craft.trackntrace.domain.LogLevel;
 import ma.craft.trackntrace.domain.LogTrace;
 import org.aspectj.lang.JoinPoint;
@@ -32,7 +32,7 @@ public class LogCollector {
 	public LogLevel collectLogLevel(JoinPoint joinPoint) {
 		MethodSignature signature = (MethodSignature) joinPoint.getSignature();
 		Method method = signature.getMethod();
-		BusinessLog myAnnotation = method.getAnnotation(BusinessLog.class);
+		Trace myAnnotation = method.getAnnotation(Trace.class);
 		return myAnnotation.level();
 	}
 	
@@ -44,7 +44,7 @@ public class LogCollector {
 	public String logMessage(JoinPoint joinPoint) {
 		MethodSignature signature = (MethodSignature) joinPoint.getSignature();
 		Method method = signature.getMethod();
-		BusinessLog myAnnotation = method.getAnnotation(BusinessLog.class);
+		Trace myAnnotation = method.getAnnotation(Trace.class);
 		return myAnnotation.message();
 		
 	}
