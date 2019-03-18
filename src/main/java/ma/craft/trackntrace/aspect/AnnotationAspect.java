@@ -20,7 +20,7 @@ import ma.craft.trackntrace.generate.LogPublisher;
 
 /**
  * AnnotationAspect permet de definir le traitement des différentes annotation :
- * -BusinessLog -TechnicalLog -Restlog
+ * -Trace -TechnicalLog -Restlog
  *
  * Auteur Tassa Housseine
  */
@@ -36,14 +36,14 @@ public class AnnotationAspect {
 	Template template;
 
 	/**
-	 * BusinessLog aspect collecte les donées des methodes annotées et génère un log
+	 * Trace aspect collecte les donées des methodes annotées et génère un log
 	 * basé sur une template spécifique
 	 * 
 	 * @param joinPoint
 	 * @throws Throwable
 	 */
-	@Around(value = "@annotation(ma.craft.trackntrace.annotation.BusinessLog)")
-	public Object whenAnnotatedWithBusinessLog(final ProceedingJoinPoint joinPoint) throws Throwable {
+	@Around(value = "@annotation(ma.craft.trackntrace.annotation.Trace)")
+	public Object whenAnnotatedWithTrace(final ProceedingJoinPoint joinPoint) throws Throwable {
 		StopWatch stopWatch = startTimer();
 		Object proceed = executeAnnotedMethod(joinPoint);
 		stopTimer(stopWatch);
