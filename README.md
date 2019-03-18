@@ -1,3 +1,5 @@
+# <img src="src/docs/images/trackntrace.png" width="96" height="96"> TracknTrace Framework
+
 # Project description
 
 Spring Module for Log generation through AOP
