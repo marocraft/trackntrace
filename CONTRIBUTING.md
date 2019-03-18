@@ -1,6 +1,6 @@
+# Contributing to the TracknTrace Framework
 
-
-:+1::tada: First off, thanks for your time to contribute ! :tada::+1:
+First off, thank you for taking the time to contribute! :+1: :tada:
 
 ## Code of Conduct
 This project is governed by the Marocraft code of Conduct. By participating you are expected to uphold this code. Please report unacceptable behavior to marocraft.community@gmail.com.
