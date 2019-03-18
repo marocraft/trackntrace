@@ -18,6 +18,12 @@ import ma.craft.trackntrace.domain.Template;
 import ma.craft.trackntrace.generate.LogBuilder;
 import ma.craft.trackntrace.generate.LogPublisher;
 
+/**
+ * AnnotationAspect permet de definir le traitement des différentes annotation :
+ * -BusinessLog -TechnicalLog -Restlog
+ *
+ * Auteur Tassa Housseine
+ */
 @Aspect
 @Component
 public class AnnotationAspect {
@@ -27,12 +33,11 @@ public class AnnotationAspect {
 	LogBuilder logBuilder;
 
 	@Autowired
-
 	Template template;
 
 	/**
-	 * Business Log aspect Collect data about annotated methods Generate a log
-	 * message based on a specific template
+	 * BusinessLog aspect collecte les donées des methodes annotées et génère un log
+	 * basé sur une template spécifique
 	 * 
 	 * @param joinPoint
 	 * @throws Throwable
@@ -47,9 +52,9 @@ public class AnnotationAspect {
 	}
 
 	/**
-	 * Rest Log aspect Collect data about annotated methods having also a @Path
-	 * annotation Generate a log message containing URI call information based on a
-	 * specific template
+	 * Rest Log aspect collecte les données des méthodes annotées qui ont de plus
+	 * l'annotation @path, elle génère un log qui contient un URI les information de
+	 * l'appel basé sur une template spécifique
 	 * 
 	 * @param joinPoint
 	 * @throws Throwable
@@ -69,6 +74,12 @@ public class AnnotationAspect {
 		return proceed;
 	}
 
+	/**
+	 * @param joinPoint
+	 * @param stopWatch
+	 * @throws IllegalAccessException
+	 * @throws IOException
+	 */
 	private void collectAndGenerateLog(final JoinPoint joinPoint, StopWatch stopWatch)
 			throws IllegalAccessException, IOException {
 		LogCollector collector = new LogCollector();

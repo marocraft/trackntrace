@@ -11,6 +11,11 @@ import org.slf4j.MDC;
 
 import lombok.Getter;
 
+/**
+ * 
+ * permet de publier les logs collectés dans une List des Strings 
+ * 
+ */
 @Getter
 public class LogPublisher {
 

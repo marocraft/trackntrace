@@ -1,3 +1,6 @@
 "{methodName: sleep,className: ma.craft.trackntrace.TestService,logLevel: NORMAL,executionTime: 300 ms,logMessage: new message}"
 "{methodName: sleep,className: ma.craft.trackntrace.TestService,logLevel: NORMAL,executionTime: 200 ms,logMessage: new message}"
 "{methodName: sleep,className: ma.craft.trackntrace.TestService,logLevel: NORMAL,executionTime: 200 ms,logMessage: new message}"
+"{methodName: sleep,className: ma.craft.trackntrace.TestService,logLevel: NORMAL,executionTime: 312 ms,logMessage: new message}"
+"{methodName: sleep,className: ma.craft.trackntrace.TestService,logLevel: NORMAL,executionTime: 203 ms,logMessage: new message}"
+"{methodName: sleep,className: ma.craft.trackntrace.TestService,logLevel: NORMAL,executionTime: 203 ms,logMessage: new message}"
