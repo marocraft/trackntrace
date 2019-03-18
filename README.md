@@ -3,9 +3,9 @@
 Spring Module for Log generation through AOP
 TnT is a java framework that offers centralization and aggregation of the format of logs . with a simple annotation you can generate logs of your method
 
-- Contrat entre les ops et les Dev 
-- Uniformiser les log du projets
-- Gain de temps en communacation , developpement , déploiement
+- Smouth exchange between DEVs and OPS
+- Standardize project logs
+- Save time in communication between development, deployment
   
 ## Requirements
 
