@@ -46,24 +46,19 @@ TnT is a java framework that offers centralization and aggregation of the format
 ```
 
 4.Result
-
 ``` json
  "{methodName: sleep,className: ma.craft.trackntrace.TestService,logLevel: NORMAL,executionTime: 202 ms,logMessage: new message}"
 ```
 
 ## Features
-
-- [x] AutoLog
-- [ ] Data : Automatic Logger for Data Layer
-- [ ] Business : Automatic Logger for Business Layer
-- [ ] Rest : Automatic Logger for REST Layer
-
+- [X] Business logging: Automatic Logger for Business Layer
+- [X] Rest logging: Automatic Logger for REST Layer
+- [X] Data logging: Automatic Logger for Data Layer
 
 ## Maintainers
-
-- Sallah Kokaina
-- Houseine Tassa
+- Sallah KOKAINA
+- Houseine TASSA
 - Khalid ELABBADI
-- Badr Eddine Zinoun
-- Sanaa Hsakou
-- Hassane El Ghachtoul
+- Badr Eddine ZINOUN
+- Sanaa HSAKOU
+- Hassane EL GHACHTOUL
