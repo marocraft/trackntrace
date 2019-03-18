@@ -7,43 +7,13 @@ TnT is a java framework that offers centralization and aggregation of the format
 - Standardize project logs
 - Save time in communication between development, deployment
   
-## Requirements
-
-For development, you will need:
-
-- Spring XX
-- [JDK 1.8](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
-- [Maven 3.2+](https://maven.apache.org/download.cgi)
-
-## Get Started
-
-1. Clone the repo with the submodules.  
-
-``` shell
-$ git clone https://github.com/marocraft/trackntrace.git
-```
-
-2. Checkout the "develop" branch .  
-   
-``` shell
-$ git checkout develop
-```
-
-3. Pull, build and execute.
-
-``` shell
-$ git pull
-$ mvn clean install
-```
-
-
 ## How to use
 
 1.Add the following dependency to your pom.xml file 
 ``` xml
 <dependency>
-    <groupId>ma.craft.trackntrace</groupId> 
-    <artifactId>annotation-interceptor</artifactId> 
+	<groupId>ma.craft.trackntrace</groupId>
+	<artifactId>tnt-core</artifactId>
     <version>0.0.1-SNAPSHOT</version> 
 </dependency>
 ```
@@ -86,7 +56,6 @@ $ mvn clean install
 - [ ] Business : Automatic Logger for Business Layer
 - [ ] Rest : Automatic Logger for REST Layer
 
-## How to contribute
 
 ## Maintainers
 
