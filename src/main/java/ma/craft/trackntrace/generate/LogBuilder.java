@@ -29,6 +29,8 @@ public class LogBuilder {
 		for (Variable variable : variables) {
 			format = replace(format, variable.getName(), logTrace);
 		}
+		format= replaceDoubleQuotesPlusCurlyBracket(format);
+		
 		return format;
 	}
 
@@ -43,8 +45,12 @@ public class LogBuilder {
 	 */
 	static String replace(String format, String field, LogTrace logTrace) throws IllegalAccessException {
 		Object valueOfField = ValueCollector.valueOf(field, logTrace);
-		return format.replaceAll("'\\{\\{" + field + "\\}\\}'", "" + valueOfField.toString()) + "";
+		return format.replaceAll("\"\\{\\{" + field + "\\}\\}\"", "\"" + valueOfField.toString()+"\"") + "";
 
+	}
+	
+	static String replaceDoubleQuotesPlusCurlyBracket(String format) {
+		return format.replace("\"{", "{");
 	}
 
 }
