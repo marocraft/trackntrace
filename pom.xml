@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>ma.marocraft.trackntrace</groupId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>tnt-core</artifactId>
+	<version>0.0.1</version>
 	<packaging>jar</packaging>
 
 	<name>trackntrace</name>
@@ -32,7 +31,8 @@
 		<url>https://github.com/marocraft/trackntrace</url>
 		<connection>scm:git:git://github.com/marocraft/trackntrace.git</connection>
 		<developerConnection>scm:git:git@github.com:marocraft/trackntrace.git</developerConnection>
-	</scm>
+	  <tag>tnt-core-0.0.1</tag>
+  </scm>
 	<issueManagement>
 		<url>https://github.com/marocraft/trackntrace.git</url>
 		<system>GitHub Issues</system>
@@ -103,7 +103,7 @@
 			<scope>test</scope>
 			<version>${junit.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-core</artifactId>
@@ -150,14 +150,14 @@
 
 	<build>
 		<plugins>
-		<plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-compiler-plugin</artifactId>
-    <configuration>
-        <source>1.8</source>
-        <target>1.8</target>
-    </configuration>
-</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
@@ -218,7 +218,7 @@
 										</goals>
 									</pluginExecutionFilter>
 									<action>
-										<ignore></ignore>
+										<ignore />
 									</action>
 								</pluginExecution>
 							</pluginExecutions>
@@ -228,7 +228,88 @@
 			</plugins>
 		</pluginManagement>
 	</build>
+	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+		<repository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+	</distributionManagement>
 
+	<profiles>
+  <!-- Activate using the release property: mvn clean install -Prelease -->
+  <profile>
+      <id>release</id>
+      <activation>
+          <property>
+              <name>release</name>
+          </property>
+      </activation>
 
-	<artifactId>tnt-core</artifactId>
+      <build>
+          <plugins>
+              <!-- To release to Maven central -->
+              <plugin>
+              	<groupId>org.sonatype.plugins</groupId>
+                  <artifactId>nexus-staging-maven-plugin</artifactId>
+                  <version>1.6.8</version>
+                  <extensions>true</extensions>
+                  <configuration>
+                      <serverid>ossrh</serverid>
+                      <nexusurl>https://oss.sonatype.org/</nexusurl>
+                      <autoreleaseafterclose>true</autoreleaseafterclose>
+                  </configuration>
+              </plugin>
+              <!-- To generate javadoc -->
+              <plugin>
+                  <groupId>org.apache.maven.plugins</groupId>
+                  <artifactId>maven-source-plugin</artifactId>
+                  <version>3.0.1</version>
+                  <executions>
+                      <execution>
+                          <id>attach-sources</id>
+                          <goals>
+                              <goal>jar-no-fork</goal>
+                          </goals>
+                      </execution>
+                  </executions>
+              </plugin>
+              <plugin>
+                  <groupId>org.apache.maven.plugins</groupId>
+                  <artifactId>maven-javadoc-plugin</artifactId>
+                  <version>2.10.4</version>
+                  <executions>
+                      <execution>
+                          <id>attach-javadocs</id>
+                          <goals>
+                              <goal>jar</goal>
+                          </goals>
+                      </execution>
+                  </executions>
+              </plugin>
+
+              <!-- To sign the artifacts -->
+              <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+                  <artifactId>maven-gpg-plugin</artifactId>
+                  <version>1.6</version>
+                  <executions>
+                      <execution>
+                          <id>sign-artifacts</id>
+                          <phase>verify</phase>
+                          <goals>
+                              <goal>sign</goal>
+                          </goals>
+                      </execution>
+                  </executions>
+              </plugin>
+          </plugins>
+
+      </build>
+  </profile>
+</profiles>
+	
 </project>
