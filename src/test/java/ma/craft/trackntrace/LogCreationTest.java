@@ -56,7 +56,7 @@ public class LogCreationTest {
 
 		String log = logBuilder.build(logTrace);
 		assertEquals(
-				"\"{methodName: myMethod,className: controller,logLevel: TRIVIAL,executionTime: 20 ms,logMessage: my message}\"",
+				"{\"methodName\": \"myMethod\",\"className\": \"controller\",\"logLevel\": \"TRIVIAL\",\"executionTime\": \"20\",\"logMessage\": \"my message\"}\"",
 				log);
 	}
 
