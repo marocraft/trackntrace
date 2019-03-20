@@ -4,8 +4,8 @@ if [ ${TRAVIS_PULL_REQUEST} = 'false' ] && [[ ${TRAVIS_BRANCH} = 'master'  ||  $
 	  
 	## export GPG details
 		echo 'export GPG'
-		echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import
-		echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust
+		echo GPG_SECRET_KEYS  | GPG_EXECUTABLE --import
+		echo GPG_OWNERTRUST   | GPG_EXECUTABLE --import-ownertrust
 	
 	## Build and release to maven central  
 		echo 'Build and release to maven central'
