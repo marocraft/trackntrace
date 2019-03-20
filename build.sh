@@ -3,17 +3,13 @@ if [ ${TRAVIS_PULL_REQUEST} = 'false' ] && [[ ${TRAVIS_BRANCH} = 'master'  ||  $
       mvn -B clean verify sonar:sonar -Dsonar.host.url=${SONAR_URL} -Dsonar.login=${SONAR_LOGIN} -Dsonar.projectKey=${SONAR_PROJECT} -Dsonar.organization=${SONAR_ORGANIZATION}
 	  
 	## export GPG details
-		- echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import
-		- echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust
+		echo 'export GPG'
+		echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import
+		echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust
 	
 	## Build and release to maven central  
+		echo 'Build and release to maven central'
 		mvn clean deploy --settings .maven.xml -DskipTests=true -B -U -Prelease
-	## Get the project version
-		- mvn help:evaluate -N -Dexpression=project.version|grep -v '\['
-		- export project_version=$(mvn help:evaluate -N -Dexpression=project.version|grep -v '\[')
-		
-		
-    
 		
 elif [ ${TRAVIS_PULL_REQUEST} != 'false' ]; then 
       echo 'Build and analyze pull request'
