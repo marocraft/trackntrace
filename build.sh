@@ -3,10 +3,11 @@ if [ ${TRAVIS_PULL_REQUEST} = 'false' ] && [[ ${TRAVIS_BRANCH} = 'master'  ||  $
       mvn -B clean verify sonar:sonar -Dsonar.host.url=${SONAR_URL} -Dsonar.login=${SONAR_LOGIN} -Dsonar.projectKey=${SONAR_PROJECT} -Dsonar.organization=${SONAR_ORGANIZATION}
 	  
 	## export GPG details
-		echo 'export GPG'
-		 echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import
-    	 echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust
-	
+		echo 'import GPG'
+		 #echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import
+    	 #echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust
+			gpg --import private-key.gpg
+			
 	## Build and release to maven central  
 		echo 'Build and release to maven central'
 		mvn clean deploy --settings .maven.xml -DskipTests=true -B -U -Prelease
