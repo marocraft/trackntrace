@@ -5,6 +5,12 @@ language: java
 jdk:
 - oraclejdk8
 script: ./build.sh
+
+after_success:
+  - openssl aes-256-cbc -pass pass:$ENCRYPTION_PASSWORD -in ./deploy/public-key.asc.gpg -out ./deploy/public-key.asc -d
+  - openssl aes-256-cbc -pass pass:$ENCRYPTION_PASSWORD -in ./deploy/private-key.gpg.gpg -out ./deploy/private-key.gpg -d
+  - ./deploy/publish.sh
+
 notifications:
   slack:
     rooms:
