@@ -8,8 +8,10 @@ script: ./build.sh
 
 after_success:
   - echo "after_success"
-  - openssl aes-256-cbc -pass pass:$ENCRYPTION_PASSWORD -in ./deploy/public-key.asc.gpg -out ./deploy/public-key.asc -d
-  - openssl aes-256-cbc -pass pass:$ENCRYPTION_PASSWORD -in ./deploy/private-key.gpg.gpg -out ./deploy/private-key.gpg -d
+  #- openssl aes-256-cbc -pass pass:$ENCRYPTION_PASSWORD -in ./deploy/public-key.asc.gpg -out ./deploy/public-key.asc -d
+  #- openssl aes-256-cbc -pass pass:$ENCRYPTION_PASSWORD -in ./deploy/private-key.gpg.gpg -out ./deploy/private-key.gpg -d
+  - gpg -d -o ./deploy/public-key.asc --passphrase $ENCRYPTION_PASSWORD ./deploy/public-key.asc.gpg
+  - gpg -d -o ./deploy/private-key.gpg --passphrase $ENCRYPTION_PASSWORD ./deploy/private-key.gpg.gpg
   - ./deploy/publish.sh
 
 notifications:
