@@ -11,8 +11,7 @@ if [ ${TRAVIS_PULL_REQUEST} = 'false' ] && [ ${TRAVIS_BRANCH} = 'snapshot' ]; th
     echo 'Deploying snapshot to OSS 3'
 fi
 if [ ${TRAVIS_PULL_REQUEST} = 'false' ] && [ ${TRAVIS_BRANCH} != 'snapshot' ]; then
-    echo 'Deploying snapshot to OSS 4'
-    ${TRAVIS_BRANCH} $_TRAVIS_BRANCH
+    echo 'Deploying snapshot to OSS 4  ${TRAVIS_BRANCH} $_TRAVIS_BRANCH'
 fi
 if [ ${TRAVIS_PULL_REQUEST} = 'false' ] && [ ${TRAVIS_BRANCH} = 'snapshot' ]; then
     echo 'Deploying snapshot to OSS'
