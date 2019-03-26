@@ -1,4 +1,4 @@
-echo "Deploy for tag: $TRAVIS_TAG - branch: $TRAVIS_BRANCH"
+echo "Deploy for tag: $TRAVIS_TAG - branch: $TRAVIS_BRANCH pr: $TRAVIS_PULL_REQUEST_BRANCH"
 echo "Deploy for tag: $TRAVIS_TAG - branch: ${TRAVIS_BRANCH}"
 
 if [ ${TRAVIS_PULL_REQUEST} = 'true' ] && [ ${TRAVIS_BRANCH} = 'snapshot' ]; then
