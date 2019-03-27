@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>ma.marocraft.trackntrace</groupId>
@@ -31,8 +33,8 @@
 		<url>https://github.com/marocraft/trackntrace</url>
 		<connection>scm:git:git://github.com/marocraft/trackntrace.git</connection>
 		<developerConnection>scm:git:git@github.com:marocraft/trackntrace.git</developerConnection>
-	  <tag>tnt-core-0.0.1</tag>
-  </scm>
+		<tag>tnt-core-0.0.1</tag>
+	</scm>
 	<issueManagement>
 		<url>https://github.com/marocraft/trackntrace.git</url>
 		<system>GitHub Issues</system>
@@ -241,30 +243,12 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-release-plugin</artifactId>
-					<version>2.5.3</version>
+					<version>${maven-release-plugin.version}</version>
 					<configuration>
-						<localCheckout>true</localCheckout>
-						<pushChanges>false</pushChanges>
-						<mavenExecutorId>forked-path</mavenExecutorId>
-						<arguments>-Dgpg.passphrase=${gpg.passphrase}</arguments>
-					</configuration>
-					<dependencies>
-						<dependency>
-							<groupId>org.apache.maven.scm</groupId>
-							<artifactId>maven-scm-provider-gitexe</artifactId>
-							<version>1.9.5</version>
-						</dependency>
-					</dependencies>
-				</plugin>
-				<plugin>
-					<groupId>org.sonatype.plugins</groupId>
-					<artifactId>nexus-staging-maven-plugin</artifactId>
-					<version>1.6.7</version>
-					<extensions>true</extensions>
-					<configuration>
-						<serverId>ossrh</serverId>
-						<nexusUrl>https://oss.sonatype.org/</nexusUrl>
-						<autoReleaseAfterClose>true</autoReleaseAfterClose>
+						<autoVersionSubmodules>true</autoVersionSubmodules>
+						<useReleaseProfile>false</useReleaseProfile>
+						<releaseProfiles>release</releaseProfiles>
+						<goals>deploy</goals>
 					</configuration>
 				</plugin>
 
@@ -298,7 +282,7 @@
 						</execution>
 					</executions>
 				</plugin>
-				
+
 			</plugins>
 		</pluginManagement>
 	</build>
@@ -313,80 +297,80 @@
 			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
 		</repository>
 	</distributionManagement>
-	
-	
+
+
 	<profiles>
-  <!-- Activate using the release property: mvn clean install -Prelease -->
-  <profile>
-      <id>ossrh</id>
-      <activation>
-          <property>
-              <name>ossrh</name>
-          </property>
-      </activation>
+		<!-- Activate using the release property: mvn clean install -Prelease -->
+		<profile>
+			<id>ossrh</id>
+			<activation>
+				<property>
+					<name>ossrh</name>
+				</property>
+			</activation>
 
-      <build>
-          <plugins>
-              <!-- To release to Maven central -->
-              <plugin>
-                  <groupId>org.sonatype.plugins</groupId>
-                  <artifactId>nexus-staging-maven-plugin</artifactId>
-                  <version>1.6.8</version>
-                  <extensions>true</extensions>
-                  <configuration>
-                      <serverid>ossrh</serverid>
-                      <nexusurl>https://oss.sonatype.org/</nexusurl>
-                      <autoreleaseafterclose>true</autoreleaseafterclose>
-                  </configuration>
-              </plugin>
-              <!-- To generate javadoc -->
-              <plugin>
-                  <groupId>org.apache.maven.plugins</groupId>
-                  <artifactId>maven-source-plugin</artifactId>
-                  <version>3.0.1</version>
-                  <executions>
-                      <execution>
-                          <id>attach-sources</id>
-                          <goals>
-                              <goal>jar-no-fork</goal>
-                          </goals>
-                      </execution>
-                  </executions>
-              </plugin>
-              <plugin>
-                  <groupId>org.apache.maven.plugins</groupId>
-                  <artifactId>maven-javadoc-plugin</artifactId>
-                  <configuration>
-						<javadocExecutable>${env.JAVA_HOME}/bin/javadoc</javadocExecutable>
-					</configuration>
-                  <version>2.10.4</version>
-                  <executions>
-                      <execution>
-                          <id>attach-javadocs</id>
-                          <goals>
-                              <goal>jar</goal>
-                          </goals>
-                      </execution>
-                  </executions>
-              </plugin>
-              <!-- To sign the artifacts -->
-              <plugin>
-                  <groupId>org.apache.maven.plugins</groupId>
-                  <artifactId>maven-gpg-plugin</artifactId>
-                  <version>1.6</version>
-                  <executions>
-                      <execution>
-                          <id>sign-artifacts</id>
-                          <phase>verify</phase>
-                          <goals>
-                              <goal>sign</goal>
-                          </goals>
-                      </execution>
-                  </executions>
-              </plugin>
-          </plugins>
+			<build>
+				<plugins>
+					<!-- To release to Maven central -->
+					<plugin>
+						<groupId>org.sonatype.plugins</groupId>
+						<artifactId>nexus-staging-maven-plugin</artifactId>
+						<version>1.6.8</version>
+						<extensions>true</extensions>
+						<configuration>
+							<serverid>ossrh</serverid>
+							<nexusurl>https://oss.sonatype.org/</nexusurl>
+							<autoreleaseafterclose>true</autoreleaseafterclose>
+						</configuration>
+					</plugin>
+					<!-- To generate javadoc -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+						<version>3.0.1</version>
+						<executions>
+							<execution>
+								<id>attach-sources</id>
+								<goals>
+									<goal>jar-no-fork</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<configuration>
+							<javadocExecutable>${env.JAVA_HOME}/bin/javadoc</javadocExecutable>
+						</configuration>
+						<version>2.10.4</version>
+						<executions>
+							<execution>
+								<id>attach-javadocs</id>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<!-- To sign the artifacts -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>1.6</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
 
-      </build>
-  </profile>
-</profiles>
+			</build>
+		</profile>
+	</profiles>
 </project>

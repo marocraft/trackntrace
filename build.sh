@@ -6,7 +6,7 @@ if [ ${TRAVIS_PULL_REQUEST} = 'false' ] && [[ ${TRAVIS_BRANCH} = 'master'  ||  $
 		#echo 'import GPG'
 		 #echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import
     	 #echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust
-			#gpg --import private-key.gpg
+		#gpg --import private-key.gpg
 			
 	## Build and release to maven central  
 		#echo 'Build and release to maven central'
