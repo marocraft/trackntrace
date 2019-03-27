@@ -318,10 +318,10 @@
 	<profiles>
   <!-- Activate using the release property: mvn clean install -Prelease -->
   <profile>
-      <id>release</id>
+      <id>ossrh</id>
       <activation>
           <property>
-              <name>release</name>
+              <name>ossrh</name>
           </property>
       </activation>
 
