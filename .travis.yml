@@ -8,7 +8,7 @@ script: "./build.sh"
 after_success:
 - echo "after_success"
 - openssl aes-256-cbc -pass pass:$ENCRYPTION_PASSWORD -in ./deploy/private-key.gpg.enc -out ./deploy/private-key.gpg -d
-- openssl aes-256-cbc -pass pass:$ENCRYPTION_PASSWORD -in ./deploy/public-key.asc.enc -out ./deploy/public-key.asc -d
+- openssl aes-256-cbc -pass pass:$ENCRYPTION_PASSWORD -in ./deploy/public-key.gpg.enc -out ./deploy/public-key.gpg -d
 - ls ./deploy
 - "./deploy/publish.sh"
 notifications:
