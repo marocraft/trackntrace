@@ -7,8 +7,8 @@ jdk:
 script: "./build.sh"
 after_success:
 - echo "after_success"
-- openssl aes-256-cbc -in ./deploy/private-key.gpg.enc -out ./deploy/private-key.gpg -pass pass:$ENCRYPTION_PASSWORD -d
-- openssl aes-256-cbc -in ./deploy/public-key.gpg.enc -out ./deploy/public-key.gpg -pass pass:$ENCRYPTION_PASSWORD -d
+- openssl aes-256-cbc -in ./deploy/private-key.gpg.enc -out ./deploy/private-key.gpg -pass pass:$ENCRYPTION_PASSWORD -d -debug
+- openssl aes-256-cbc -in ./deploy/public-key.gpg.enc -out ./deploy/public-key.gpg -pass pass:$ENCRYPTION_PASSWORD -d -debug
 - ls ./deploy
 - "./deploy/publish.sh"
 notifications:
