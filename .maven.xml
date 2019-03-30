@@ -21,8 +21,8 @@
 				<gpg.passphrase>${GPG_PASSPHRASE}</gpg.passphrase>
 				<gpg.keyname>${GPG_KEYNAME}</gpg.keyname>
 				<gpg.defaultKeyring>false</gpg.defaultKeyring>
-				<gpg.publicKeyring>${env.GPG_DIR}/public-key.gpg</gpg.publicKeyring>
-				<gpg.secretKeyring>${env.GPG_DIR}/private-key.gpg</gpg.secretKeyring>
+				<gpg.publicKeyring>${env.GPG_DIR}/epublic-key.gpg</gpg.publicKeyring>
+				<gpg.secretKeyring>${env.GPG_DIR}/eprivate-key.gpg</gpg.secretKeyring>
 			</properties>
 		</profile>
 	</profiles>
