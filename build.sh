@@ -2,15 +2,6 @@ if [ ${TRAVIS_PULL_REQUEST} = 'false' ] && [[ ${TRAVIS_BRANCH} = 'master'  ||  $
       echo 'Checking Quality Gates'
       mvn -B clean verify sonar:sonar -Dsonar.host.url=${SONAR_URL} -Dsonar.login=${SONAR_LOGIN} -Dsonar.projectKey=${SONAR_PROJECT} -Dsonar.organization=${SONAR_ORGANIZATION}
 	  
-	## export GPG details
-		#echo 'import GPG'
-		 #echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import
-    	 #echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust
-		#gpg --import private-key.gpg
-			
-	## Build and release to maven central  
-		#echo 'Build and release to maven central'
-		#mvn clean deploy --settings .maven.xml -DskipTests=true -B -U -Prelease
 		
 elif [ ${TRAVIS_PULL_REQUEST} != 'false' ]; then 
       echo 'Build and analyze pull request'
