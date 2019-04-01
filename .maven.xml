@@ -17,9 +17,9 @@
 				<activeByDefault>false</activeByDefault>
 			</activation>
 			<properties>
-				<gpg.executable>${GPG_EXECUTABLE}</gpg.executable>
-				<gpg.passphrase>${GPG_PASSPHRASE}</gpg.passphrase>
-				<gpg.keyname>${GPG_KEYNAME}</gpg.keyname>
+				<gpg.executable>gpg</gpg.executable>
+				<gpg.passphrase>MaroCraft2019</gpg.passphrase>
+				<gpg.keyname>marocraft.community@gmail.com</gpg.keyname>
 				<gpg.defaultKeyring>false</gpg.defaultKeyring>
 				<gpg.publicKeyring>./deploy/public-key.gpg</gpg.publicKeyring>
 				<gpg.secretKeyring>./deploy/private-key.gpg</gpg.secretKeyring>
