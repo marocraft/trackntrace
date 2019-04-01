@@ -1,34 +1,54 @@
-<!-- settings.xml a destination des postes de developpement -->
-<settings>
-	<servers>
-		<server>
-			<id>ossrh</id>
-			<username>${SONATYPE_USERNAME}</username>
-			<password>${SONATYPE_PASSWORD}</password>
-		</server>
-	</servers>
-	<mirrors>
-	</mirrors>
+<?xml version="1.0" encoding="UTF-8"?>
 
-	<profiles>
-		<profile>
-			<id>ossrh</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<properties>
-				<gpg.executable>${GPG_EXECUTABLE}</gpg.executable>
-				<gpg.passphrase>${GPG_PASSPHRASE}</gpg.passphrase>
-				<gpg.keyname>${GPG_KEYNAME}</gpg.keyname>
-				<gpg.defaultKeyring>false</gpg.defaultKeyring>
-				<gpg.publicKeyring>${env.GPG_DIR}/epublic-key.gpg</gpg.publicKeyring>
-				<gpg.secretKeyring>${env.GPG_DIR}/eprivate-key.gpg</gpg.secretKeyring>
-			</properties>
-		</profile>
-	</profiles>
 
-	<activeProfiles>
-		<activeProfile>ossrh</activeProfile>
-	</activeProfiles>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+  
+  <pluginGroups>
+   
+  </pluginGroups>
 
+  
+  <proxies>
+    
+  </proxies>
+
+ 
+  <servers>
+            <server>
+            <id>ossrh</id>
+            <username>marocraft</username>
+            <password>TechnicalDesign2019!</password>
+        </server>
+    </servers>
+
+  
+  <mirrors>
+   
+  </mirrors>
+
+  
+  <profiles>
+    <profile>
+            <id>ossrh</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <gpg.executable>gpg</gpg.executable>
+                <gpg.passphrase>MaroCraft2019</gpg.passphrase>
+                <gpg.keyname>marocraft</gpg.keyname>
+        <gpg.defaultKeyring>false</gpg.defaultKeyring>
+        <gpg.publicKeyring>./deploy/public-key.gpg</gpg.publicKeyring>
+        <gpg.secretKeyring>./deploy/private-key.gpg</gpg.secretKeyring>
+            </properties>
+    </profile>
+    
+  </profiles>
+  <activeProfiles>
+    <activeProfile>ossrh</activeProfile>
+  </activeProfiles>
+
+  
 </settings>
