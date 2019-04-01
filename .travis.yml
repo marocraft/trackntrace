@@ -7,8 +7,8 @@ jdk:
 script: "./build.sh"
 after_success:
 - echo "after_success"
-- openssl aes-256-cbc -in $GPG_DIR/private-key.gpg.enc -out $GPG_DIR/private-key.gpg -pass pass:$ENCRYPTION_PASSWORD -d -debug
-- openssl aes-256-cbc -in $GPG_DIR/public-key.gpg.enc -out $GPG_DIR/public-key.gpg -pass pass:$ENCRYPTION_PASSWORD -d -debug
+#- openssl aes-256-cbc -in $GPG_DIR/private-key.gpg.enc -out $GPG_DIR/private-key.gpg -pass pass:$ENCRYPTION_PASSWORD -d -debug
+#- openssl aes-256-cbc -in $GPG_DIR/public-key.gpg.enc -out $GPG_DIR/public-key.gpg -pass pass:$ENCRYPTION_PASSWORD -d -debug
 - ls $GPG_DIR
 - "$GPG_DIR/publish.sh"
 notifications:
