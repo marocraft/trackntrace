@@ -266,22 +266,22 @@
 					</executions>
 				</plugin>
 
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-source-plugin</artifactId>
-					<version>2.10.4</version>
-					<configuration>
-						<encoding>UTF-8</encoding>
-					</configuration>
-					<executions>
-						<execution>
-							<id>attach-sources</id>
-							<goals>
-								<goal>jar</goal>
-							</goals>
-						</execution>
-					</executions>
-				</plugin>
+<!-- 				<plugin> -->
+<!-- 					<groupId>org.apache.maven.plugins</groupId> -->
+<!-- 					<artifactId>maven-source-plugin</artifactId> -->
+<!-- 					<version>2.10.4</version> -->
+<!-- 					<configuration> -->
+<!-- 						<encoding>UTF-8</encoding> -->
+<!-- 					</configuration> -->
+<!-- 					<executions> -->
+<!-- 						<execution> -->
+<!-- 							<id>attach-sources</id> -->
+<!-- 							<goals> -->
+<!-- 								<goal>jar</goal> -->
+<!-- 							</goals> -->
+<!-- 						</execution> -->
+<!-- 					</executions> -->
+<!-- 				</plugin> -->
 
 			</plugins>
 		</pluginManagement>
@@ -357,7 +357,7 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-gpg-plugin</artifactId>
-						<version>1.6</version>
+						<version>1.5</version>
 						<executions>
 							<execution>
 								<id>sign-artifacts</id>
