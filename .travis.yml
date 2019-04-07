@@ -1,7 +1,27 @@
 cache:
   directories:
-  - $HOME/.m2
+  - "$HOME/.m2"
 language: java
 jdk:
 - oraclejdk8
-script: ./build.sh
+script: "./build.sh"
+after_success:
+- echo "after_success"
+- openssl aes-256-cbc -in $GPG_DIR/private-key.gpg.enc -out $GPG_DIR/private-key.gpg -pass pass:$ENCRYPTION_PASSWORD -d -debug
+- openssl aes-256-cbc -in $GPG_DIR/public-key.gpg.enc -out $GPG_DIR/public-key.gpg -pass pass:$ENCRYPTION_PASSWORD -d -debug
+- ls $GPG_DIR
+- "$GPG_DIR/publish.sh"
+notifications:
+  slack:
+    rooms:
+    - agile-irb-bnp:xHsrzcqbdHnQzLVEwrUwva8n#skool-trackntrace
+    template:
+    - Repo `%{repository_slug}` *%{result}* build (<%{build_url}|#%{build_number}>)
+      for commit (<%{compare_url}|%{commit}>) on branch `%{branch}`.
+    - 'Execution time: *%{duration}*'
+    - 'Auteur: %{author}'
+    - 'Message: %{message}'
+env:
+  global:
+    - GPG_DIR="`pwd`/deploy"
+    - secure: SOod09ZUrR3uqpkh4k7Qvdxso+UPcEt5LkHeFEDHlHOoY/DUBpLtd8KP92qurS/iwAtMIcwuFC98959Tz+Y7ayjTMhvEQgpGksbHMNCVwWVdHZBc40xUUwtYiG/YRJnGdoDfVyOrWzeAH2QQHwP23U46c/J+qUPLkjy8SrEUxEBskxLlNmfrech59uejqjHMIwbD4czzsNS/s+fAcD5eCaFqXmzWYA5PIZx1krwVIDFbNjynw8Rbief36X+hAp3O5YrWkrCHUduZ9laS+TdA4nqq7BCRv4boULRDqbtlp84JvHkFA5UawqDVtDIeZWJIHxGkyy5xVoKBnM8R5tfGz2nyXIcgTKD0xPwNpOoU32FK8zuleR70mm5WkQcWgiyqP4+1dkr2JaqO2cTErZWg4V/kka+7x5ShVbdohLeatd3UxMS7MS0xXOTrPziHISgGhOjw67Zjs9K4cpYaIV5sfiwbDSzstL53yHuZexBqqqq5Q9KAKpZcKRTkYed3Df3OLN/SRvETqAAuiv+qPjOwbg0PKNgo7dJ2HMYW6EsUD8ZWh9aC59jaH1koROjbQfOD7qklLmbrzIAesC3CFDDFgJNq5AL+q0ArbgkrN94nQoDahE4+kH5s05Cjz8eisz08zUXu9eViBxYg0kO3nnaGgD244hYGUxMT58FLs3ahdR8=

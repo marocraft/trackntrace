@@ -1,0 +1,44 @@
+<configuration>
+	<appender name="FILE-TNT"
+		class="ch.qos.logback.core.FileAppender">
+		<file>./logstnt/logs2.txt</file>
+
+		<encoder>
+			<pattern>%X{logs}</pattern>
+		</encoder>
+	</appender>
+	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
+		<file>C:/logstnt/logs2.txt</file>
+
+		<encoder>
+			<Pattern>
+				%d{yyyy-MM-dd HH:mm:ss} - %msg%n
+			</Pattern>
+		</encoder>
+	</appender>
+
+	<appender name="STDOUT-TNT"
+		class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%X{logs}</pattern>
+		</encoder>
+	</appender>
+	<appender name="STDOUT"
+		class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<Pattern>
+				%d{yyyy-MM-dd HH:mm:ss} - %msg%n
+			</Pattern>
+		</encoder>
+	</appender>
+	<logger name="ma.craft.trackntrace" level="debug"
+		additivity="false">
+		<appender-ref ref="FILE-TNT" />
+		<appender-ref ref="STDOUT-TNT" />
+	</logger>
+
+	<root level="debug">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FILE" />
+	</root>
+</configuration>
