@@ -1,9 +1,5 @@
 package ma.craft.trackntrace;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +8,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import ma.craft.trackntrace.context.SpringAOPContext;
 import ma.craft.trackntrace.domain.Template;
-import ma.craft.trackntrace.generate.LogPublisher;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = SpringAOPContext.class)
@@ -22,7 +17,7 @@ public class AspectAnnotationTest {
 	TestService testService;
 	@Autowired
 	Template template;
-
+/*
 	@Test
 	public void shouldLogHaveInfoLevel() throws InterruptedException, IOException, FileNotFoundException {
 		Assert.assertTrue(LogPublisher.instance().empty());
@@ -51,5 +46,12 @@ public class AspectAnnotationTest {
 		LogPublisher.instance().exportmdc(LogPublisher.instance().getLogs());
 
 	}
-
+*/
+	
+	
+	@Test
+	public void shouldLog() {
+		testService.sleep(200);
+		
+	}
 }
