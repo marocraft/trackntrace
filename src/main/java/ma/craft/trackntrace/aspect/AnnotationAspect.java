@@ -36,8 +36,8 @@ public class AnnotationAspect {
 	@Autowired
 	Template template;
 	
-	@Autowired
-	ILogPublisher logPublish;
+	//@Autowired
+	//ILogPublisher logPublish;
 
 	/**
 	 * Trace aspect collecte les donées des methodes annotées et génère un log
