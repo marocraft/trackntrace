@@ -20,6 +20,7 @@ import lombok.Getter;
 public class LogPublisher {
 
 	private static final LogPublisher INSTANCE = new LogPublisher();
+	
 	private List<String> logs = new ArrayList<String>();
 
 	private LogPublisher() {
