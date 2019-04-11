@@ -26,6 +26,7 @@ mvnw.cmd
 /dist/
 /nbdist/
 /.nb-gradle/
+/logstnt/*
 
 ## Mac OS ###
 .DS_Store
