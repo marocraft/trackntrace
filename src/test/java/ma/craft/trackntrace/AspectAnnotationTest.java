@@ -31,10 +31,9 @@ public class AspectAnnotationTest {
 
 	@Autowired
 	LogBuilder logBuilder;
-	
+
 	@Autowired
 	LoggerThread loggerThread;
-
 
 	@Test
 	public void shouldBuildLogs()
@@ -55,7 +54,7 @@ public class AspectAnnotationTest {
 		LogPublisher.LOG_QUEUE.clear();
 		Assert.assertEquals(0, LogPublisher.LOG_QUEUE.size());
 	}
-	
+
 	public void shouldNotPublishLogs() throws IOException, InterruptedException, FileNotFoundException {
 		LogPublisher.LOG_QUEUE.clear();
 		logPublisher.publish(null);

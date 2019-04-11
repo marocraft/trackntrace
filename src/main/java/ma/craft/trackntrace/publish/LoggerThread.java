@@ -4,6 +4,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+/**
+ * Permet de créer et d'éxecuter un Thread
+ * 
+ * @author Tassa Housseine
+ */
 @Component("loggerThread")
 public class LoggerThread extends Thread {
 

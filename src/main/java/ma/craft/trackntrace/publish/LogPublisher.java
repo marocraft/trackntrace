@@ -6,6 +6,11 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import lombok.Getter;
 
+/**
+ * Permet de publier les logs collectés dans une Qeue bloquante
+ * 
+ *@author Housseine Tassa
+ */
 @Getter
 @Component
 @Scope("singleton")
