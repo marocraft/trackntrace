@@ -2,6 +2,8 @@ package ma.craft.trackntrace.aspect;
 
 import java.io.IOException;
 
+import javax.annotation.PostConstruct;
+
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
@@ -21,14 +23,13 @@ import ma.craft.trackntrace.publish.ILogPublisher;
 import ma.craft.trackntrace.publish.LoggerThread;
 
 /**
- * AnnotationAspect permet de definir le traitement des différentes annotation :
+ *  AnnotationAspect permet de definir le traitement des différentes annotation :
  * -Trace -TechnicalLog -Restlog
  *
- * Auteur Tassa Housseine
  */
 @Aspect
 @Component
-
+@DependsOn("loggerThread")
 public class AnnotationAspect {
 
 	@Autowired
@@ -42,7 +43,7 @@ public class AnnotationAspect {
 
 	@Autowired
 	LoggerThread loggerThread;
-	
+
 	/**
 	 * Trace aspect collecte les donées des methodes annotées et génère un log basé
 	 * sur une template spécifique
@@ -50,9 +51,9 @@ public class AnnotationAspect {
 	 * @param joinPoint
 	 * @throws Throwable
 	 */
+
 	@Around(value = "@annotation(ma.craft.trackntrace.annotation.Trace)")
 	public Object whenAnnotatedWithTrace(final ProceedingJoinPoint joinPoint) throws Throwable {
-		startLoggerThread();
 		StopWatch stopWatch = startTimer();
 		Object proceed = executeAnnotedMethod(joinPoint);
 		stopTimer(stopWatch);
@@ -75,7 +76,6 @@ public class AnnotationAspect {
 		Object clazz = joinPoint.getTarget();
 		LogTrace logTrace = collector.collect(clazz.getClass().getName(), methodSignature.getName(), LogLevel,
 				stopWatch.getTotalTimeMillis(), logMessage);
-
 		String log = logBuilder.build(logTrace);
 		logPublish.publish(log);
 	}
@@ -93,10 +93,15 @@ public class AnnotationAspect {
 		stopWatch.start();
 		return stopWatch;
 	}
-	@DependsOn("loggerThread")
+
+	@PostConstruct
+	public void postConstruct() {
+		startLoggerThread();
+	}
+	
 	private void startLoggerThread() {
 		if (loggerThread != null) {
-			if (!loggerThread.isAlive()) loggerThread.start();
+			loggerThread.start();
 		}
 	}
 }
