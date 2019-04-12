@@ -5,6 +5,7 @@ import java.util.concurrent.LinkedBlockingDeque;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Permet de publier les logs collectés dans une Qeue bloquante
@@ -14,9 +15,10 @@ import lombok.Getter;
 @Getter
 @Component
 @Scope("singleton")
-public class LogPublisher implements ILogPublisher {
+@Slf4j
+public class LogPublisher implements ILogPublisher<String> {
 
-	public static BlockingQueue<String> LOG_QUEUE = new LinkedBlockingDeque<>();
+	private BlockingQueue<String> LOG_QUEUE = new LinkedBlockingDeque<>(50);
 	private String var;
 
 	@Override
@@ -24,7 +26,22 @@ public class LogPublisher implements ILogPublisher {
 		try {
 			LOG_QUEUE.put(message);
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			log.error(message, ex);
 		}
 	}
+
+	@Override
+	public String get() throws InterruptedException {
+		return LOG_QUEUE.take();
+	}
+
+	public void clear() {
+		LOG_QUEUE.clear();
+	}
+
+	public int size() {
+		return LOG_QUEUE.size();
+	}
+	
+	
 }

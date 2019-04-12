@@ -1,9 +1,14 @@
 package ma.craft.trackntrace.publish;
 
-public interface ILogPublisher {
+public interface ILogPublisher<E> {
 	
 	/**
+	 * Add a new message to the queue
+	 * 
 	 * @param logMessage
 	 */
-	public void publish(String logMessage);
+	public void publish(E message);
+	
+	public E get() throws InterruptedException;
+
 }

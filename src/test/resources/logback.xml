@@ -31,13 +31,13 @@
 			</Pattern>
 		</encoder>
 	</appender>
-	<logger name="ma.craft.trackntrace" level="debug"
+	<logger name="ma.craft.trackntrace" level="info"
 		additivity="false">
 		<appender-ref ref="FILE" />
 		<appender-ref ref="STDOUT" />
 	</logger>
 
-	<root level="debug">
+	<root level="info">
 		<appender-ref ref="STDOUT" />
 		<appender-ref ref="FILE" />
 	</root>

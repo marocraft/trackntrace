@@ -48,17 +48,17 @@ public class AspectAnnotationTest {
 
 	@Test
 	public void shouldPublishLogs() throws IOException, InterruptedException, FileNotFoundException {
-		LogPublisher.LOG_QUEUE.clear();
+		logPublisher.clear();
 		logPublisher.publish("my log");
-		Assert.assertEquals(1, LogPublisher.LOG_QUEUE.size());
-		LogPublisher.LOG_QUEUE.clear();
-		Assert.assertEquals(0, LogPublisher.LOG_QUEUE.size());
+		Assert.assertEquals(1, logPublisher.size());
+		logPublisher.clear();
+		Assert.assertEquals(0, logPublisher.size());
 	}
 
 	public void shouldNotPublishLogs() throws IOException, InterruptedException, FileNotFoundException {
-		LogPublisher.LOG_QUEUE.clear();
+		logPublisher.clear();
 		logPublisher.publish(null);
-		Assert.assertEquals(0, LogPublisher.LOG_QUEUE.size());
+		Assert.assertEquals(0, logPublisher.size());
 	}
 
 	@Test

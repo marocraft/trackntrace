@@ -1,8 +1,9 @@
 package ma.craft.trackntrace.publish;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Permet de créer et d'éxecuter un Thread
@@ -10,18 +11,27 @@ import org.springframework.stereotype.Component;
  * @author Tassa Housseine
  */
 @Component("loggerThread")
+@Slf4j
 public class LoggerThread extends Thread {
 
-	final Logger LOG = LoggerFactory.getLogger(LoggerThread.class);
+	
+	@Autowired
+	LogPublisher publisher;
 
 	@Override
 	public void run() {
-		while (true) {
-			try {
-				LOG.info(LogPublisher.LOG_QUEUE.take());
-				} catch (Exception ex) {
-					ex.printStackTrace();
+		String msg = null;
+		try {
+			if (publisher!=null) {
+				while ((msg= publisher.get() )!= null) {
+					log.info(msg);
+					Thread.sleep(10);
 				}
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error(e.getMessage(), e);
 		}
 	}
 }
