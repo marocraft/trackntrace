@@ -9,15 +9,14 @@ import lombok.Getter;
 /**
  * Permet de publier les logs collectés dans une Qeue bloquante
  * 
- *@author Housseine Tassa
+ * @author Housseine Tassa
  */
 @Getter
 @Component
 @Scope("singleton")
 public class LogPublisher implements ILogPublisher {
 
-	public static BlockingQueue<String> LOG_QUEUE = new LinkedBlockingDeque<>();
-	private String var;
+	public static BlockingQueue<String> LOG_QUEUE = new LinkedBlockingDeque<>(50);
 
 	@Override
 	public void publish(String message) {
