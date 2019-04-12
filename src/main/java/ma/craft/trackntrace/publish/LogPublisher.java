@@ -19,7 +19,6 @@ import lombok.extern.slf4j.Slf4j;
 public class LogPublisher implements ILogPublisher<String> {
 
 	private BlockingQueue<String> LOG_QUEUE = new LinkedBlockingDeque<>(50);
-	private String var;
 
 	@Override
 	public void publish(String message) {

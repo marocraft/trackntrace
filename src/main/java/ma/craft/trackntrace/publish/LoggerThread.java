@@ -16,7 +16,7 @@ public class LoggerThread extends Thread {
 
 	
 	@Autowired
-	LogPublisher publisher;
+	ILogPublisher<String> publisher;
 
 	@Override
 	public void run() {
