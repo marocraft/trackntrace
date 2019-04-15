@@ -10,11 +10,10 @@ import lombok.extern.slf4j.Slf4j;
  * 
  * @author Tassa Housseine
  */
-@Component("loggerThread")
 @Slf4j
+@Component
 public class LoggerThread implements Runnable {
 
-	
 	@Autowired
 	ILogPublisher<String> publisher;
 
@@ -22,13 +21,13 @@ public class LoggerThread implements Runnable {
 	public void run() {
 		String msg = null;
 		try {
-			if (publisher!=null) {
-				while ((msg= publisher.get() )!= null) {
+			if (publisher != null) {
+				while ((msg = publisher.get()) != null) {
 					log.info(msg);
 					Thread.sleep(10);
 				}
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error(e.getMessage(), e);

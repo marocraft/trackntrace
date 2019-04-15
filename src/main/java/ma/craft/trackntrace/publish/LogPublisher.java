@@ -10,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * Permet de publier les logs collectés dans une Qeue bloquante
  * 
- *@author Housseine Tassa
+ * @author Housseine Tassa
  */
 @Getter
 @Component
@@ -41,6 +41,4 @@ public class LogPublisher implements ILogPublisher<String> {
 	public int size() {
 		return logQeue.size();
 	}
-	
-	
 }

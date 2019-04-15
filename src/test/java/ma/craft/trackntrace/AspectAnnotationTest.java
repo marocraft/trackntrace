@@ -15,8 +15,6 @@ import ma.craft.trackntrace.domain.LogTrace;
 import ma.craft.trackntrace.domain.Template;
 import ma.craft.trackntrace.generate.LogBuilder;
 import ma.craft.trackntrace.publish.ILogPublisher;
-import ma.craft.trackntrace.publish.LogPublisher;
-import ma.craft.trackntrace.publish.LoggerThread;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = SpringAOPContext.class)
@@ -24,6 +22,7 @@ public class AspectAnnotationTest {
 
 	@Autowired
 	TestService testService;
+
 	@Autowired
 	Template template;
 
@@ -32,9 +31,6 @@ public class AspectAnnotationTest {
 
 	@Autowired
 	LogBuilder logBuilder;
-
-	@Autowired
-	LoggerThread loggerThread;
 
 	@Test
 	public void shouldBuildLogs()
@@ -65,6 +61,5 @@ public class AspectAnnotationTest {
 	@Test
 	public void shouldLog() {
 		testService.sleep(200);
-
 	}
 }

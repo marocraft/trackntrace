@@ -1,8 +1,6 @@
 package ma.craft.trackntrace.aspect;
 
 import java.io.IOException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import javax.annotation.PostConstruct;
 
@@ -12,7 +10,10 @@ import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.DependsOn;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StopWatch;
 
@@ -32,7 +33,8 @@ import ma.craft.trackntrace.publish.ThreadPoolManager;
  */
 @Aspect
 @Component
-@DependsOn("loggerThread")
+@Scope("singleton")
+@PropertySource("classpath:/application.yml")
 public class AnnotationAspect {
 
 	@Autowired
@@ -42,10 +44,11 @@ public class AnnotationAspect {
 	Template template;
 
 	@Autowired
-	ILogPublisher logPublish;
+	ILogPublisher<String> logPublish;
 
-	@Autowired
-	LoggerThread loggerThread;
+	@Value("${tnt.threadpool:1}")
+	Integer threadpoolsize;
+
 	@Autowired
 	ThreadPoolManager threadPoolManager;
 
@@ -73,17 +76,17 @@ public class AnnotationAspect {
 	 * @throws IOException
 	 */
 	private void collectAndGenerateLog(final JoinPoint joinPoint, StopWatch stopWatch)
-			throws IllegalAccessException, IOException {
-		ExecutorService executorService = Executors.newFixedThreadPool(2);
-		executorService.submit(loggerThread);
+			throws IllegalAccessException {
 		LogCollector collector = new LogCollector();
-		LogLevel LogLevel = collector.collectLogLevel(joinPoint);
+		LogLevel logLevel = collector.collectLogLevel(joinPoint);
 		String logMessage = collector.logMessage(joinPoint);
 		Signature methodSignature = joinPoint.getSignature();
 		Object clazz = joinPoint.getTarget();
-		LogTrace logTrace = collector.collect(clazz.getClass().getName(), methodSignature.getName(), LogLevel,
+
+		LogTrace logTrace = collector.collect(clazz.getClass().getName(), methodSignature.getName(), logLevel,
 				stopWatch.getTotalTimeMillis(), logMessage);
 		String log = logBuilder.build(logTrace);
+
 		logPublish.publish(log);
 	}
 
@@ -103,13 +106,10 @@ public class AnnotationAspect {
 
 	@PostConstruct
 	public void postConstruct() {
-		startLoggerThread();
-	}
-
-	private void startLoggerThread() {
-		if (loggerThread != null) {
-			threadPoolManager.submitThread(loggerThread);
+		// start multithreading
+		threadPoolManager.executeService();
+		for (int i = 1; i <= threadpoolsize; i++) {
+			threadPoolManager.submitThread(new LoggerThread());
 		}
-
 	}
 }
