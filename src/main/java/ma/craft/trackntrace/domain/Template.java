@@ -10,6 +10,7 @@ public class Template {
 
 	@Value("${format}")
 	private String format;
+	
 	@Value("${logsPath}")
 	private String logsPath;
 

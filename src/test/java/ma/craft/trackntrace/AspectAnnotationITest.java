@@ -30,20 +30,15 @@ public class AspectAnnotationITest {
 
 	@Autowired
 	LogBuilder logBuilder;
-
 	
 	LoggerThread loggerThread;
 
 	@Test
 	public void shoulTakeMessage() throws IOException, InterruptedException, FileNotFoundException {
 		loggerThread= new LoggerThread();
-		logPublisher.clear();
-		//Assert.assertEquals(false, loggerThread.isAlive());
 		logPublisher.publish("my log");
 		Thread.sleep(1000);
-		Assert.assertEquals(0, logPublisher.size());
-		//loggerThread.start();
-		//Assert.assertEquals(true, loggerThread.isAlive());
+		Assert.assertEquals(1, logPublisher.size());
 		logPublisher.clear();
 		Assert.assertEquals(0, logPublisher.size());
 	}
