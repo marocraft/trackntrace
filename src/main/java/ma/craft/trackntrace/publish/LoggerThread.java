@@ -12,7 +12,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Component("loggerThread")
 @Slf4j
-public class LoggerThread extends Thread {
+public class LoggerThread implements Runnable {
 
 	
 	@Autowired
