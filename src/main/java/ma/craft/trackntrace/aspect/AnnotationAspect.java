@@ -1,6 +1,8 @@
 package ma.craft.trackntrace.aspect;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.annotation.PostConstruct;
 
@@ -21,9 +23,10 @@ import ma.craft.trackntrace.domain.Template;
 import ma.craft.trackntrace.generate.LogBuilder;
 import ma.craft.trackntrace.publish.ILogPublisher;
 import ma.craft.trackntrace.publish.LoggerThread;
+import ma.craft.trackntrace.publish.ThreadPoolManager;
 
 /**
- *  AnnotationAspect permet de definir le traitement des différentes annotation :
+ * AnnotationAspect permet de definir le traitement des différentes annotation :
  * -Trace -TechnicalLog -Restlog
  *
  */
@@ -43,6 +46,8 @@ public class AnnotationAspect {
 
 	@Autowired
 	LoggerThread loggerThread;
+	@Autowired
+	ThreadPoolManager threadPoolManager;
 
 	/**
 	 * Trace aspect collecte les donées des methodes annotées et génère un log basé
@@ -69,6 +74,8 @@ public class AnnotationAspect {
 	 */
 	private void collectAndGenerateLog(final JoinPoint joinPoint, StopWatch stopWatch)
 			throws IllegalAccessException, IOException {
+		ExecutorService executorService = Executors.newFixedThreadPool(2);
+		executorService.submit(loggerThread);
 		LogCollector collector = new LogCollector();
 		LogLevel LogLevel = collector.collectLogLevel(joinPoint);
 		String logMessage = collector.logMessage(joinPoint);
@@ -98,10 +105,11 @@ public class AnnotationAspect {
 	public void postConstruct() {
 		startLoggerThread();
 	}
-	
+
 	private void startLoggerThread() {
 		if (loggerThread != null) {
-			loggerThread.start();
+			threadPoolManager.submitThread(loggerThread);
 		}
+
 	}
 }

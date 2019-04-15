@@ -14,6 +14,7 @@ import ma.craft.trackntrace.context.SpringAOPContext;
 import ma.craft.trackntrace.domain.LogTrace;
 import ma.craft.trackntrace.domain.Template;
 import ma.craft.trackntrace.generate.LogBuilder;
+import ma.craft.trackntrace.publish.ILogPublisher;
 import ma.craft.trackntrace.publish.LogPublisher;
 import ma.craft.trackntrace.publish.LoggerThread;
 
@@ -27,7 +28,7 @@ public class AspectAnnotationTest {
 	Template template;
 
 	@Autowired
-	LogPublisher logPublisher;
+	ILogPublisher<String> logPublisher;
 
 	@Autowired
 	LogBuilder logBuilder;

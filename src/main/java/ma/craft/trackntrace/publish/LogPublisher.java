@@ -18,12 +18,12 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class LogPublisher implements ILogPublisher<String> {
 
-	private BlockingQueue<String> LOG_QUEUE = new LinkedBlockingDeque<>(50);
+	private BlockingQueue<String> logQeue = new LinkedBlockingDeque<>(50);
 
 	@Override
 	public void publish(String message) {
 		try {
-			LOG_QUEUE.put(message);
+			logQeue.put(message);
 		} catch (Exception ex) {
 			log.error(message, ex);
 		}
@@ -31,15 +31,15 @@ public class LogPublisher implements ILogPublisher<String> {
 
 	@Override
 	public String get() throws InterruptedException {
-		return LOG_QUEUE.take();
+		return logQeue.take();
 	}
 
 	public void clear() {
-		LOG_QUEUE.clear();
+		logQeue.clear();
 	}
 
 	public int size() {
-		return LOG_QUEUE.size();
+		return logQeue.size();
 	}
 	
 	

@@ -10,5 +10,8 @@ public interface ILogPublisher<E> {
 	public void publish(E message);
 	
 	public E get() throws InterruptedException;
+	public void clear();
+	public int size();
+	
 
 }
