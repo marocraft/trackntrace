@@ -15,6 +15,8 @@ import ma.craft.trackntrace.domain.LogTrace;
 import ma.craft.trackntrace.domain.Template;
 import ma.craft.trackntrace.generate.LogBuilder;
 import ma.craft.trackntrace.publish.ILogPublisher;
+import ma.craft.trackntrace.publish.LoggerThread;
+import ma.craft.trackntrace.publish.ThreadPoolManager;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = SpringAOPContext.class)
@@ -31,6 +33,9 @@ public class AspectAnnotationTest {
 
 	@Autowired
 	LogBuilder logBuilder;
+	
+	@Autowired
+	ThreadPoolManager threadPoolManager;
 
 	@Test
 	public void shouldBuildLogs()
@@ -43,21 +48,13 @@ public class AspectAnnotationTest {
 				log);
 	}
 
-	@Test
-	public void shouldPublishLogs() throws IOException, InterruptedException, FileNotFoundException {
-		logPublisher.clear();
-		logPublisher.publish("my log");
-		Assert.assertEquals(1, logPublisher.size());
-		logPublisher.clear();
-		Assert.assertEquals(0, logPublisher.size());
-	}
-
 	public void shouldNotPublishLogs() throws IOException, InterruptedException, FileNotFoundException {
 		logPublisher.clear();
 		logPublisher.publish(null);
 		Assert.assertEquals(0, logPublisher.size());
 	}
-
+	
+	
 	@Test
 	public void shouldLog() {
 		testService.sleep(200);

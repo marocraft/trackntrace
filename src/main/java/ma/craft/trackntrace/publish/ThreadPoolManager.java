@@ -5,12 +5,10 @@ import java.util.concurrent.Executors;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component
 @PropertySource("classpath:/application.yml")
-@Scope("singleton")
 public class ThreadPoolManager {
 
 	@Value("${tnt.threadpool:1}")
@@ -18,17 +16,16 @@ public class ThreadPoolManager {
 
 	ExecutorService executorService;
 
-	public void executeService() {
+	public void initialize() {
 		executorService = Executors.newFixedThreadPool(threadpoolsize);
 	}
 
 	public void submitThread(Runnable thread) {
-		thread.run();
 		executorService.submit(thread);
+	
 	}
 
 	public void shutDownThreadPool() {
 		executorService.shutdown();
 	}
-
 }

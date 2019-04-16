@@ -52,6 +52,9 @@ public class AnnotationAspect {
 	@Autowired
 	ThreadPoolManager threadPoolManager;
 
+	@Autowired
+	ApplicationContext ctx;
+
 	/**
 	 * Trace aspect collecte les donées des methodes annotées et génère un log basé
 	 * sur une template spécifique
@@ -75,8 +78,7 @@ public class AnnotationAspect {
 	 * @throws IllegalAccessException
 	 * @throws IOException
 	 */
-	private void collectAndGenerateLog(final JoinPoint joinPoint, StopWatch stopWatch)
-			throws IllegalAccessException {
+	private void collectAndGenerateLog(final JoinPoint joinPoint, StopWatch stopWatch) throws IllegalAccessException {
 		LogCollector collector = new LogCollector();
 		LogLevel logLevel = collector.collectLogLevel(joinPoint);
 		String logMessage = collector.logMessage(joinPoint);
@@ -107,9 +109,9 @@ public class AnnotationAspect {
 	@PostConstruct
 	public void postConstruct() {
 		// start multithreading
-		threadPoolManager.executeService();
+		threadPoolManager.initialize();
 		for (int i = 1; i <= threadpoolsize; i++) {
-			threadPoolManager.submitThread(new LoggerThread());
+			threadPoolManager.submitThread(ctx.getBean(LoggerThread.class));
 		}
 	}
 }
