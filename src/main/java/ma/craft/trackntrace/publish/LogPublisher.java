@@ -2,8 +2,9 @@ package ma.craft.trackntrace.publish;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
-import org.springframework.context.annotation.Scope;
+
 import org.springframework.stereotype.Component;
+
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -13,8 +14,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author Housseine Tassa
  */
 @Getter
-@Component
-@Scope("singleton")
+@Component("logPublisher")
 @Slf4j
 public class LogPublisher implements ILogPublisher<String> {
 

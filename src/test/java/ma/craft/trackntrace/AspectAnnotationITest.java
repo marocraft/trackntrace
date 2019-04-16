@@ -22,6 +22,7 @@ public class AspectAnnotationITest {
 
 	@Autowired
 	TestService testService;
+	
 	@Autowired
 	Template template;
 
@@ -37,7 +38,6 @@ public class AspectAnnotationITest {
 	public void shoulTakeMessage() throws IOException, InterruptedException, FileNotFoundException {
 		loggerThread= new LoggerThread();
 		logPublisher.publish("my log");
-		Thread.sleep(1000);
 		Assert.assertEquals(1, logPublisher.size());
 		logPublisher.clear();
 		Assert.assertEquals(0, logPublisher.size());
