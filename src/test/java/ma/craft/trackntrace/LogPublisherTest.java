@@ -10,7 +10,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ma.craft.trackntrace.context.SpringBasicContext;
 import ma.craft.trackntrace.publish.ILogPublisher;
 import ma.craft.trackntrace.publish.LogPublisher;
-import ma.craft.trackntrace.publish.LoggerThread;
 import ma.craft.trackntrace.publish.ThreadPoolManager;
 
 @RunWith(SpringJUnit4ClassRunner.class)
