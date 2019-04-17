@@ -319,7 +319,7 @@
 						<extensions>true</extensions>
 						<configuration>
 							<serverid>ossrh</serverid>
-							<nexusurl>https://oss.sonatype.org/</nexusurl>
+							<nexusUrl>https://oss.sonatype.org/</nexusUrl>
 							<autoreleaseafterclose>true</autoreleaseafterclose>
 						</configuration>
 					</plugin>
