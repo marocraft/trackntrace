@@ -11,6 +11,8 @@
 
 	<name>trackntrace</name>
 	<description>Intercept method calls and produce logs</description>
+	<url>https://github.com/marocraft/trackntrace</url>
+	
 	<developers>
 		<developer>
 			<id>HT</id>
