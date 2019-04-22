@@ -318,9 +318,9 @@
 						<version>1.6.8</version>
 						<extensions>true</extensions>
 						<configuration>
-							<serverId>ossrh</serverId>
+							<serverid>ossrh</serverid>
 							<nexusUrl>https://oss.sonatype.org/</nexusUrl>
-							<autoReleaseAfterClose>true</autoReleaseAfterClose>
+							<autoreleaseafterclose>true</autoreleaseafterclose>
 						</configuration>
 					</plugin>
 					<!-- To generate javadoc -->
