@@ -34,7 +34,7 @@ import ma.craft.trackntrace.publish.ThreadPoolManager;
 @Aspect
 @Component
 @Scope("singleton")
-@PropertySource("classpath:/application.yml")
+@PropertySource("classpath:/application.properties")
 public class AnnotationAspect {
 
 	@Autowired
