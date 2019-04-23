@@ -1,4 +1,4 @@
-package ma.craft.trackntrace.publish;
+package com.github.marocraft.trackntrace.publish;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
@@ -9,21 +9,22 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Permet de publier les logs collectés dans une Qeue bloquante
+ * Publish collected logs into a blocking queue to be processed by running
+ * threads
  * 
- * @author Housseine Tassa
+ * @author Housseine TASSA
  */
 @Getter
 @Component("logPublisher")
 @Slf4j
 public class LogPublisher implements ILogPublisher<String> {
 
-	private BlockingQueue<String> logQeue = new LinkedBlockingDeque<>(50);
+	private BlockingQueue<String> logQueue = new LinkedBlockingDeque<>(50);
 
 	@Override
 	public void publish(String message) {
 		try {
-			logQeue.put(message);
+			logQueue.put(message);
 		} catch (Exception ex) {
 			log.error(message, ex);
 		}
@@ -31,14 +32,14 @@ public class LogPublisher implements ILogPublisher<String> {
 
 	@Override
 	public String get() throws InterruptedException {
-		return logQeue.take();
+		return logQueue.take();
 	}
 
 	public void clear() {
-		logQeue.clear();
+		logQueue.clear();
 	}
 
 	public int size() {
-		return logQeue.size();
+		return logQueue.size();
 	}
 }
