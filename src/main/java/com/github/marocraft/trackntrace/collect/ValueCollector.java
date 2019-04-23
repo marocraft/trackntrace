@@ -1,16 +1,24 @@
-package ma.craft.trackntrace.collect;
-
-import ma.craft.trackntrace.annotation.Mapping;
-import ma.craft.trackntrace.domain.LogTrace;
+package com.github.marocraft.trackntrace.collect;
 
 import java.lang.reflect.Field;
 
+import com.github.marocraft.trackntrace.annotation.Mapping;
+import com.github.marocraft.trackntrace.domain.LogTrace;
+
 /**
- * Cherche la veleur de fieldName  dans l'ensemble des champs à partir de LogTrace
+ * Find value of fieldname of a collection of fields from a LogTrace object
  * 
- *Auteur Tassa Housseine
+ * @author Housseine TASSA
+ * @author Khalid ELABBADI
  */
 public class ValueCollector {
+	
+	/**
+	 * Just for hidding public constructor
+	 */
+	private ValueCollector() {
+
+	}
 
 	public static Object valueOf(String fieldName, LogTrace trace) throws IllegalAccessException {
 		Field[] clazzFields = trace.getClass().getDeclaredFields();
@@ -21,6 +29,7 @@ public class ValueCollector {
 				return clazzField.get(trace);
 			}
 		}
+
 		return null;
 	}
 }

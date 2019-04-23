@@ -1,4 +1,4 @@
-package ma.craft.trackntrace.aspect;
+package com.github.marocraft.trackntrace.aspect;
 
 import java.io.IOException;
 
@@ -17,19 +17,23 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StopWatch;
 
-import ma.craft.trackntrace.collect.LogCollector;
-import ma.craft.trackntrace.domain.LogLevel;
-import ma.craft.trackntrace.domain.LogTrace;
-import ma.craft.trackntrace.domain.Template;
-import ma.craft.trackntrace.generate.LogBuilder;
-import ma.craft.trackntrace.publish.ILogPublisher;
-import ma.craft.trackntrace.publish.LoggerThread;
-import ma.craft.trackntrace.publish.ThreadPoolManager;
+import com.github.marocraft.trackntrace.collect.LogCollector;
+import com.github.marocraft.trackntrace.config.TnTConfiguration;
+import com.github.marocraft.trackntrace.domain.LogLevel;
+import com.github.marocraft.trackntrace.domain.LogTrace;
+import com.github.marocraft.trackntrace.generate.LogBuilder;
+import com.github.marocraft.trackntrace.publish.ILogPublisher;
+import com.github.marocraft.trackntrace.publish.LoggerThread;
+import com.github.marocraft.trackntrace.publish.ThreadPoolManager;
 
 /**
- * AnnotationAspect permet de definir le traitement des différentes annotation :
- * -Trace -TechnicalLog -Restlog
- *
+ * Annotations Core processing aspect allowing to run the behavior of the
+ * framework defined annotations like @Trace
+ * 
+ * @author Houseine TASSA
+ * @author Sallah KOKAINA
+ * @since 0.0.3
+ * 
  */
 @Aspect
 @Component
@@ -41,47 +45,48 @@ public class AnnotationAspect {
 	LogBuilder logBuilder;
 
 	@Autowired
-	Template template;
+	TnTConfiguration config;
 
 	@Autowired
-	ILogPublisher<String> logPublish;
+	ILogPublisher<String> logPublisher;
 
-	@Value("${tnt.threadpool:1}")
-	Integer threadpoolsize;
+	@Value("${tnt.multithread.poolsize:1}")
+	Integer threadPoolSize;
 
 	@Autowired
 	ThreadPoolManager threadPoolManager;
 
 	@Autowired
-	ApplicationContext ctx;
+	ApplicationContext applicationContext;
 
 	/**
-	 * Trace aspect collecte les donées des methodes annotées et génère un log basé
-	 * sur une template spécifique
+	 * Collect data about annotated methods execution and generate a specific based
+	 * template
 	 * 
 	 * @param joinPoint
 	 * @throws Throwable
 	 */
-
 	@Around(value = "@annotation(ma.craft.trackntrace.annotation.Trace)")
 	public Object whenAnnotatedWithTrace(final ProceedingJoinPoint joinPoint) throws Throwable {
 		StopWatch stopWatch = startTimer();
 		Object proceed = executeAnnotedMethod(joinPoint);
 		stopTimer(stopWatch);
-		collectAndGenerateLog(joinPoint, stopWatch);
+		generateLog(joinPoint, stopWatch);
 		return proceed;
 	}
 
 	/**
+	 * Collect and generate logs
+	 * 
 	 * @param joinPoint
 	 * @param stopWatch
 	 * @throws IllegalAccessException
 	 * @throws IOException
 	 */
-	private void collectAndGenerateLog(final JoinPoint joinPoint, StopWatch stopWatch) throws IllegalAccessException {
+	private void generateLog(final JoinPoint joinPoint, StopWatch stopWatch) throws IllegalAccessException {
 		LogCollector collector = new LogCollector();
-		LogLevel logLevel = collector.collectLogLevel(joinPoint);
-		String logMessage = collector.logMessage(joinPoint);
+		LogLevel logLevel = collector.getLevel(joinPoint);
+		String logMessage = collector.getMessage(joinPoint);
 		Signature methodSignature = joinPoint.getSignature();
 		Object clazz = joinPoint.getTarget();
 
@@ -89,7 +94,7 @@ public class AnnotationAspect {
 				stopWatch.getTotalTimeMillis(), logMessage);
 		String log = logBuilder.build(logTrace);
 
-		logPublish.publish(log);
+		logPublisher.publish(log);
 	}
 
 	private Object executeAnnotedMethod(final ProceedingJoinPoint joinPoint) throws Throwable {
@@ -108,10 +113,11 @@ public class AnnotationAspect {
 
 	@PostConstruct
 	public void postConstruct() {
-		// start multithreading
+
+		// start multi-threading
 		threadPoolManager.initialize();
-		for (int i = 1; i <= threadpoolsize; i++) {
-			threadPoolManager.submitThread(ctx.getBean(LoggerThread.class));
+		for (int i = 1; i <= threadPoolSize; i++) {
+			threadPoolManager.submitThread(applicationContext.getBean(LoggerThread.class));
 		}
 	}
 }

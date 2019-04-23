@@ -1,4 +1,4 @@
-package ma.craft.trackntrace.publish;
+package com.github.marocraft.trackntrace.publish;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -8,18 +8,18 @@ import org.springframework.stereotype.Component;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Permet de créer et d'éxecuter un Thread
+ * Logger thread body
  * 
  * @author Tassa Housseine
  */
 @Slf4j
 @Component
-@Scope(value= BeanDefinition.SCOPE_PROTOTYPE)
+@Scope(value = BeanDefinition.SCOPE_PROTOTYPE)
 public class LoggerThread implements Runnable {
 
 	@Autowired
 	ILogPublisher<String> publisher;
-	
+
 	@Override
 	public void run() {
 		String msg = null;

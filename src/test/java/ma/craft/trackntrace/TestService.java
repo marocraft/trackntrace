@@ -2,8 +2,8 @@ package ma.craft.trackntrace;
 
 import org.springframework.stereotype.Component;
 
-import ma.craft.trackntrace.annotation.Trace;
-import ma.craft.trackntrace.domain.LogLevel;
+import com.github.marocraft.trackntrace.annotation.Trace;
+import com.github.marocraft.trackntrace.domain.LogLevel;
 
 @Component
 public class TestService {
@@ -15,7 +15,5 @@ public class TestService {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-
 	}
-	
 }

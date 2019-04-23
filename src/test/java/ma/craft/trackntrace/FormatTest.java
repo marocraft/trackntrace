@@ -11,31 +11,32 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.fasterxml.jackson.core.JsonParseException;
+import com.github.marocraft.trackntrace.config.TnTConfiguration;
+import com.github.marocraft.trackntrace.domain.Variable;
+import com.github.marocraft.trackntrace.generate.RegExManager;
 
 import ma.craft.trackntrace.context.SpringAOPContext;
-import ma.craft.trackntrace.domain.Template;
-import ma.craft.trackntrace.domain.Variable;
-import ma.craft.trackntrace.generate.RegExManager;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = SpringAOPContext.class)
 public class FormatTest {
 
-	String format = "{methodName: '{{methodName}}',className: '{{className}}',logLevel: '{{logLevel}}', executionTime: '{{executionTime}}' ms,logMessage: '{{executionTime}}'}";
+	String format = "{methodName: '{{methodName}}',className: '{{className}}',logLevel: '{{logLevel}}', "
+				  + "executionTime: '{{executionTime}}' ms,logMessage: '{{executionTime}}'}";
 	@Autowired
-	Template template;
+	TnTConfiguration config;
 
 	@Test
 	public void shouldCreateTemxplateObject() throws JsonParseException, IOException {
-		Assert.assertNotNull(template);
-		Assert.assertNotNull(template.getFormat());
+		Assert.assertNotNull(config);
+		Assert.assertNotNull(config.getFormat());
 	}
 
 	@Test
 	public void shouldHaveExpectedNumber() throws JsonParseException, IOException {
-		Assert.assertNotNull(template);
-		Assert.assertNotNull(template.getFormat());
-		template.getFormat();
+		Assert.assertNotNull(config);
+		Assert.assertNotNull(config.getFormat());
+		config.getFormat();
 	}
 
 	@Test
@@ -64,5 +65,4 @@ public class FormatTest {
 		List<Variable> variables = RegExManager.extractVariables(format);
 		Assert.assertEquals("className", variables.get(1).getName());
 	}
-
 }
