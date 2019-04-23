@@ -5,7 +5,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 @Component
-@PropertySource("classpath:/application.yml")
+@PropertySource("classpath:/application.properties")
 public class TnTConfiguration {
 
 	@Value("${tnt.logging.format}")
@@ -26,7 +26,7 @@ public class TnTConfiguration {
 	}
 
 	public String getFormat() {
-		return format;
+		return format; 
 	}
 
 	public void setFormat(String format) {

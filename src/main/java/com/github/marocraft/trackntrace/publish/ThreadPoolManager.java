@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
  *
  */
 @Component
-@PropertySource("classpath:/application.yml")
+@PropertySource("classpath:/application.properties")
 public class ThreadPoolManager {
 
 	@Value("${tnt.multithread.poolsize:1}")

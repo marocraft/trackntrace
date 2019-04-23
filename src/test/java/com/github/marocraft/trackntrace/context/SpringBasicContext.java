@@ -1,4 +1,4 @@
-package ma.craft.trackntrace.context;
+package com.github.marocraft.trackntrace.context;
 
 import org.springframework.context.annotation.Configuration;
 

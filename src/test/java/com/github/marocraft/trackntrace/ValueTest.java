@@ -1,4 +1,4 @@
-package ma.craft.trackntrace;
+package com.github.marocraft.trackntrace;
 
 import org.junit.Assert;
 import org.junit.Test;
