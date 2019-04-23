@@ -16,20 +16,41 @@ public class LogBuilder {
 	@Autowired
 	Template template;
 
+	/**
+	 * permet de construire le log à partir de Logtrace
+	 * 
+	 * @param logTrace
+	 * @return
+	 * @throws IllegalAccessException
+	 */
 	public String build(LogTrace logTrace) throws IllegalAccessException {
-		// template = new Template();
 		String format = template.getFormat();
 		List<Variable> variables = RegExManager.extractVariables(format);
 		for (Variable variable : variables) {
 			format = replace(format, variable.getName(), logTrace);
 		}
+		format= replaceDoubleQuotesPlusCurlyBracket(format);
+		
 		return format;
 	}
 
+	/**
+	 * Remplace chaque champs dans la template par ca valeur
+	 * 
+	 * @param format
+	 * @param field
+	 * @param logTrace
+	 * @return
+	 * @throws IllegalAccessException
+	 */
 	static String replace(String format, String field, LogTrace logTrace) throws IllegalAccessException {
 		Object valueOfField = ValueCollector.valueOf(field, logTrace);
-		return format.replaceAll("'\\{\\{" + field + "\\}\\}'", "" + valueOfField.toString()) + "";
+		return format.replaceAll("\"\\{\\{" + field + "\\}\\}\"", "\"" + valueOfField.toString()+"\"") + "";
 
+	}
+	
+	static String replaceDoubleQuotesPlusCurlyBracket(String format) {
+		return format.replace("\"{", "{");
 	}
 
 }

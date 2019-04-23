@@ -1,2 +1,4 @@
-format: "{methodName: '{{methodName}}',className: '{{className}}',logLevel: '{{logLevel}}',executionTime: '{{executionTime}}' ms,logMessage: '{{logMessage}}'}"
+format: "{"methodName": "{{methodName}}","className": "{{className}}","logLevel": "{{logLevel}}","executionTime": "{{executionTime}}","logMessage": "{{logMessage}}"}"
 logsPath: "./logstnt/logs.txt"
+tnt:
+	threadpool: 1

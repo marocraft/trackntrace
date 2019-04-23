@@ -11,8 +11,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import ma.craft.trackntrace.context.SpringAOPContext;
+import ma.craft.trackntrace.domain.LogTrace;
 import ma.craft.trackntrace.domain.Template;
-import ma.craft.trackntrace.generate.LogPublisher;
+import ma.craft.trackntrace.generate.LogBuilder;
+import ma.craft.trackntrace.publish.ILogPublisher;
+import ma.craft.trackntrace.publish.LoggerThread;
+import ma.craft.trackntrace.publish.ThreadPoolManager;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = SpringAOPContext.class)
@@ -20,36 +24,39 @@ public class AspectAnnotationTest {
 
 	@Autowired
 	TestService testService;
+
 	@Autowired
 	Template template;
 
-	@Test
-	public void shouldLogHaveInfoLevel() throws InterruptedException, IOException, FileNotFoundException {
-		Assert.assertTrue(LogPublisher.instance().empty());
-		testService.sleep(300);
-		Assert.assertFalse(LogPublisher.instance().empty());
-		Assert.assertEquals((Integer) 1, LogPublisher.instance().logStackSize());
-	}
+	@Autowired
+	ILogPublisher<String> logPublisher;
+
+	@Autowired
+	LogBuilder logBuilder;
+	
+	@Autowired
+	ThreadPoolManager threadPoolManager;
 
 	@Test
-	public void shouldClearLogGeneratorStack() throws InterruptedException, FileNotFoundException {
-		testService.sleep(300);
-		LogPublisher.instance().clear();
-		Assert.assertEquals((Integer) 0, LogPublisher.instance().logStackSize());
+	public void shouldBuildLogs()
+			throws IOException, InterruptedException, FileNotFoundException, IllegalAccessException {
+		LogTrace logTrace = new LogTrace(234, "sleep", "ma.craft.trackntrace.TestService", "NORMAL", "234",
+				"new message");
+		String log = logBuilder.build(logTrace);
+		Assert.assertEquals(
+				"{\"methodName\": \"sleep\",\"className\": \"ma.craft.trackntrace.TestService\",\"logLevel\": \"NORMAL\",\"executionTime\": \"234\",\"logMessage\": \"new message\"}\"",
+				log);
 	}
 
+	public void shouldNotPublishLogs() throws IOException, InterruptedException, FileNotFoundException {
+		logPublisher.clear();
+		logPublisher.publish(null);
+		Assert.assertEquals(0, logPublisher.size());
+	}
+	
+	
 	@Test
-	public void shouldCreateLogsfile() throws IOException, InterruptedException, FileNotFoundException {
+	public void shouldLog() {
 		testService.sleep(200);
-		LogPublisher.instance().exportFile(template.getLogsPath(), LogPublisher.instance().getLogs());
-
 	}
-
-	@Test
-	public void shouldCreateLogsfileWithExportMdc() throws IOException, InterruptedException, FileNotFoundException {
-		testService.sleep(200);
-		LogPublisher.instance().exportmdc(LogPublisher.instance().getLogs());
-
-	}
-
 }

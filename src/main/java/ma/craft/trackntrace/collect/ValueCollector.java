@@ -5,17 +5,22 @@ import ma.craft.trackntrace.domain.LogTrace;
 
 import java.lang.reflect.Field;
 
+/**
+ * Cherche la veleur de fieldName  dans l'ensemble des champs à partir de LogTrace
+ * 
+ *Auteur Tassa Housseine
+ */
 public class ValueCollector {
 
-    public static Object valueOf(String fieldName, LogTrace trace) throws IllegalAccessException {
-        Field[] clazzFields = trace.getClass().getDeclaredFields();
-        for (Field clazzField: clazzFields) {
-            Mapping annotation = clazzField.getAnnotation(Mapping.class);
-            if (annotation != null && annotation.field().equals(fieldName)){
-                clazzField.setAccessible(true);
-                return clazzField.get(trace);
-            }
-        }
-        return null;
-    }
+	public static Object valueOf(String fieldName, LogTrace trace) throws IllegalAccessException {
+		Field[] clazzFields = trace.getClass().getDeclaredFields();
+		for (Field clazzField : clazzFields) {
+			Mapping annotation = clazzField.getAnnotation(Mapping.class);
+			if (annotation != null && annotation.field().equals(fieldName)) {
+				clazzField.setAccessible(true);
+				return clazzField.get(trace);
+			}
+		}
+		return null;
+	}
 }
