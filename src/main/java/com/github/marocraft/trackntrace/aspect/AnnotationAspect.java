@@ -38,7 +38,7 @@ import com.github.marocraft.trackntrace.publish.ThreadPoolManager;
 @Aspect
 @Component
 @Scope("singleton")
-@PropertySource("classpath:/application.yml")
+@PropertySource("classpath:/application.properties")
 public class AnnotationAspect {
 
 	@Autowired
@@ -66,7 +66,7 @@ public class AnnotationAspect {
 	 * @param joinPoint
 	 * @throws Throwable
 	 */
-	@Around(value = "@annotation(ma.craft.trackntrace.annotation.Trace)")
+	@Around(value = "@annotation(com.github.marocraft.trackntrace.annotation.Trace)")
 	public Object whenAnnotatedWithTrace(final ProceedingJoinPoint joinPoint) throws Throwable {
 		StopWatch stopWatch = startTimer();
 		Object proceed = executeAnnotedMethod(joinPoint);

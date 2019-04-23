@@ -1,4 +1,4 @@
-package ma.craft.trackntrace;
+package com.github.marocraft.trackntrace;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -7,11 +7,10 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.github.marocraft.trackntrace.context.SpringBasicContext;
 import com.github.marocraft.trackntrace.publish.ILogPublisher;
 import com.github.marocraft.trackntrace.publish.LogPublisher;
 import com.github.marocraft.trackntrace.publish.ThreadPoolManager;
-
-import ma.craft.trackntrace.context.SpringBasicContext;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { SpringBasicContext.class })

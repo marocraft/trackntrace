@@ -1,4 +1,4 @@
-package ma.craft.trackntrace;
+package com.github.marocraft.trackntrace;
 
 import java.io.IOException;
 import java.util.List;
@@ -12,10 +12,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.github.marocraft.trackntrace.config.TnTConfiguration;
+import com.github.marocraft.trackntrace.context.SpringAOPContext;
 import com.github.marocraft.trackntrace.domain.Variable;
 import com.github.marocraft.trackntrace.generate.RegExManager;
-
-import ma.craft.trackntrace.context.SpringAOPContext;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = SpringAOPContext.class)

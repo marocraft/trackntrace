@@ -1,4 +1,4 @@
-package ma.craft.trackntrace;
+package com.github.marocraft.trackntrace;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -11,11 +11,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.github.marocraft.trackntrace.config.TnTConfiguration;
+import com.github.marocraft.trackntrace.context.SpringAOPContext;
 import com.github.marocraft.trackntrace.generate.LogBuilder;
 import com.github.marocraft.trackntrace.publish.LogPublisher;
 import com.github.marocraft.trackntrace.publish.LoggerThread;
-
-import ma.craft.trackntrace.context.SpringAOPContext;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = SpringAOPContext.class)

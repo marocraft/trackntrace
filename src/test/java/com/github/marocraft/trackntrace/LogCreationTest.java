@@ -1,4 +1,4 @@
-package ma.craft.trackntrace;
+package com.github.marocraft.trackntrace;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -13,11 +13,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.github.marocraft.trackntrace.aspect.AnnotationAspect;
 import com.github.marocraft.trackntrace.collect.LogCollector;
 import com.github.marocraft.trackntrace.config.TnTConfiguration;
+import com.github.marocraft.trackntrace.context.SpringAOPContext;
 import com.github.marocraft.trackntrace.domain.LogLevel;
 import com.github.marocraft.trackntrace.domain.LogTrace;
 import com.github.marocraft.trackntrace.generate.LogBuilder;
-
-import ma.craft.trackntrace.context.SpringAOPContext;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = SpringAOPContext.class)
