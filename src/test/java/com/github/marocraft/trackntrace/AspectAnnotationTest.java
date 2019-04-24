@@ -41,7 +41,7 @@ public class AspectAnnotationTest {
 		LogTrace logTrace = new LogTrace(234, "sleep", "com.github.marocraft.trackntrace.TestService", "NORMAL", "234",	"new message");
 		String log = logBuilder.build(logTrace);
 		Assert.assertEquals("{\"methodName\": \"sleep\",\"className\": \"com.github.marocraft.trackntrace.TestService\","
-						+ "\"logLevel\": \"NORMAL\",\"executionTime\": \"234\",\"logMessage\": \"new message\"}\"",	log);
+						+ "\"logLevel\": \"NORMAL\",\"executionTime\": \"234\",\"logMessage\": \"new message\"}",	log);
 	}
 
 	public void shouldNotPublishLogs() throws IOException, InterruptedException, FileNotFoundException {
