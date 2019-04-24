@@ -10,10 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.github.marocraft.trackntrace.config.TnTConfiguration;
+import com.github.marocraft.trackntrace.config.IConfigurationTnT;
 import com.github.marocraft.trackntrace.context.SpringAOPContext;
 import com.github.marocraft.trackntrace.domain.LogTrace;
-import com.github.marocraft.trackntrace.generate.LogBuilder;
+import com.github.marocraft.trackntrace.generate.ILogBuilder;
 import com.github.marocraft.trackntrace.publish.ILogPublisher;
 import com.github.marocraft.trackntrace.publish.ThreadPoolManager;
 
@@ -22,26 +22,30 @@ import com.github.marocraft.trackntrace.publish.ThreadPoolManager;
 public class AspectAnnotationTest {
 
 	@Autowired
-	TestService testService;
-
-	@Autowired
-	TnTConfiguration config;
+	IConfigurationTnT config;
 
 	@Autowired
 	ILogPublisher<String> logPublisher;
 
 	@Autowired
-	LogBuilder logBuilder;
+	ILogBuilder logBuilder;
+
+	@Autowired
+	TestService testService;
 
 	@Autowired
 	ThreadPoolManager threadPoolManager;
 
 	@Test
-	public void shouldBuildLogs() throws IOException, InterruptedException, FileNotFoundException, IllegalAccessException {
-		LogTrace logTrace = new LogTrace(234, "sleep", "com.github.marocraft.trackntrace.TestService", "NORMAL", "234",	"new message");
+	public void shouldBuildLogs()
+			throws IOException, InterruptedException, FileNotFoundException, IllegalAccessException {
+		LogTrace logTrace = new LogTrace(234, "sleep", "com.github.marocraft.trackntrace.TestService", "NORMAL", "234",
+				"new message");
 		String log = logBuilder.build(logTrace);
-		Assert.assertEquals("{\"methodName\": \"sleep\",\"className\": \"com.github.marocraft.trackntrace.TestService\","
-						+ "\"logLevel\": \"NORMAL\",\"executionTime\": \"234\",\"logMessage\": \"new message\"}",	log);
+		Assert.assertEquals(
+				"{\"methodName\": \"sleep\",\"className\": \"com.github.marocraft.trackntrace.TestService\","
+						+ "\"logLevel\": \"NORMAL\",\"executionTime\": \"234\",\"logMessage\": \"new message\"}",
+				log);
 	}
 
 	public void shouldNotPublishLogs() throws IOException, InterruptedException, FileNotFoundException {

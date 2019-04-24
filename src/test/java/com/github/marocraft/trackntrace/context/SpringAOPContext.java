@@ -1,12 +1,13 @@
 package com.github.marocraft.trackntrace.context;
 
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
+import com.github.marocraft.trackntrace.annotation.EnableTracknTrace;
+
 @Configuration
 @EnableAspectJAutoProxy
-@ComponentScan("com.github.marocraft.trackntrace")
+@EnableTracknTrace
 public class SpringAOPContext {
 
 }
