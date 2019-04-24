@@ -10,18 +10,15 @@ import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StopWatch;
 
-import com.github.marocraft.trackntrace.collect.LogCollector;
-import com.github.marocraft.trackntrace.config.TnTConfiguration;
+import com.github.marocraft.trackntrace.collect.ILogCollector;
+import com.github.marocraft.trackntrace.config.IConfigurationTnT;
 import com.github.marocraft.trackntrace.domain.LogLevel;
 import com.github.marocraft.trackntrace.domain.LogTrace;
-import com.github.marocraft.trackntrace.generate.LogBuilder;
+import com.github.marocraft.trackntrace.generate.ILogBuilder;
 import com.github.marocraft.trackntrace.publish.ILogPublisher;
 import com.github.marocraft.trackntrace.publish.LoggerThread;
 import com.github.marocraft.trackntrace.publish.ThreadPoolManager;
@@ -32,32 +29,43 @@ import com.github.marocraft.trackntrace.publish.ThreadPoolManager;
  * 
  * @author Houseine TASSA
  * @author Sallah KOKAINA
+ * @author Khalid ELABBADI
  * @since 0.0.3
  * 
  */
 @Aspect
 @Component
-@Scope("singleton")
-@PropertySource("classpath:/application.properties")
 public class AnnotationAspect {
 
 	@Autowired
-	LogBuilder logBuilder;
+	IConfigurationTnT config;
 
 	@Autowired
-	TnTConfiguration config;
+	ILogBuilder logBuilder;
 
 	@Autowired
 	ILogPublisher<String> logPublisher;
 
-	@Value("${tnt.multithread.poolsize:1}")
-	Integer threadPoolSize;
+	@Autowired
+	ILogCollector logCollector;
 
 	@Autowired
 	ThreadPoolManager threadPoolManager;
 
 	@Autowired
 	ApplicationContext applicationContext;
+	
+	/**
+	 * Start multi-threading
+	 * 
+	 */
+	@PostConstruct
+	public void postConstruct() {
+		threadPoolManager.initialize();
+		for (int i = 1; i <= config.getThreadPoolsize(); i++) {
+			threadPoolManager.addNewThread(applicationContext.getBean(LoggerThread.class));
+		}
+	}
 
 	/**
 	 * Collect data about annotated methods execution and generate a specific based
@@ -84,13 +92,12 @@ public class AnnotationAspect {
 	 * @throws IOException
 	 */
 	private void generateLog(final JoinPoint joinPoint, StopWatch stopWatch) throws IllegalAccessException {
-		LogCollector collector = new LogCollector();
-		LogLevel logLevel = collector.getLevel(joinPoint);
-		String logMessage = collector.getMessage(joinPoint);
+		LogLevel logLevel = logCollector.getLevel(joinPoint);
+		String logMessage = logCollector.getMessage(joinPoint);
 		Signature methodSignature = joinPoint.getSignature();
 		Object clazz = joinPoint.getTarget();
 
-		LogTrace logTrace = collector.collect(clazz.getClass().getName(), methodSignature.getName(), logLevel,
+		LogTrace logTrace = logCollector.collect(clazz.getClass().getName(), methodSignature.getName(), logLevel,
 				stopWatch.getTotalTimeMillis(), logMessage);
 		String log = logBuilder.build(logTrace);
 
@@ -109,15 +116,5 @@ public class AnnotationAspect {
 		StopWatch stopWatch = new StopWatch();
 		stopWatch.start();
 		return stopWatch;
-	}
-
-	@PostConstruct
-	public void postConstruct() {
-
-		// start multi-threading
-		threadPoolManager.initialize();
-		for (int i = 1; i <= threadPoolSize; i++) {
-			threadPoolManager.submitThread(applicationContext.getBean(LoggerThread.class));
-		}
 	}
 }

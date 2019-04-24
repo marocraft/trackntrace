@@ -6,6 +6,7 @@ import javax.annotation.Nonnull;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.stereotype.Component;
 
 import com.github.marocraft.trackntrace.annotation.Trace;
 import com.github.marocraft.trackntrace.domain.LogLevel;
@@ -16,7 +17,8 @@ import com.github.marocraft.trackntrace.domain.LogTrace;
  * 
  * @author: Housseine TASSA
  */
-public class LogCollector {
+@Component
+public class LogCollector implements ILogCollector {
 
 	/**
 	 * Collect informations to log
