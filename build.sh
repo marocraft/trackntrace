@@ -1,6 +1,6 @@
 if [ ${TRAVIS_PULL_REQUEST} = 'false' ] && [[ ${TRAVIS_BRANCH} = 'master'  ||  ${TRAVIS_BRANCH} = 'develop' ]]; then
       echo 'Checking Quality Gates'
-      mvn -B clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:3.6.0.1398:sonar:sonar -Dsonar.host.url=${SONAR_URL} -Dsonar.login=${SONAR_LOGIN} -Dsonar.projectKey=${SONAR_PROJECT} -Dsonar.organization=${SONAR_ORGANIZATION} -X
+      mvn -B clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:3.6.0.1398:sonar -Dsonar.host.url=${SONAR_URL} -Dsonar.login=${SONAR_LOGIN} -Dsonar.projectKey=${SONAR_PROJECT} -Dsonar.organization=${SONAR_ORGANIZATION} -X
 	  
 		
 elif [ ${TRAVIS_PULL_REQUEST} != 'false' ]; then 
