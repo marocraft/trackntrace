@@ -29,7 +29,7 @@ public class LogBuilder {
 		for (Variable variable : variables) {
 			format = replace(format, variable.getName(), logTrace);
 		}
-		format = replaceDoubleQuotesPlusCurlyBracket(format);
+		//format = replaceDoubleQuotesPlusCurlyBracket(format);
 
 		return format;
 	}
