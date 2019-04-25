@@ -12,6 +12,7 @@ import lombok.Setter;
  * LogTrace transfer object. Holds traced item information
  * 
  * @author Houseine TASSA
+ * @author Sallah KOKAINA
  *
  */
 @Getter

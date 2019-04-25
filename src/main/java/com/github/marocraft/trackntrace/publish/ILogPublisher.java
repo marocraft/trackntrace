@@ -4,6 +4,7 @@ package com.github.marocraft.trackntrace.publish;
  * Interface for log publishing
  * 
  * @author Houseine TASSA
+ * @author Sallah KOKAINA
  *
  * @param <E>
  */

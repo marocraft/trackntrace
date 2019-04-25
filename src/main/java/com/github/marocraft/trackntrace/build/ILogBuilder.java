@@ -1,11 +1,11 @@
-package com.github.marocraft.trackntrace.generate;
+package com.github.marocraft.trackntrace.build;
 
 import org.springframework.stereotype.Component;
 
 import com.github.marocraft.trackntrace.domain.LogTrace;
 
 /**
- * Build a log line from a from LogTrace object
+ * Interface of log building from a from LogTrace objects
  * 
  * @author Khalid ELABBADI
  *

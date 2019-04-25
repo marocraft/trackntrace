@@ -14,7 +14,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.github.marocraft.trackntrace.config.IConfigurationTnT;
 import com.github.marocraft.trackntrace.context.SpringAOPContext;
 import com.github.marocraft.trackntrace.domain.Variable;
-import com.github.marocraft.trackntrace.generate.CommonUtils;
+import com.github.marocraft.trackntrace.utils.CommonUtils;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = SpringAOPContext.class)

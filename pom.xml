@@ -7,25 +7,32 @@
 	<groupId>com.github.marocraft.trackntrace</groupId>
 	<artifactId>tnt-core</artifactId>
 	<version>0.0.3-SNAPSHOT</version>
+	
 	<packaging>jar</packaging>
 
-	<name>trackntrace</name>
+	<name>TracknTrace</name>
 	<description>Intercept method calls and produce logs</description>
+	
 	<developers>
 		<developer>
 			<id>HT</id>
 			<email>ht.housseine@gmail.com</email>
-			<name>Housseine Tassa</name>
+			<name>Housseine TASSA</name>
 		</developer>
 		<developer>
 			<id>OR</id>
 			<email>rayomar2016@gmail.com</email>
-			<name>Omar Ray</name>
+			<name>Omar RAY</name>
 		</developer>
 		<developer>
 			<id>SK</id>
 			<email>sallah.kokaina@gmail.com</email>
 			<name>Sallah KOKAINA</name>
+		</developer>
+		<developer>
+			<id>KEL</id>
+			<email>kha.elabbadi@gmail.com</email>
+			<name>Khalid ELABBADI</name>
 		</developer>
 	</developers>
 
@@ -64,16 +71,19 @@
 	</properties>
 
 	<dependencies>
+	
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aop</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjrt</artifactId>
 			<version>${aop.version}</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjweaver</artifactId>
@@ -111,11 +121,13 @@
 			<artifactId>logback-core</artifactId>
 			<version>1.2.3</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
 			<version>1.2.3</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
@@ -134,12 +146,14 @@
 			<artifactId>commons-lang3</artifactId>
 			<version>3.4</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<version>1.18.4</version>
 			<scope>provided</scope>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-all</artifactId>
@@ -148,7 +162,6 @@
 		</dependency>
 
 	</dependencies>
-
 
 	<build>
 		<plugins>
@@ -293,7 +306,6 @@
 			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
 		</repository>
 	</distributionManagement>
-
 
 	<profiles>
 		<!-- Activate using the release property: mvn clean install -Prelease -->
