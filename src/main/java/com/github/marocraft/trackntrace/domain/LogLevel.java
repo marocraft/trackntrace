@@ -15,7 +15,8 @@ package com.github.marocraft.trackntrace.domain;
  * 
  * 
  * @author Houseine TASSA
- * @author Salah KOKAINA
+ * @author Sallah KOKAINA
+ * @author Khalid ELABBADI
  * @since 0.0.3
  */
 public enum LogLevel {

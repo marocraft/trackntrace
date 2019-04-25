@@ -1,4 +1,4 @@
-package com.github.marocraft.trackntrace;
+package com.github.marocraft.trackntrace.aspect;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -10,10 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.github.marocraft.trackntrace.annotation.TestService;
+import com.github.marocraft.trackntrace.build.ILogBuilder;
 import com.github.marocraft.trackntrace.config.IConfigurationTnT;
 import com.github.marocraft.trackntrace.context.SpringAOPContext;
 import com.github.marocraft.trackntrace.domain.LogTrace;
-import com.github.marocraft.trackntrace.generate.ILogBuilder;
 import com.github.marocraft.trackntrace.publish.ILogPublisher;
 import com.github.marocraft.trackntrace.publish.ThreadPoolManager;
 

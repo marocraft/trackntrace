@@ -14,7 +14,7 @@ import com.github.marocraft.trackntrace.domain.LogLevel;
  * information for every single access to this method.
  * 
  * @author Houseine TASSA
- * @author Salah KOKAINA
+ * @author Sallah KOKAINA
  * @since 0.0.3
  */
 @Target(ElementType.METHOD)

@@ -1,4 +1,4 @@
-package com.github.marocraft.trackntrace;
+package com.github.marocraft.trackntrace.utils;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -9,7 +9,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.github.marocraft.trackntrace.context.SpringBasicContext;
 import com.github.marocraft.trackntrace.domain.LogTrace;
-import com.github.marocraft.trackntrace.generate.CommonUtils;
+import com.github.marocraft.trackntrace.utils.CommonUtils;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = SpringBasicContext.class)

@@ -1,4 +1,4 @@
-package com.github.marocraft.trackntrace.generate;
+package com.github.marocraft.trackntrace.utils;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -51,7 +51,7 @@ public class CommonUtils {
 		final String regex = "\\{\\{([0-9a-zA-Z_]+)\\}\\}";
 		final Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
 		final Matcher matcher = pattern.matcher(expression);
-		final List<Variable> variables = new ArrayList<Variable>(matcher.groupCount());
+		final List<Variable> variables = new ArrayList<>(matcher.groupCount());
 
 		while (matcher.find()) {
 			Variable variable = new Variable();

@@ -11,6 +11,9 @@ import lombok.extern.slf4j.Slf4j;
  * Logger thread body
  * 
  * @author Tassa Housseine
+ * @author Sallah KOKAINA
+ * @author Khalid ELABBADI
+ * 
  */
 @Slf4j
 @Component

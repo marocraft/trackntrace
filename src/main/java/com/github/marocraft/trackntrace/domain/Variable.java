@@ -6,13 +6,20 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * Data transfer object for variables
+ * 
+ * @author Houseine TASSA
+ * @author Sallah KOKAINA
+ *
+ */
 @Setter
 @Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Variable {
-    private String name;
-    private int start;
-    private int end;
+	private String name;
+	private int start;
+	private int end;
 }

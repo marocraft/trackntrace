@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 /**
  * Configuration loader using application.properties file
  * 
+ * @author Houseine TASSA
+ * @author Sallah KOKAINA
  * @author Khalid ELABBADI
  *
  */

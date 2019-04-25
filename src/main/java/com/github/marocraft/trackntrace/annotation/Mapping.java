@@ -10,6 +10,7 @@ import java.lang.annotation.Target;
  * Mapping fields
  * 
  * @author Houseine TASSA
+ * @author Sallah KOKAINA
  *
  */
 @Target(ElementType.FIELD)

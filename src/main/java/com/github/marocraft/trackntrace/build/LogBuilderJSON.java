@@ -1,4 +1,4 @@
-package com.github.marocraft.trackntrace.generate;
+package com.github.marocraft.trackntrace.build;
 
 import java.util.List;
 
@@ -8,7 +8,16 @@ import org.springframework.stereotype.Component;
 import com.github.marocraft.trackntrace.config.IConfigurationTnT;
 import com.github.marocraft.trackntrace.domain.LogTrace;
 import com.github.marocraft.trackntrace.domain.Variable;
+import com.github.marocraft.trackntrace.utils.CommonUtils;
 
+/**
+ * Build a log line from a from LogTrace object
+ * 
+ * @author Houseine TASSA
+ * @author Sallah KOKAINA
+ * @author Khalid ELABBADI
+ *
+ */
 @Component
 public class LogBuilderJSON implements ILogBuilder {
 

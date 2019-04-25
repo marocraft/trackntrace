@@ -1,7 +1,6 @@
-package com.github.marocraft.trackntrace;
+package com.github.marocraft.trackntrace.publish;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +8,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.github.marocraft.trackntrace.context.SpringBasicContext;
-import com.github.marocraft.trackntrace.publish.ILogPublisher;
-import com.github.marocraft.trackntrace.publish.ThreadPoolManager;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { SpringBasicContext.class })
@@ -21,14 +18,6 @@ public class LogPublisherTest {
 
 	@Autowired
 	ThreadPoolManager threadPoolManager;
-
-	@Before
-	public void init() {
-		/*
-		 * logPublisher = new LogPublisher(); threadPoolManager = new
-		 * ThreadPoolManager();
-		 */
-	}
 
 	@Test
 	public void shouldTakeMessage() throws InterruptedException {

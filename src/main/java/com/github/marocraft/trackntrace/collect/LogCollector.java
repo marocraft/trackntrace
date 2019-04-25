@@ -16,6 +16,7 @@ import com.github.marocraft.trackntrace.domain.LogTrace;
  * Collect informations to log
  * 
  * @author: Housseine TASSA
+ * @author Sallah KOKAINA
  */
 @Component
 public class LogCollector implements ILogCollector {

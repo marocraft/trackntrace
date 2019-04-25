@@ -1,7 +1,7 @@
 package com.github.marocraft.trackntrace.config;
 
 /**
- * Group and unify required configuration parameters for the framework.
+ * Interface for grouping and unifying required configuration parameters for the framework.
  * 
  * @author Khalid ELABBADI
  *

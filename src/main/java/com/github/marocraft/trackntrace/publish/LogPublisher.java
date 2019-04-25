@@ -13,6 +13,8 @@ import lombok.extern.slf4j.Slf4j;
  * threads
  * 
  * @author Housseine TASSA
+ * @author Sallah KOKAINA
+ * 
  */
 @Getter
 @Component("logPublisher")
