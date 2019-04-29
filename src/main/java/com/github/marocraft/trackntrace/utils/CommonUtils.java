@@ -3,6 +3,7 @@ package com.github.marocraft.trackntrace.utils;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -32,18 +33,8 @@ public class CommonUtils {
 	 */
 	public String replace(String format, String field, LogTrace logTrace) throws IllegalAccessException {
 		Object valueOfField = valueOf(field, logTrace);
-
+		
 		return format.replaceAll("\"\\{\\{" + field + "\\}\\}\"", "\"" + valueOfField.toString() + "\"") + "";
-	}
-
-	/**
-	 * Remove double-quoted and curly brackets from a string
-	 * 
-	 * @param format
-	 * @return
-	 */
-	public String replaceDoubleQuotesPlusCurlyBracket(String format) {
-		return format.replace("\"{", "{");
 	}
 
 	public List<Variable> extractVariables(String expression) {
@@ -82,5 +73,9 @@ public class CommonUtils {
 	public int getNumberOfVariablesFromFormatFile(String expression) {
 		List<Variable> variables = extractVariables(expression);
 		return variables.size();
+	}
+
+	public String uniqid() {
+		return UUID.randomUUID().toString();
 	}
 }

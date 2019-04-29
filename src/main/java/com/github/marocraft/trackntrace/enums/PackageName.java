@@ -1,4 +1,4 @@
-package com.github.marocraft.trackntrace;
+package com.github.marocraft.trackntrace.enums;
 
 /**
  * Constants for used packages

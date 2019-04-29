@@ -1,3 +1,6 @@
-tnt.logging.format: {"methodName": "{{methodName}}","className": "{{className}}","logLevel": "{{logLevel}}","executionTime": "{{executionTime}}","logMessage": "{{logMessage}}"}
-tnt.logging.file.path: "./logstnt/logs.txt"
-tnt.multihtread.poolsize: 1
+tnt:
+ multithread:
+  poolsize: 1
+ logging:
+  format: {"methodName": "{{methodName}}","className": "{{className}}","logLevel": "{{logLevel}}","executionTime": "{{executionTime}}","logMessage": "{{logMessage}}","traceId": "{{traceId}}","spanId": "{{spanId}}"}
+  output: json

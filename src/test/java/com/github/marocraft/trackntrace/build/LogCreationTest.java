@@ -39,24 +39,24 @@ public class LogCreationTest {
 
 	@Test
 	public void shouldCreateLogTraceClass() {
-		LogTrace logTrace = logCollector.collect(null, null, LogLevel.TRIVIAL, 0, "log");
+		LogTrace logTrace = logCollector.collect(null, null, LogLevel.TRIVIAL, 0, "log", "", "");
 		Assert.assertNotNull(logTrace);
 	}
 
 	@Test
 	public void shouldCreateLogTraceClassWithData() {
-		LogTrace logTrace = logCollector.collect("controller", "myMethod", LogLevel.TRIVIAL, 20L, "");
+		LogTrace logTrace = logCollector.collect("controller", "myMethod", LogLevel.TRIVIAL, 20L, "", "", "");
 		Assert.assertNotNull(logTrace.getClazz());
 	}
 
 	@Test
 	public void shouldLogHaveCorrectFormat() throws IllegalAccessException {
 		config.getFormat();
-		LogTrace logTrace = logCollector.collect("controller", "myMethod", LogLevel.TRIVIAL, 20L, "my message");
+		LogTrace logTrace = logCollector.collect("controller", "myMethod", LogLevel.TRIVIAL, 20L, "my message", "", "");
 
 		String log = logBuilder.build(logTrace);
 		assertEquals(
-				"{\"methodName\": \"myMethod\",\"className\": \"controller\",\"logLevel\": \"TRIVIAL\",\"executionTime\": \"20\",\"logMessage\": \"my message\"}",
+				"{\"methodName\": \"myMethod\",\"className\": \"controller\",\"logLevel\": \"TRIVIAL\",\"executionTime\": \"20\",\"logMessage\": \"my message\",\"traceId\": \"\",\"spanId\": \"\"}",
 				log);
 	}
 }

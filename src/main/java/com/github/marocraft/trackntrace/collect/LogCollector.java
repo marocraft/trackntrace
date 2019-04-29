@@ -31,7 +31,7 @@ public class LogCollector implements ILogCollector {
 	 * @param logMessage
 	 * @return
 	 */
-	public LogTrace collect(String className, String methodName, @Nonnull LogLevel logLevel, long executionTime, String logMessage) {
+	public LogTrace collect(String className, String methodName, @Nonnull LogLevel logLevel, long executionTime, String logMessage, String traceId, String spanId) {
 		LogTrace tracer = new LogTrace();
 		
 		tracer.setClazz(className);
@@ -39,6 +39,8 @@ public class LogCollector implements ILogCollector {
 		tracer.setLevel(logLevel.name());
 		tracer.setTime(executionTime);
 		tracer.setMessage(logMessage);
+		tracer.setTraceId(traceId);
+		tracer.setSpanId(spanId);
 		
 		return tracer;
 	}

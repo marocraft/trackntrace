@@ -24,7 +24,7 @@ public interface ILogCollector {
 	 * @param logMessage
 	 * @return
 	 */
-	public LogTrace collect(String className, String methodName, @Nonnull LogLevel logLevel, long executionTime, String logMessage);
+	public LogTrace collect(String className, String methodName, @Nonnull LogLevel logLevel, long executionTime, String logMessage, String traceId, String spanId);
 
 	/**
 	 * Return Log collector level
