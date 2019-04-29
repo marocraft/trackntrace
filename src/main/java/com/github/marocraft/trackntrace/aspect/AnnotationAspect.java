@@ -19,6 +19,7 @@ import com.github.marocraft.trackntrace.collect.ILogCollector;
 import com.github.marocraft.trackntrace.config.IConfigurationTnT;
 import com.github.marocraft.trackntrace.domain.LogLevel;
 import com.github.marocraft.trackntrace.domain.LogTrace;
+import com.github.marocraft.trackntrace.http.ICorrelater;
 import com.github.marocraft.trackntrace.publish.ILogPublisher;
 import com.github.marocraft.trackntrace.publish.LoggerThread;
 import com.github.marocraft.trackntrace.publish.ThreadPoolManager;
@@ -54,7 +55,10 @@ public class AnnotationAspect {
 
 	@Autowired
 	ApplicationContext applicationContext;
-	
+
+	@Autowired
+	ICorrelater correlator;
+
 	/**
 	 * Start multi-threading
 	 * 
@@ -97,8 +101,13 @@ public class AnnotationAspect {
 		Signature methodSignature = joinPoint.getSignature();
 		Object clazz = joinPoint.getTarget();
 
+		if(correlator == null) {
+			correlator.setTraceId("");
+			correlator.setSpanId("");
+		}
+		
 		LogTrace logTrace = logCollector.collect(clazz.getClass().getName(), methodSignature.getName(), logLevel,
-				stopWatch.getTotalTimeMillis(), logMessage);
+				stopWatch.getTotalTimeMillis(), logMessage, correlator.getTraceId(), correlator.getSpanId());
 		String log = logBuilder.build(logTrace);
 
 		logPublisher.publish(log);
