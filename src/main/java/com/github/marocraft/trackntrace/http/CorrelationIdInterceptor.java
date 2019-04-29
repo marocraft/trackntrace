@@ -11,80 +11,56 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.github.marocraft.trackntrace.enums.CorrelationName;
 import com.github.marocraft.trackntrace.utils.CommonUtils;
 
-/**
- * Filter http that handle correlation ids.
- * If no correlation ids are found, the handler create them
- * 
- * @author Houseine TASSA
- * @author Khalid ELABBADI
- *
- */
 @Component
 public class CorrelationIdInterceptor implements Filter {
 
 	@Autowired
-	Correlater correlator;
+	Correlater httpRequestStatus;
 
 	@Autowired
 	CommonUtils commonUtils;
 
 	@Override
 	public void destroy() {
-		// Ignore
+
 	}
 
 	@Override
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+			throws IOException, ServletException {
 		if (request instanceof HttpServletRequest && response instanceof HttpServletResponse) {
 			HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 			HttpServletResponse httpServletResponse = (HttpServletResponse) response;
-			
-			processTraceId(httpServletRequest, CorrelationName.TRACE_ID);
-			processSpanId(httpServletRequest, CorrelationName.SPAN_ID);
-			
-			httpServletResponse.setHeader(CorrelationName.TRACE_ID, correlator.getTraceId());
-			httpServletResponse.setHeader(CorrelationName.SPAN_ID, correlator.getSpanId());
+
+			if (httpServletRequest.getHeader(CorrelationName.TRACE_ID) == null) {
+				// create tracer id
+				httpRequestStatus.setTraceId(commonUtils.uniqid());
+				httpServletResponse.setHeader(CorrelationName.TRACE_ID, httpRequestStatus.getTraceId());
+			} else {
+				httpRequestStatus.setTraceId(httpServletRequest.getHeader(CorrelationName.TRACE_ID));
+			}
+
+			if (httpServletRequest.getHeader(CorrelationName.SPAN_ID) == null) {
+				// create span id
+				httpRequestStatus.setSpanId((commonUtils.uniqid()));
+				httpServletResponse.setHeader(CorrelationName.SPAN_ID, httpRequestStatus.getSpanId());
+			} else {
+				httpRequestStatus.setSpanId(httpServletRequest.getHeader(CorrelationName.SPAN_ID));
+			}
+
 		}
-		
-		// continue
 		chain.doFilter(request, response);
 	}
 
-	/**
-	 * Create traceId if it does not exist
-	 * 
-	 * @param headerId
-	 * @param request
-	 */
-	public void processTraceId(HttpServletRequest request, String headerId) {
-		if (request.getHeader(headerId) == null) {
-			correlator.setTraceId(commonUtils.uniqid());
-		} else {
-			correlator.setTraceId(request.getHeader(headerId));
-		}
-	}
-	/**
-	 * Create sapnid if it does not exist
-	 * 
-	 * @param headerId
-	 * @param request
-	 */
-	public void processSpanId(HttpServletRequest request, String headerId) {
-		if (request.getHeader(headerId) == null) {
-			correlator.setSpanId(commonUtils.uniqid());
-		} else {
-			correlator.setSpanId(request.getHeader(headerId));
-		}
-	}
 	@Override
 	public void init(FilterConfig arg0) throws ServletException {
-		// Ignore
 	}
+
 }
