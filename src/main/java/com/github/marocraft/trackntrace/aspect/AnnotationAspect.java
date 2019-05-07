@@ -1,6 +1,8 @@
 package com.github.marocraft.trackntrace.aspect;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import javax.annotation.PostConstruct;
 
@@ -107,7 +109,7 @@ public class AnnotationAspect {
 		}
 		
 		LogTrace logTrace = logCollector.collect(clazz.getClass().getName(), methodSignature.getName(), logLevel,
-				stopWatch.getTotalTimeMillis(), logMessage, correlator.getTraceId(), correlator.getSpanId());
+				stopWatch.getTotalTimeMillis(), logMessage, correlator.getTraceId(), correlator.getSpanId(),new SimpleDateFormat("yyyy/MM/dd-HH:mm:ss").format(Calendar.getInstance().getTime()));
 		String log = logBuilder.build(logTrace);
 
 		logPublisher.publish(log);

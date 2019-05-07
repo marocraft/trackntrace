@@ -2,6 +2,8 @@ package com.github.marocraft.trackntrace.aspect;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -45,10 +47,10 @@ public class AspectAnnotationTest {
 	public void shouldBuildLogs()
 			throws IOException, InterruptedException, FileNotFoundException, IllegalAccessException {
 		LogTrace logTrace = new LogTrace(234, "sleep", "com.github.marocraft.trackntrace.TestService", "NORMAL", "234",
-				"new message", "", "");
+				"new message", "", "","");
 		String log = logBuilder.build(logTrace);
 		Assert.assertEquals(
-				"{\"methodName\": \"sleep\",\"className\": \"com.github.marocraft.trackntrace.TestService\",\"logLevel\": \"NORMAL\",\"executionTime\": \"234\",\"logMessage\": \"new message\",\"traceId\": \"\",\"spanId\": \"\"}",
+				"{\"methodName\": \"sleep\",\"className\": \"com.github.marocraft.trackntrace.TestService\",\"logLevel\": \"NORMAL\",\"executionTime\": \"234\",\"logMessage\": \"new message\",\"traceId\": \"\",\"spanId\": \"\",\"timeStamps\": \"\"}",
 				log);
 	}
 

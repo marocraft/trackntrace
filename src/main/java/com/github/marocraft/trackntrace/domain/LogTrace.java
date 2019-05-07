@@ -45,4 +45,8 @@ public class LogTrace {
 
 	@Mapping(field = "spanId")
 	private String spanId;
+	
+	@Mapping(field = "timeStamps")
+	private String timeStamps;
+	
 }
