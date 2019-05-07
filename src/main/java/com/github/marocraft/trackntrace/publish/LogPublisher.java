@@ -2,6 +2,7 @@ package com.github.marocraft.trackntrace.publish;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import org.springframework.stereotype.Component;
 
@@ -21,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class LogPublisher implements ILogPublisher<String> {
 
-	private BlockingQueue<String> logQueue = new LinkedBlockingDeque<>(50);
+	private BlockingQueue<String> logQueue = new LinkedBlockingQueue<>(50);
 
 	@Override
 	public void publish(String message) {
