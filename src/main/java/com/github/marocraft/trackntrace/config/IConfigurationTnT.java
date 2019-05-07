@@ -1,7 +1,8 @@
 package com.github.marocraft.trackntrace.config;
 
 /**
- * Interface for grouping and unifying required configuration parameters for the framework.
+ * Interface for grouping and unifying required configuration parameters for the
+ * framework.
  * 
  * @author Khalid ELABBADI
  *
@@ -21,7 +22,7 @@ public interface IConfigurationTnT {
 	 * @param format
 	 */
 	public void setFormat(String format);
-	
+
 	/**
 	 * Return Logging message pattern
 	 * 
@@ -35,4 +36,18 @@ public interface IConfigurationTnT {
 	 * @param format
 	 */
 	public void setThreadPoolsize(int size);
+
+	/**
+	 * Return TraceId
+	 * 
+	 * @return
+	 */
+	public String getTraceidName();
+
+	/**
+	 * Return SpanId
+	 * 
+	 * @return
+	 */
+	public String getSpanIdName();
 }

@@ -14,12 +14,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.github.marocraft.trackntrace.enums.CorrelationName;
+import com.github.marocraft.trackntrace.config.ConfigurationTnT;
 import com.github.marocraft.trackntrace.utils.CommonUtils;
 
 /**
- * Filter http that handle correlation ids.
- * If no correlation ids are found, the handler create them
+ * Filter http that handle correlation ids. If no correlation ids are found, the
+ * handler create them
  * 
  * @author Houseine TASSA
  * @author Khalid ELABBADI
@@ -32,6 +32,9 @@ public class CorrelationIdInterceptor implements Filter {
 	Correlater correlator;
 
 	@Autowired
+	ConfigurationTnT configTnt;
+
+	@Autowired
 	CommonUtils commonUtils;
 
 	@Override
@@ -40,19 +43,20 @@ public class CorrelationIdInterceptor implements Filter {
 	}
 
 	@Override
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+			throws IOException, ServletException {
+
 		if (request instanceof HttpServletRequest && response instanceof HttpServletResponse) {
 			HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 			HttpServletResponse httpServletResponse = (HttpServletResponse) response;
-			
-			processTraceId(httpServletRequest, CorrelationName.TRACE_ID);
-			processSpanId(httpServletRequest, CorrelationName.SPAN_ID);
-			
-			httpServletResponse.setHeader(CorrelationName.TRACE_ID, correlator.getTraceId());
-			httpServletResponse.setHeader(CorrelationName.SPAN_ID, correlator.getSpanId());
+
+			processTraceId(httpServletRequest, configTnt.getTraceidName());
+			processSpanId(httpServletRequest, configTnt.getSpanIdName());
+
+			httpServletResponse.setHeader(configTnt.getTraceidName(), correlator.getTraceId());
+			httpServletResponse.setHeader(configTnt.getSpanIdName(), correlator.getSpanId());
 		}
-		
+
 		// continue
 		chain.doFilter(request, response);
 	}
@@ -70,6 +74,7 @@ public class CorrelationIdInterceptor implements Filter {
 			correlator.setTraceId(request.getHeader(headerId));
 		}
 	}
+
 	/**
 	 * Create sapnid if it does not exist
 	 * 
@@ -83,6 +88,7 @@ public class CorrelationIdInterceptor implements Filter {
 			correlator.setSpanId(request.getHeader(headerId));
 		}
 	}
+
 	@Override
 	public void init(FilterConfig arg0) throws ServletException {
 		// Ignore
