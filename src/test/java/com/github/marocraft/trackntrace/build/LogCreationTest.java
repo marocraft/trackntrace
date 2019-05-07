@@ -3,6 +3,9 @@ package com.github.marocraft.trackntrace.build;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,7 +14,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.github.marocraft.trackntrace.aspect.AnnotationAspect;
-import com.github.marocraft.trackntrace.build.ILogBuilder;
 import com.github.marocraft.trackntrace.collect.ILogCollector;
 import com.github.marocraft.trackntrace.config.IConfigurationTnT;
 import com.github.marocraft.trackntrace.context.SpringAOPContext;
@@ -39,24 +41,24 @@ public class LogCreationTest {
 
 	@Test
 	public void shouldCreateLogTraceClass() {
-		LogTrace logTrace = logCollector.collect(null, null, LogLevel.TRIVIAL, 0, "log", "", "");
+		LogTrace logTrace = logCollector.collect(null, null, LogLevel.TRIVIAL, 0, "log", "", "","");
 		Assert.assertNotNull(logTrace);
 	}
 
 	@Test
 	public void shouldCreateLogTraceClassWithData() {
-		LogTrace logTrace = logCollector.collect("controller", "myMethod", LogLevel.TRIVIAL, 20L, "", "", "");
+		LogTrace logTrace = logCollector.collect("controller", "myMethod", LogLevel.TRIVIAL, 20L, "", "", "","");
 		Assert.assertNotNull(logTrace.getClazz());
 	}
 
 	@Test
 	public void shouldLogHaveCorrectFormat() throws IllegalAccessException {
 		config.getFormat();
-		LogTrace logTrace = logCollector.collect("controller", "myMethod", LogLevel.TRIVIAL, 20L, "my message", "", "");
+		LogTrace logTrace = logCollector.collect("controller", "myMethod", LogLevel.TRIVIAL, 20L, "my message", "", "","");
 
 		String log = logBuilder.build(logTrace);
 		assertEquals(
-				"{\"methodName\": \"myMethod\",\"className\": \"controller\",\"logLevel\": \"TRIVIAL\",\"executionTime\": \"20\",\"logMessage\": \"my message\",\"traceId\": \"\",\"spanId\": \"\"}",
+				"{\"methodName\": \"myMethod\",\"className\": \"controller\",\"logLevel\": \"TRIVIAL\",\"executionTime\": \"20\",\"logMessage\": \"my message\",\"traceId\": \"\",\"spanId\": \"\",\"timeStamps\": \"\"}",
 				log);
 	}
 }

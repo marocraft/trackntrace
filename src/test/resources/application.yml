@@ -2,5 +2,5 @@ tnt:
  multithread:
   poolsize: 1
  logging:
-  format: {"methodName": "{{methodName}}","className": "{{className}}","logLevel": "{{logLevel}}","executionTime": "{{executionTime}}","logMessage": "{{logMessage}}","traceId": "{{traceId}}","spanId": "{{spanId}}"}
+  format: {"methodName": "{{methodName}}","className": "{{className}}","logLevel": "{{logLevel}}","executionTime": "{{executionTime}}","logMessage": "{{logMessage}}","traceId": "{{traceId}}","spanId": "{{spanId}}","timeStamps": "{{timeStamps}}"}
   output: json
