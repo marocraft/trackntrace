@@ -5,22 +5,12 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
 import org.springframework.stereotype.Component;
 
-/**
- * Configuration loader using application.properties file
- * 
- * @author Houseine TASSA
- * @author Sallah KOKAINA
- * @author Khalid ELABBADI
- *
- */
-@Component
-@PropertySources(value = { 
-		@PropertySource(value = "classpath:/application.properties", ignoreResourceNotFound = true),
-		@PropertySource(value = "classpath:/application.yml", ignoreResourceNotFound = true)
-})
-public class ConfigurationTnT implements IConfigurationTnT {
+@Component("configurationTnTRest")
+@PropertySources(value = { @PropertySource(value = "classpath:/application.properties", ignoreResourceNotFound = true),
+		@PropertySource(value = "classpath:/application.yml", ignoreResourceNotFound = true) })
+public class ConfigurationTnTRest implements IConfigurationTnT {
 
-	@Value("${tnt.logging.format}")
+	@Value("${tnt.logging.format.rest}")
 	private String format;
 
 	@Value("${tnt.logging.output:json}")
@@ -28,21 +18,21 @@ public class ConfigurationTnT implements IConfigurationTnT {
 
 	@Value("${tnt.multithread.poolsize:1}")
 	Integer threadPoolSize;
-	
+
 	@Value("${tnt.correlationid.traceid}")
 	private String traceId;
-	
+
 	@Value("${tnt.correlationid.spanid}")
 	private String spanId;
 
-	public ConfigurationTnT(String format, String output, Integer threadPoolSize) {
+	public ConfigurationTnTRest(String format, String output, Integer threadPoolSize) {
 		super();
 		this.format = format;
 		this.output = output;
 		this.threadPoolSize = threadPoolSize;
 	}
 
-	public ConfigurationTnT() {
+	public ConfigurationTnTRest() {
 		super();
 	}
 
@@ -74,7 +64,7 @@ public class ConfigurationTnT implements IConfigurationTnT {
 
 	@Override
 	public String getTraceidName() {
-		
+
 		return traceId;
 	}
 

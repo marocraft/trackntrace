@@ -5,7 +5,7 @@ import javax.annotation.Nonnull;
 import org.aspectj.lang.JoinPoint;
 
 import com.github.marocraft.trackntrace.domain.LogLevel;
-import com.github.marocraft.trackntrace.domain.LogTrace;
+import com.github.marocraft.trackntrace.domain.LogTraceDefault;
 
 /**
  * Interface for Collecting informations to log
@@ -24,7 +24,7 @@ public interface ILogCollector {
 	 * @param logMessage
 	 * @return
 	 */
-	public LogTrace collect(String className, String methodName, @Nonnull LogLevel logLevel, long executionTime, String logMessage, String traceId, String spanId,String timeStamps);
+	public LogTraceDefault collect(String className, String methodName, @Nonnull LogLevel logLevel, long executionTime, String logMessage, String traceId, String spanId,String timeStamps);
 
 	/**
 	 * Return Log collector level

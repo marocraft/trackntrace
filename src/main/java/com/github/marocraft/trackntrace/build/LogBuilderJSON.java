@@ -3,10 +3,11 @@ package com.github.marocraft.trackntrace.build;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import com.github.marocraft.trackntrace.config.IConfigurationTnT;
-import com.github.marocraft.trackntrace.domain.LogTrace;
+import com.github.marocraft.trackntrace.domain.ILogTrace;
 import com.github.marocraft.trackntrace.domain.Variable;
 import com.github.marocraft.trackntrace.utils.CommonUtils;
 
@@ -22,6 +23,7 @@ import com.github.marocraft.trackntrace.utils.CommonUtils;
 public class LogBuilderJSON implements ILogBuilder {
 
 	@Autowired
+	@Qualifier("configurationTnTDefault")
 	IConfigurationTnT config;
 
 	@Autowired
@@ -34,7 +36,8 @@ public class LogBuilderJSON implements ILogBuilder {
 	 * @return
 	 * @throws IllegalAccessException
 	 */
-	public String build(LogTrace logTrace) throws IllegalAccessException {
+	@Qualifier("logTraceRest")
+	public String build(ILogTrace logTrace) throws IllegalAccessException {
 		String format = config.getFormat();
 		List<Variable> variables = commonUtils.extractVariables(format);
 		for (Variable variable : variables) {

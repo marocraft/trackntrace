@@ -12,9 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import com.github.marocraft.trackntrace.config.ConfigurationTnT;
+import com.github.marocraft.trackntrace.config.IConfigurationTnT;
 import com.github.marocraft.trackntrace.utils.CommonUtils;
 
 /**
@@ -32,7 +33,8 @@ public class CorrelationIdInterceptor implements Filter {
 	Correlater correlator;
 
 	@Autowired
-	ConfigurationTnT configTnt;
+	@Qualifier("configurationTnTDefault")
+	IConfigurationTnT configTnt;
 
 	@Autowired
 	CommonUtils commonUtils;

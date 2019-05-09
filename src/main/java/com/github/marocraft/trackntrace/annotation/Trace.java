@@ -29,12 +29,6 @@ public @interface Trace {
 	public String message() default "";
 
 	/**
-	 * Add a message code to log as string
-	 * @return
-	 */
-	public String code() default "";
-
-	/**
 	 * Specify a logging level for logging as {@link com.github.marocraft.trackntrace.domain.LogLevel}
 	 * @return
 	 */

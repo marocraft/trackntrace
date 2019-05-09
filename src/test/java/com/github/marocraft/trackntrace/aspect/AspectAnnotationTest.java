@@ -9,6 +9,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -16,7 +17,7 @@ import com.github.marocraft.trackntrace.annotation.TestService;
 import com.github.marocraft.trackntrace.build.ILogBuilder;
 import com.github.marocraft.trackntrace.config.IConfigurationTnT;
 import com.github.marocraft.trackntrace.context.SpringAOPContext;
-import com.github.marocraft.trackntrace.domain.LogTrace;
+import com.github.marocraft.trackntrace.domain.LogTraceDefault;
 import com.github.marocraft.trackntrace.publish.ILogPublisher;
 import com.github.marocraft.trackntrace.publish.ThreadPoolManager;
 import com.github.marocraft.trackntrace.utils.CommonUtils;
@@ -26,6 +27,7 @@ import com.github.marocraft.trackntrace.utils.CommonUtils;
 public class AspectAnnotationTest {
 
 	@Autowired
+	@Qualifier("configurationTnTDefault")
 	IConfigurationTnT config;
 
 	@Autowired
@@ -46,7 +48,7 @@ public class AspectAnnotationTest {
 	@Test
 	public void shouldBuildLogs()
 			throws IOException, InterruptedException, FileNotFoundException, IllegalAccessException {
-		LogTrace logTrace = new LogTrace(234, "sleep", "com.github.marocraft.trackntrace.TestService", "NORMAL", "234",
+		LogTraceDefault logTrace = new LogTraceDefault(234, "sleep", "com.github.marocraft.trackntrace.TestService", "NORMAL", "234",
 				"new message", "", "","");
 		String log = logBuilder.build(logTrace);
 		Assert.assertEquals(

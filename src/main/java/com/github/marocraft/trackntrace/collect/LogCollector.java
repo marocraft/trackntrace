@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 import com.github.marocraft.trackntrace.annotation.Trace;
 import com.github.marocraft.trackntrace.domain.LogLevel;
-import com.github.marocraft.trackntrace.domain.LogTrace;
+import com.github.marocraft.trackntrace.domain.LogTraceDefault;
 
 /**
  * Collect informations to log
@@ -31,8 +31,8 @@ public class LogCollector implements ILogCollector {
 	 * @param logMessage
 	 * @return
 	 */
-	public LogTrace collect(String className, String methodName, @Nonnull LogLevel logLevel, long executionTime, String logMessage, String traceId, String spanId,String timeStamps) {
-		LogTrace tracer = new LogTrace();
+	public LogTraceDefault collect(String className, String methodName, @Nonnull LogLevel logLevel, long executionTime, String logMessage, String traceId, String spanId,String timeStamps) {
+		LogTraceDefault tracer = new LogTraceDefault();
 		
 		tracer.setClazz(className);
 		tracer.setMethod(methodName);

@@ -8,7 +8,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.github.marocraft.trackntrace.context.SpringBasicContext;
-import com.github.marocraft.trackntrace.domain.LogTrace;
+import com.github.marocraft.trackntrace.domain.LogTraceDefault;
 import com.github.marocraft.trackntrace.utils.CommonUtils;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -20,7 +20,7 @@ public class CommonUtilsTest {
 
 	@Test
 	public void shouldGetValueForObject() throws IllegalAccessException {
-		LogTrace trace = new LogTrace();
+		LogTraceDefault trace = new LogTraceDefault();
 		trace.setMethod("Method");
 		Object value = commonUtils.valueOf("methodName", trace);
 		Assert.assertNotNull(value);
