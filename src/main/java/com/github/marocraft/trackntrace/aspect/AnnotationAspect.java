@@ -20,8 +20,9 @@ import org.springframework.util.StopWatch;
 import com.github.marocraft.trackntrace.build.ILogBuilder;
 import com.github.marocraft.trackntrace.collect.ILogCollector;
 import com.github.marocraft.trackntrace.config.IConfigurationTnT;
+import com.github.marocraft.trackntrace.domain.ILogTrace;
 import com.github.marocraft.trackntrace.domain.LogLevel;
-import com.github.marocraft.trackntrace.domain.LogTraceDefault;
+import com.github.marocraft.trackntrace.http.HttpLog;
 import com.github.marocraft.trackntrace.http.ICorrelater;
 import com.github.marocraft.trackntrace.publish.ILogPublisher;
 import com.github.marocraft.trackntrace.publish.LoggerThread;
@@ -40,7 +41,7 @@ import com.github.marocraft.trackntrace.publish.ThreadPoolManager;
 @Aspect
 @Component
 public class AnnotationAspect {
-	
+
 	@Autowired
 	@Qualifier("configurationTnTDefault")
 	IConfigurationTnT config;
@@ -62,6 +63,17 @@ public class AnnotationAspect {
 
 	@Autowired
 	ICorrelater correlator;
+
+	@Autowired
+	@Qualifier("logTraceDefault")
+	ILogTrace logtraceDefault;
+
+	@Autowired
+	@Qualifier("logTraceRest")
+	ILogTrace logtraceRest;
+
+	@Autowired
+	HttpLog httpverb;
 
 	/**
 	 * Start multi-threading
@@ -104,17 +116,20 @@ public class AnnotationAspect {
 		String logMessage = logCollector.getMessage(joinPoint);
 		Signature methodSignature = joinPoint.getSignature();
 		Object clazz = joinPoint.getTarget();
-
-		if(correlator == null) {
-			correlator.setTraceId("");
-			correlator.setSpanId("");
-		}
+		logtraceDefault = logCollector.collect(clazz.getClass().getName(), methodSignature.getName(), logLevel,
+				stopWatch.getTotalTimeMillis(), logMessage, correlator.getTraceId(), correlator.getSpanId(),
+				new SimpleDateFormat("yyyy/MM/dd-HH:mm:ss").format(Calendar.getInstance().getTime()));
 		
-		LogTraceDefault logTrace = logCollector.collect(clazz.getClass().getName(), methodSignature.getName(), logLevel,
-				stopWatch.getTotalTimeMillis(), logMessage, correlator.getTraceId(), correlator.getSpanId(),new SimpleDateFormat("yyyy/MM/dd-HH:mm:ss").format(Calendar.getInstance().getTime()));
-		String log = logBuilder.build(logTrace);
+		logtraceRest = logCollector.collect(clazz.getClass().getName(), methodSignature.getName(), logLevel,
+				stopWatch.getTotalTimeMillis(), logMessage, correlator.getTraceId(), correlator.getSpanId(),
+				new SimpleDateFormat("yyyy/MM/dd-HH:mm:ss").format(Calendar.getInstance().getTime()),
+				httpverb.getHttpVerb(), httpverb.getHttpStatus(), httpverb.getHttpURI());
+
+		String log = logBuilder.build(logtraceDefault);
+		String restLog = logBuilder.buildRest(logtraceRest);
 
 		logPublisher.publish(log);
+		logPublisher.publish(restLog);
 	}
 
 	private Object executeAnnotedMethod(final ProceedingJoinPoint joinPoint) throws Throwable {

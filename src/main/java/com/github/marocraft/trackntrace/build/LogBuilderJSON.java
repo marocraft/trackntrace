@@ -27,6 +27,10 @@ public class LogBuilderJSON implements ILogBuilder {
 	IConfigurationTnT config;
 
 	@Autowired
+	@Qualifier("configurationTnTRest")
+	IConfigurationTnT configRest;
+	
+	@Autowired
 	CommonUtils commonUtils;
 
 	/**
@@ -36,9 +40,20 @@ public class LogBuilderJSON implements ILogBuilder {
 	 * @return
 	 * @throws IllegalAccessException
 	 */
-	@Qualifier("logTraceRest")
+	@Override
 	public String build(ILogTrace logTrace) throws IllegalAccessException {
 		String format = config.getFormat();
+		List<Variable> variables = commonUtils.extractVariables(format);
+		for (Variable variable : variables) {
+			format = commonUtils.replace(format, variable.getName(), logTrace);
+		}
+
+		return format;
+	}
+
+	@Override
+	public String buildRest(ILogTrace logTrace) throws IllegalAccessException {
+		String format = configRest.getFormat();
 		List<Variable> variables = commonUtils.extractVariables(format);
 		for (Variable variable : variables) {
 			format = commonUtils.replace(format, variable.getName(), logTrace);

@@ -6,6 +6,7 @@ import org.aspectj.lang.JoinPoint;
 
 import com.github.marocraft.trackntrace.domain.LogLevel;
 import com.github.marocraft.trackntrace.domain.LogTraceDefault;
+import com.github.marocraft.trackntrace.domain.LogTraceRest;
 
 /**
  * Interface for Collecting informations to log
@@ -32,6 +33,9 @@ public interface ILogCollector {
 	 * @param joinPoint
 	 * @return
 	 */
+	
+	public LogTraceRest collect(String className, String methodName, @Nonnull LogLevel logLevel, long executionTime, String logMessage, String traceId, String spanId,String timeStamps,String httpVerb,String httpStatus,String httpURI);
+
 	public LogLevel getLevel(JoinPoint joinPoint);
 
 	/**

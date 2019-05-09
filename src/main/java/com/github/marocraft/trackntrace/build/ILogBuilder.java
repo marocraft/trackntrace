@@ -15,12 +15,21 @@ import com.github.marocraft.trackntrace.domain.ILogTrace;
 public interface ILogBuilder {
 
 	/**
-	 * Construct logs from LogTrace object
+	 * Construct logs from LogTraceDefault object
 	 * 
 	 * @param logTrace
 	 * @return
 	 * @throws IllegalAccessException
 	 */
-	@Qualifier("logTraceRest")
+	@Qualifier("logTraceDefault")
 	public String build(ILogTrace logTrace) throws IllegalAccessException;
+	
+	/**
+	 * Construct logs from LogTraceRest object
+	 * @param logTrace
+	 * @return
+	 * @throws IllegalAccessException
+	 */
+	@Qualifier("logTraceRest")
+	public String buildRest(ILogTrace logTrace)throws IllegalAccessException;
 }
