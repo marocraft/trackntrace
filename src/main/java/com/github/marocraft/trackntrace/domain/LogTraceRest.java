@@ -12,6 +12,7 @@ import lombok.Setter;
 
 /**
  * LogTrace transfer object. Holds traced item information
+ * 
  * @author Tassa Housseine
  *
  */
@@ -21,8 +22,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Component("logTraceRest")
-public class LogTraceRest implements ILogTrace{
-	
+public class LogTraceRest implements ILogTrace {
+
 	@Mapping(field = "executionTime")
 	private long time;
 
@@ -43,9 +44,17 @@ public class LogTraceRest implements ILogTrace{
 
 	@Mapping(field = "spanId")
 	private String spanId;
-	
+
 	@Mapping(field = "timeStamps")
 	private String timeStamps;
+
+	@Mapping(field = "httpVerb")
+	private String httpVerb;
+
+	@Mapping(field = "httpStatus")
+	private String httpStatus;
 	
+	@Mapping(field = "httpURI")
+	private String httpURI;
 
 }

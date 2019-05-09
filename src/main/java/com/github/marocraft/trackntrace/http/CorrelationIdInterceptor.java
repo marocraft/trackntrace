@@ -30,7 +30,10 @@ import com.github.marocraft.trackntrace.utils.CommonUtils;
 public class CorrelationIdInterceptor implements Filter {
 
 	@Autowired
-	Correlater correlator;
+	ICorrelater correlator;
+
+	@Autowired
+	IHttpLog httpLog;
 
 	@Autowired
 	@Qualifier("configurationTnTDefault")
@@ -49,9 +52,19 @@ public class CorrelationIdInterceptor implements Filter {
 			throws IOException, ServletException {
 
 		if (request instanceof HttpServletRequest && response instanceof HttpServletResponse) {
+
 			HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 			HttpServletResponse httpServletResponse = (HttpServletResponse) response;
 
+			httpLog.setHttpVerb(httpServletRequest.getMethod());
+			httpLog.setHttpStatus(httpServletResponse.getStatus() + "");
+			String uri = httpServletRequest.getRequestURI();
+			
+			if (httpServletRequest.getQueryString() != null) {
+				uri = uri + "?" + httpServletRequest.getQueryString();
+			}
+			httpLog.setHttpURI(uri);
+			
 			processTraceId(httpServletRequest, configTnt.getTraceidName());
 			processSpanId(httpServletRequest, configTnt.getSpanIdName());
 

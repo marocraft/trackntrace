@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import com.github.marocraft.trackntrace.annotation.Trace;
 import com.github.marocraft.trackntrace.domain.LogLevel;
 import com.github.marocraft.trackntrace.domain.LogTraceDefault;
+import com.github.marocraft.trackntrace.domain.LogTraceRest;
 
 /**
  * Collect informations to log
@@ -31,9 +32,10 @@ public class LogCollector implements ILogCollector {
 	 * @param logMessage
 	 * @return
 	 */
-	public LogTraceDefault collect(String className, String methodName, @Nonnull LogLevel logLevel, long executionTime, String logMessage, String traceId, String spanId,String timeStamps) {
+	public LogTraceDefault collect(String className, String methodName, @Nonnull LogLevel logLevel, long executionTime,
+			String logMessage, String traceId, String spanId, String timeStamps) {
 		LogTraceDefault tracer = new LogTraceDefault();
-		
+
 		tracer.setClazz(className);
 		tracer.setMethod(methodName);
 		tracer.setLevel(logLevel.name());
@@ -42,7 +44,7 @@ public class LogCollector implements ILogCollector {
 		tracer.setTraceId(traceId);
 		tracer.setSpanId(spanId);
 		tracer.setTimeStamps(timeStamps);
-		
+
 		return tracer;
 	}
 
@@ -56,7 +58,7 @@ public class LogCollector implements ILogCollector {
 		MethodSignature signature = (MethodSignature) joinPoint.getSignature();
 		Method method = signature.getMethod();
 		Trace myAnnotation = method.getAnnotation(Trace.class);
-		
+
 		return myAnnotation.level();
 	}
 
@@ -70,7 +72,28 @@ public class LogCollector implements ILogCollector {
 		MethodSignature signature = (MethodSignature) joinPoint.getSignature();
 		Method method = signature.getMethod();
 		Trace myAnnotation = method.getAnnotation(Trace.class);
-		
+
 		return myAnnotation.message();
+	}
+
+	@Override
+	public LogTraceRest collect(String className, String methodName, LogLevel logLevel, long executionTime,
+			String logMessage, String traceId, String spanId, String timeStamps, String httpVerb, String httpStatus,
+			String httpURI) {
+		LogTraceRest tracer = new LogTraceRest();
+
+		tracer.setClazz(className);
+		tracer.setMethod(methodName);
+		tracer.setLevel(logLevel.name());
+		tracer.setTime(executionTime);
+		tracer.setMessage(logMessage);
+		tracer.setTraceId(traceId);
+		tracer.setSpanId(spanId);
+		tracer.setTimeStamps(timeStamps);
+		tracer.setHttpVerb(httpVerb);
+		tracer.setHttpStatus(httpStatus);
+		tracer.setHttpURI(httpURI);
+
+		return tracer;
 	}
 }
