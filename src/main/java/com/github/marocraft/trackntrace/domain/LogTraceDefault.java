@@ -1,5 +1,7 @@
 package com.github.marocraft.trackntrace.domain;
 
+import org.springframework.stereotype.Component;
+
 import com.github.marocraft.trackntrace.annotation.Mapping;
 
 import lombok.AllArgsConstructor;
@@ -20,7 +22,8 @@ import lombok.Setter;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class LogTrace {
+@Component("logTraceDefault")
+public class LogTraceDefault implements ILogTrace {
 
 	@Mapping(field = "executionTime")
 	private long time;

@@ -10,6 +10,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -18,13 +19,14 @@ import com.github.marocraft.trackntrace.collect.ILogCollector;
 import com.github.marocraft.trackntrace.config.IConfigurationTnT;
 import com.github.marocraft.trackntrace.context.SpringAOPContext;
 import com.github.marocraft.trackntrace.domain.LogLevel;
-import com.github.marocraft.trackntrace.domain.LogTrace;
+import com.github.marocraft.trackntrace.domain.LogTraceDefault;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = SpringAOPContext.class)
 public class LogCreationTest {
 
 	@Autowired
+	@Qualifier("configurationTnTDefault")
 	IConfigurationTnT config;
 
 	@Autowired
@@ -41,20 +43,20 @@ public class LogCreationTest {
 
 	@Test
 	public void shouldCreateLogTraceClass() {
-		LogTrace logTrace = logCollector.collect(null, null, LogLevel.TRIVIAL, 0, "log", "", "","");
+		LogTraceDefault logTrace = logCollector.collect(null, null, LogLevel.TRIVIAL, 0, "log", "", "","");
 		Assert.assertNotNull(logTrace);
 	}
 
 	@Test
 	public void shouldCreateLogTraceClassWithData() {
-		LogTrace logTrace = logCollector.collect("controller", "myMethod", LogLevel.TRIVIAL, 20L, "", "", "","");
+		LogTraceDefault logTrace = logCollector.collect("controller", "myMethod", LogLevel.TRIVIAL, 20L, "", "", "","");
 		Assert.assertNotNull(logTrace.getClazz());
 	}
 
 	@Test
 	public void shouldLogHaveCorrectFormat() throws IllegalAccessException {
 		config.getFormat();
-		LogTrace logTrace = logCollector.collect("controller", "myMethod", LogLevel.TRIVIAL, 20L, "my message", "", "","");
+		LogTraceDefault logTrace = logCollector.collect("controller", "myMethod", LogLevel.TRIVIAL, 20L, "my message", "", "","");
 
 		String log = logBuilder.build(logTrace);
 		assertEquals(

@@ -4,6 +4,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import com.github.marocraft.trackntrace.config.IConfigurationTnT;
@@ -19,6 +20,7 @@ import com.github.marocraft.trackntrace.config.IConfigurationTnT;
 public class ThreadPoolManager {
 
 	@Autowired
+	@Qualifier("configurationTnTDefault")
 	IConfigurationTnT config;
 
 	ExecutorService executorService;

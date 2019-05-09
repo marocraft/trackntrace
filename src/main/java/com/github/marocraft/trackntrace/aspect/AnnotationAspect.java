@@ -12,6 +12,7 @@ import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StopWatch;
@@ -20,7 +21,7 @@ import com.github.marocraft.trackntrace.build.ILogBuilder;
 import com.github.marocraft.trackntrace.collect.ILogCollector;
 import com.github.marocraft.trackntrace.config.IConfigurationTnT;
 import com.github.marocraft.trackntrace.domain.LogLevel;
-import com.github.marocraft.trackntrace.domain.LogTrace;
+import com.github.marocraft.trackntrace.domain.LogTraceDefault;
 import com.github.marocraft.trackntrace.http.ICorrelater;
 import com.github.marocraft.trackntrace.publish.ILogPublisher;
 import com.github.marocraft.trackntrace.publish.LoggerThread;
@@ -39,8 +40,9 @@ import com.github.marocraft.trackntrace.publish.ThreadPoolManager;
 @Aspect
 @Component
 public class AnnotationAspect {
-
+	
 	@Autowired
+	@Qualifier("configurationTnTDefault")
 	IConfigurationTnT config;
 
 	@Autowired
@@ -108,7 +110,7 @@ public class AnnotationAspect {
 			correlator.setSpanId("");
 		}
 		
-		LogTrace logTrace = logCollector.collect(clazz.getClass().getName(), methodSignature.getName(), logLevel,
+		LogTraceDefault logTrace = logCollector.collect(clazz.getClass().getName(), methodSignature.getName(), logLevel,
 				stopWatch.getTotalTimeMillis(), logMessage, correlator.getTraceId(), correlator.getSpanId(),new SimpleDateFormat("yyyy/MM/dd-HH:mm:ss").format(Calendar.getInstance().getTime()));
 		String log = logBuilder.build(logTrace);
 
