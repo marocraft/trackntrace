@@ -1,5 +1,6 @@
 package com.github.marocraft.trackntrace.collect;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 
 import javax.annotation.Nonnull;
@@ -58,7 +59,6 @@ public class LogCollector implements ILogCollector {
 		MethodSignature signature = (MethodSignature) joinPoint.getSignature();
 		Method method = signature.getMethod();
 		Trace myAnnotation = method.getAnnotation(Trace.class);
-
 		return myAnnotation.level();
 	}
 
@@ -72,7 +72,6 @@ public class LogCollector implements ILogCollector {
 		MethodSignature signature = (MethodSignature) joinPoint.getSignature();
 		Method method = signature.getMethod();
 		Trace myAnnotation = method.getAnnotation(Trace.class);
-
 		return myAnnotation.message();
 	}
 
@@ -93,7 +92,21 @@ public class LogCollector implements ILogCollector {
 		tracer.setHttpVerb(httpVerb);
 		tracer.setHttpStatus(httpStatus);
 		tracer.setHttpURI(httpURI);
-
+		
 		return tracer;
 	}
+
+	public boolean isRestAnnotation(JoinPoint joinPoint) {
+		MethodSignature signature = (MethodSignature) joinPoint.getSignature();
+		Method method = signature.getMethod();
+		Class<?> clazz= method.getDeclaringClass();
+		Annotation[] ann = clazz.getAnnotations();
+		for (Annotation annotation : ann) {
+			if (annotation.annotationType().getName()=="org.springframework.web.bind.annotation.RestController")
+				return true;
+		}
+		return false;
+
+	}
+
 }

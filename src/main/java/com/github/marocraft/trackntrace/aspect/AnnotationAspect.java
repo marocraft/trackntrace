@@ -119,17 +119,20 @@ public class AnnotationAspect {
 		logtraceDefault = logCollector.collect(clazz.getClass().getName(), methodSignature.getName(), logLevel,
 				stopWatch.getTotalTimeMillis(), logMessage, correlator.getTraceId(), correlator.getSpanId(),
 				new SimpleDateFormat("yyyy/MM/dd-HH:mm:ss").format(Calendar.getInstance().getTime()));
-		
-		logtraceRest = logCollector.collect(clazz.getClass().getName(), methodSignature.getName(), logLevel,
-				stopWatch.getTotalTimeMillis(), logMessage, correlator.getTraceId(), correlator.getSpanId(),
-				new SimpleDateFormat("yyyy/MM/dd-HH:mm:ss").format(Calendar.getInstance().getTime()),
-				httpverb.getHttpVerb(), httpverb.getHttpStatus(), httpverb.getHttpURI());
 
 		String log = logBuilder.build(logtraceDefault);
-		String restLog = logBuilder.buildRest(logtraceRest);
+		
 
 		logPublisher.publish(log);
-		logPublisher.publish(restLog);
+
+		if (logCollector.isRestAnnotation(joinPoint)) {
+			logtraceRest = logCollector.collect(clazz.getClass().getName(), methodSignature.getName(), logLevel,
+					stopWatch.getTotalTimeMillis(), logMessage, correlator.getTraceId(), correlator.getSpanId(),
+					new SimpleDateFormat("yyyy/MM/dd-HH:mm:ss").format(Calendar.getInstance().getTime()),
+					httpverb.getHttpVerb(), httpverb.getHttpStatus(), httpverb.getHttpURI());
+			String restLog = logBuilder.buildRest(logtraceRest);
+			logPublisher.publish(restLog);
+		}
 	}
 
 	private Object executeAnnotedMethod(final ProceedingJoinPoint joinPoint) throws Throwable {

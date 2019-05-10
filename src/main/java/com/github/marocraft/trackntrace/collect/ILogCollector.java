@@ -45,4 +45,11 @@ public interface ILogCollector {
 	 * @return
 	 */
 	public String getMessage(JoinPoint joinPoint);
+	
+	/**
+	 * Detect if the class is annotated with RestController
+	 * @param joinPoint
+	 * @return
+	 */
+	public boolean isRestAnnotation(JoinPoint joinPoint);
 }
