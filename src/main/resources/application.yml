@@ -1,0 +1,32 @@
+spring:
+ profiles.active: RUN
+tnt:
+ logging:
+  format:
+   default: >
+    {"methodName": "{{methodName}}",
+    "className": "{{className}}",
+    "logLevel": "{{logLevel}}",
+    "executionTime": "{{executionTime}}",
+    "logMessage": "{{logMessage}}",
+    "traceId": "{{traceId}}",
+    "spanId": "{{spanId}}",
+    "timeStamps": "{{timeStamps}}"}
+   rest: >
+    {"methodName": "{{methodName}}",
+    "className": "{{className}}",
+    "logLevel": "{{logLevel}}",
+    "executionTime": "{{executionTime}}",
+    "logMessage": "{{logMessage}}",
+    "traceId": "{{traceId}}",
+    "spanId": "{{spanId}}",
+    "timeStamps": "{{timeStamps}}",
+    "httpVerb": "{{httpVerb}}",
+    "httpStatus": "{{httpStatus}}",
+    "httpURI": "{{httpURI}}"}
+  output: json
+ multithread:
+  poolsize: 1
+ correlationid:
+  traceid: "X-B3-TraceId"
+  spanid: "X-B3-SpanId"
