@@ -1,16 +1,17 @@
 package com.github.marocraft.trackntrace.aspect;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
+import java.time.LocalDateTime;
 
 import javax.annotation.PostConstruct;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
@@ -53,6 +54,7 @@ public class AnnotationAspect {
 	ILogPublisher<String> logPublisher;
 
 	@Autowired
+	@Qualifier("defaultLogCollector")
 	ILogCollector logCollector;
 
 	@Autowired
@@ -74,6 +76,16 @@ public class AnnotationAspect {
 
 	@Autowired
 	HttpLog httpverb;
+	
+	@Autowired
+	@Qualifier("restLogger")
+	private Logger restLogger;
+	
+	@Autowired
+	@Qualifier("defaultLogger")
+	private Logger defaultLogger;
+	
+	
 
 	/**
 	 * Start multi-threading
@@ -112,27 +124,17 @@ public class AnnotationAspect {
 	 * @throws IOException
 	 */
 	private void generateLog(final JoinPoint joinPoint, StopWatch stopWatch) throws IllegalAccessException {
-		LogLevel logLevel = logCollector.getLevel(joinPoint);
-		String logMessage = logCollector.getMessage(joinPoint);
-		Signature methodSignature = joinPoint.getSignature();
+		MethodSignature signature = (MethodSignature) joinPoint.getSignature();
+		LogLevel logLevel = logCollector.getLevel(signature);
+		String logMessage = logCollector.getMessage(signature);
 		Object clazz = joinPoint.getTarget();
-		logtraceDefault = logCollector.collect(clazz.getClass().getName(), methodSignature.getName(), logLevel,
-				stopWatch.getTotalTimeMillis(), logMessage, correlator.getTraceId(), correlator.getSpanId(),
-				new SimpleDateFormat("yyyy/MM/dd-HH:mm:ss").format(Calendar.getInstance().getTime()));
-
-		String log = logBuilder.build(logtraceDefault);
 		
+		LogCollection logCollection = new LogCollection(
+				clazz.getClass().getName(), signature.getName(), logLevel,
+				stopWatch, logMessage, correlator, LocalDateTime.now(), httpverb);
 
-		logPublisher.publish(log);
-
-		if (logCollector.isRestAnnotation(joinPoint)) {
-			logtraceRest = logCollector.collect(clazz.getClass().getName(), methodSignature.getName(), logLevel,
-					stopWatch.getTotalTimeMillis(), logMessage, correlator.getTraceId(), correlator.getSpanId(),
-					new SimpleDateFormat("yyyy/MM/dd-HH:mm:ss").format(Calendar.getInstance().getTime()),
-					httpverb.getHttpVerb(), httpverb.getHttpStatus(), httpverb.getHttpURI());
-			String restLog = logBuilder.buildRest(logtraceRest);
-			logPublisher.publish(restLog);
-		}
+		LogResolver resolver = new LogResolver(getLogStrategy(signature));
+		resolver.process(logCollection);
 	}
 
 	private Object executeAnnotedMethod(final ProceedingJoinPoint joinPoint) throws Throwable {
@@ -147,5 +149,24 @@ public class AnnotationAspect {
 		StopWatch stopWatch = new StopWatch();
 		stopWatch.start();
 		return stopWatch;
+	}
+	
+	private Logger getLogStrategy(MethodSignature joinpointSignature) {
+		if(isRestAnnotated(joinpointSignature)) {
+			return restLogger;
+		} else {
+			return defaultLogger;
+		}
+	}
+	
+	private boolean isRestAnnotated(MethodSignature signature) {
+		Method method = signature.getMethod();
+		Class<?> clazz= method.getDeclaringClass();
+		for (Annotation annotation : clazz.getAnnotations()) {
+			if ("org.springframework.web.bind.annotation.RestController".equals(annotation.annotationType().getName())) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

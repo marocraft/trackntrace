@@ -1,12 +1,14 @@
 package com.github.marocraft.trackntrace.collect;
 
-import javax.annotation.Nonnull;
+import java.lang.reflect.Method;
 
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.reflect.MethodSignature;
 
+import com.github.marocraft.trackntrace.annotation.Trace;
+import com.github.marocraft.trackntrace.aspect.LogCollection;
+import com.github.marocraft.trackntrace.domain.ILogTrace;
 import com.github.marocraft.trackntrace.domain.LogLevel;
-import com.github.marocraft.trackntrace.domain.LogTraceDefault;
-import com.github.marocraft.trackntrace.domain.LogTraceRest;
 
 /**
  * Interface for Collecting informations to log
@@ -25,18 +27,20 @@ public interface ILogCollector {
 	 * @param logMessage
 	 * @return
 	 */
-	public LogTraceDefault collect(String className, String methodName, @Nonnull LogLevel logLevel, long executionTime, String logMessage, String traceId, String spanId,String timeStamps);
-
+	public ILogTrace collect(LogCollection logCollection);
+	
 	/**
 	 * Return Log collector level
 	 * 
 	 * @param joinPoint
 	 * @return
 	 */
-	
-	public LogTraceRest collect(String className, String methodName, @Nonnull LogLevel logLevel, long executionTime, String logMessage, String traceId, String spanId,String timeStamps,String httpVerb,String httpStatus,String httpURI);
+	default LogLevel getLevel(MethodSignature signature) {
+		Method method = signature.getMethod();
+		Trace myAnnotation = method.getAnnotation(Trace.class);
+		return myAnnotation.level();
+	}
 
-	public LogLevel getLevel(JoinPoint joinPoint);
 
 	/**
 	 * Return log message
@@ -44,12 +48,9 @@ public interface ILogCollector {
 	 * @param joinPoint
 	 * @return
 	 */
-	public String getMessage(JoinPoint joinPoint);
-	
-	/**
-	 * Detect if the class is annotated with RestController
-	 * @param joinPoint
-	 * @return
-	 */
-	public boolean isRestAnnotation(JoinPoint joinPoint);
+	default String getMessage(MethodSignature signature) {
+		Method method = signature.getMethod();
+		Trace myAnnotation = method.getAnnotation(Trace.class);
+		return myAnnotation.message();
+	}	
 }
