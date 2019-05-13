@@ -13,11 +13,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.util.StopWatch;
 
 import com.github.marocraft.trackntrace.aspect.AnnotationAspect;
+import com.github.marocraft.trackntrace.aspect.LogCollection;
 import com.github.marocraft.trackntrace.collect.ILogCollector;
 import com.github.marocraft.trackntrace.config.IConfigurationTnT;
 import com.github.marocraft.trackntrace.context.SpringAOPContext;
+import com.github.marocraft.trackntrace.domain.ILogTrace;
 import com.github.marocraft.trackntrace.domain.LogLevel;
 import com.github.marocraft.trackntrace.domain.LogTraceDefault;
 
@@ -33,6 +36,7 @@ public class LogCreationTest {
 	ILogBuilder logBuilder;
 
 	@Autowired
+	@Qualifier("defaultLogCollector")
 	ILogCollector logCollector;
 
 	@Test
@@ -43,20 +47,22 @@ public class LogCreationTest {
 
 	@Test
 	public void shouldCreateLogTraceClass() {
-		LogTraceDefault logTrace = logCollector.collect(null, null, LogLevel.TRIVIAL, 0, "log", "", "","");
+		ILogTrace logTrace = logCollector.collect(new LogCollection(null,null,null,null,null,null,null,null));
 		Assert.assertNotNull(logTrace);
 	}
 
 	@Test
 	public void shouldCreateLogTraceClassWithData() {
-		LogTraceDefault logTrace = logCollector.collect("controller", "myMethod", LogLevel.TRIVIAL, 20L, "", "", "","");
+		LogTraceDefault logTrace = (LogTraceDefault) logCollector.collect(new LogCollection("clazz",null,null,null,null,null,null,null));
 		Assert.assertNotNull(logTrace.getClazz());
 	}
 
 	@Test
 	public void shouldLogHaveCorrectFormat() throws IllegalAccessException {
 		config.getFormat();
-		LogTraceDefault logTrace = logCollector.collect("controller", "myMethod", LogLevel.TRIVIAL, 20L, "my message", "", "","");
+		LogTraceDefault logTrace = 
+				(LogTraceDefault) logCollector.collect(
+						new LogCollection("controller", "myMethod", LogLevel.TRIVIAL, new StopWatch(), "my message", null, null, null));
 
 		String log = logBuilder.build(logTrace);
 		assertEquals(
