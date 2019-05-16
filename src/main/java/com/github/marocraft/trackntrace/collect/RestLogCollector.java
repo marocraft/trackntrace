@@ -2,9 +2,9 @@ package com.github.marocraft.trackntrace.collect;
 
 import org.springframework.stereotype.Component;
 
-import com.github.marocraft.trackntrace.aspect.LogCollection;
 import com.github.marocraft.trackntrace.domain.ILogTrace;
 import com.github.marocraft.trackntrace.domain.LogTraceRest;
+import com.github.marocraft.trackntrace.logger.LogCollection;
 
 @Component("restLogCollector")
 public class RestLogCollector implements ILogCollector {

@@ -34,6 +34,7 @@ public class AspectAnnotationTest {
 	ILogPublisher<String> logPublisher;
 
 	@Autowired
+	@Qualifier("defaultLogBuilder")
 	ILogBuilder logBuilder;
 
 	@Autowired

@@ -1,8 +1,9 @@
-package com.github.marocraft.trackntrace.aspect;
+package com.github.marocraft.trackntrace.logger;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import org.aspectj.lang.Signature;
 import org.springframework.util.StopWatch;
 
 import com.github.marocraft.trackntrace.domain.LogLevel;
@@ -10,9 +11,10 @@ import com.github.marocraft.trackntrace.http.HttpLog;
 import com.github.marocraft.trackntrace.http.ICorrelater;
 
 public class LogCollection {
-	
+
 	private String className;
 	private String methodSignature;
+	private Signature signature;
 	private LogLevel logLevel;
 	private StopWatch stopWatch;
 	private String logMessage;
@@ -20,13 +22,13 @@ public class LogCollection {
 	private LocalDateTime localTime;
 	private HttpLog httpLog;
 
-	public LogCollection(String className, String methodSignature, LogLevel logLevel, StopWatch stopWatch, String logMessage,
-			ICorrelater correlator, LocalDateTime localTime, HttpLog httpLog) {
+	public LogCollection(String className, Signature signature, StopWatch stopWatch, ICorrelater correlator,
+			LocalDateTime localTime, HttpLog httpLog, LogLevel logLevel, String logMessage) {
 		this.className = className;
-		this.methodSignature = methodSignature;
+		this.methodSignature = signature.getName();
 		this.logLevel = logLevel;
-		this.stopWatch = stopWatch;
 		this.logMessage = logMessage;
+		this.stopWatch = stopWatch;
 		this.correlator = correlator;
 		this.localTime = localTime;
 		this.httpLog = httpLog;
@@ -76,5 +78,18 @@ public class LogCollection {
 	public String getHttpURI() {
 		return httpLog.getHttpURI();
 	}
-	
+
+	public Signature getSignature() {
+		return signature;
+	}
+
+	public void setSignature(Signature signature) {
+		this.signature = signature;
+	}
+
+
+	public void setLogLevel(LogLevel logLevel) {
+		this.logLevel = logLevel;
+	}
+
 }

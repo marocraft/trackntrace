@@ -6,7 +6,8 @@ import org.springframework.context.annotation.PropertySources;
 import org.springframework.stereotype.Component;
 
 @Component("configurationTnTRest")
-@PropertySources(value = { @PropertySource(value = "classpath:/application.properties", ignoreResourceNotFound = true),
+@PropertySources(value = {
+		@PropertySource(value = "classpath:/application.properties", ignoreResourceNotFound = true),
 		@PropertySource(value = "classpath:/application.yml", ignoreResourceNotFound = true) })
 public class ConfigurationTnTRest implements IConfigurationTnT {
 

@@ -1,6 +1,5 @@
 package com.github.marocraft.trackntrace.build;
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import com.github.marocraft.trackntrace.domain.ILogTrace;
@@ -15,21 +14,13 @@ import com.github.marocraft.trackntrace.domain.ILogTrace;
 public interface ILogBuilder {
 
 	/**
-	 * Construct logs from LogTraceDefault object
+	 * Construct logs from LogTrace object
 	 * 
 	 * @param logTrace
 	 * @return
 	 * @throws IllegalAccessException
 	 */
-	@Qualifier("logTraceDefault")
+	
 	public String build(ILogTrace logTrace) throws IllegalAccessException;
 	
-	/**
-	 * Construct logs from LogTraceRest object
-	 * @param logTrace
-	 * @return
-	 * @throws IllegalAccessException
-	 */
-	@Qualifier("logTraceRest")
-	public String buildRest(ILogTrace logTrace)throws IllegalAccessException;
 }
