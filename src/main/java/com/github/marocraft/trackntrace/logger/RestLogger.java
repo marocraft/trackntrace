@@ -1,4 +1,4 @@
-package com.github.marocraft.trackntrace.aspect;
+package com.github.marocraft.trackntrace.logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -8,25 +8,28 @@ import com.github.marocraft.trackntrace.build.ILogBuilder;
 import com.github.marocraft.trackntrace.collect.ILogCollector;
 import com.github.marocraft.trackntrace.publish.ILogPublisher;
 
-@Component("defaultLogger")
-public class DefaultLogger implements Logger {
-	
+@Component("restLogger")
+public class RestLogger implements Logger {
+
 	@Autowired
-	@Qualifier("defaultLogCollector")
+	@Qualifier("restLogCollector")
 	private ILogCollector logCollector;
-	
+
 	@Autowired
+	@Qualifier("restLogBuilder")
 	private ILogBuilder logBuilder;
-	
+
 	@Autowired
 	private ILogPublisher<String> logPublisher;
-	
+
 	public ILogCollector logCollector() {
 		return logCollector;
 	}
+
 	public ILogBuilder logBuilder() {
 		return logBuilder;
 	}
+
 	public ILogPublisher<String> logPublisher() {
 		return logPublisher;
 	}

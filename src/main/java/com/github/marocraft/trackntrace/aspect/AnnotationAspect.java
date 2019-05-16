@@ -18,14 +18,14 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StopWatch;
 
-import com.github.marocraft.trackntrace.build.ILogBuilder;
 import com.github.marocraft.trackntrace.collect.ILogCollector;
 import com.github.marocraft.trackntrace.config.IConfigurationTnT;
-import com.github.marocraft.trackntrace.domain.ILogTrace;
 import com.github.marocraft.trackntrace.domain.LogLevel;
 import com.github.marocraft.trackntrace.http.HttpLog;
 import com.github.marocraft.trackntrace.http.ICorrelater;
-import com.github.marocraft.trackntrace.publish.ILogPublisher;
+import com.github.marocraft.trackntrace.logger.LogCollection;
+import com.github.marocraft.trackntrace.logger.LogResolver;
+import com.github.marocraft.trackntrace.logger.Logger;
 import com.github.marocraft.trackntrace.publish.LoggerThread;
 import com.github.marocraft.trackntrace.publish.ThreadPoolManager;
 
@@ -48,12 +48,6 @@ public class AnnotationAspect {
 	IConfigurationTnT config;
 
 	@Autowired
-	ILogBuilder logBuilder;
-
-	@Autowired
-	ILogPublisher<String> logPublisher;
-
-	@Autowired
 	@Qualifier("defaultLogCollector")
 	ILogCollector logCollector;
 
@@ -65,14 +59,6 @@ public class AnnotationAspect {
 
 	@Autowired
 	ICorrelater correlator;
-
-	@Autowired
-	@Qualifier("logTraceDefault")
-	ILogTrace logtraceDefault;
-
-	@Autowired
-	@Qualifier("logTraceRest")
-	ILogTrace logtraceRest;
 
 	@Autowired
 	HttpLog httpverb;
@@ -125,13 +111,12 @@ public class AnnotationAspect {
 	 */
 	private void generateLog(final JoinPoint joinPoint, StopWatch stopWatch) throws IllegalAccessException {
 		MethodSignature signature = (MethodSignature) joinPoint.getSignature();
-		LogLevel logLevel = logCollector.getLevel(signature);
-		String logMessage = logCollector.getMessage(signature);
 		Object clazz = joinPoint.getTarget();
-		
+		String logMessage= logCollector.getMessageFromSignature(signature);
+		LogLevel logLevel=logCollector.getLevelFromSignature(signature);
 		LogCollection logCollection = new LogCollection(
-				clazz.getClass().getName(), signature.getName(), logLevel,
-				stopWatch, logMessage, correlator, LocalDateTime.now(), httpverb);
+				clazz.getClass().getName(), signature,
+				stopWatch, correlator, LocalDateTime.now(), httpverb,logLevel , logMessage);
 
 		LogResolver resolver = new LogResolver(getLogStrategy(signature));
 		resolver.process(logCollection);

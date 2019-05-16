@@ -1,4 +1,4 @@
-package com.github.marocraft.trackntrace.aspect;
+package com.github.marocraft.trackntrace.logger;
 
 import com.github.marocraft.trackntrace.build.ILogBuilder;
 import com.github.marocraft.trackntrace.collect.ILogCollector;
