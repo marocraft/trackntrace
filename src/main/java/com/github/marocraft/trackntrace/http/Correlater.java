@@ -1,6 +1,5 @@
 package com.github.marocraft.trackntrace.http;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 /**
@@ -13,10 +12,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class Correlater implements ICorrelater {
 
-	@Value(value="")
 	private String traceId ;
 	
-	@Value(value="")
 	private String spanId ;
 
 	public Correlater(String traceId, String spanId) {

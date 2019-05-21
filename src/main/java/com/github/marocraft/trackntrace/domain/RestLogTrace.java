@@ -21,8 +21,8 @@ import lombok.Setter;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Component("logTraceRest")
-public class LogTraceRest implements ILogTrace {
+@Component("restLogTrace")
+public class RestLogTrace extends LogTrace {
 
 	@Mapping(field = "executionTime")
 	private long time;

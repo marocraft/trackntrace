@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import com.github.marocraft.trackntrace.annotation.Mapping;
-import com.github.marocraft.trackntrace.domain.ILogTrace;
+import com.github.marocraft.trackntrace.domain.LogTrace;
 import com.github.marocraft.trackntrace.domain.Variable;
 
 /**
@@ -32,11 +32,10 @@ public class CommonUtils {
 	 * @return
 	 * @throws IllegalAccessException
 	 */
-	@Qualifier("logTraceRest")
-	public String replace(String format, String field, ILogTrace logTrace) throws IllegalAccessException {
+	public String replace(String format, String field, LogTrace logTrace) throws IllegalAccessException {
 		Object valueOfField = valueOf(field, logTrace);
 		
-		return format.replaceAll("\"\\{\\{" + field + "\\}\\}\"", "\"" + valueOfField.toString() + "\"") + "";
+		return format.replaceAll("\"\\{\\{" + field + "\\}\\}\"", "\"" + valueOfField + "\"") + "";
 	}
 
 	public List<Variable> extractVariables(String expression) {
@@ -59,8 +58,7 @@ public class CommonUtils {
 		return variables;
 	}
 
-	@Qualifier("logTraceRest")
-	public Object valueOf(String fieldName, ILogTrace trace) throws IllegalAccessException {
+	public Object valueOf(String fieldName, LogTrace trace) throws IllegalAccessException {
 		Field[] clazzFields = trace.getClass().getDeclaredFields();
 		for (Field clazzField : clazzFields) {
 			Mapping annotation = clazzField.getAnnotation(Mapping.class);

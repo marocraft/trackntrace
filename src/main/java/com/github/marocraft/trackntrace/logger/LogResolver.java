@@ -1,6 +1,6 @@
 package com.github.marocraft.trackntrace.logger;
 
-import com.github.marocraft.trackntrace.domain.ILogTrace;
+import com.github.marocraft.trackntrace.domain.LogTrace;
 
 public class LogResolver {
 	private Logger logger;
@@ -10,7 +10,7 @@ public class LogResolver {
 	}
 
 	public void process(LogCollection logCollection) throws IllegalAccessException {
-		ILogTrace logTrace = logger.logCollector().collect(logCollection);
+		LogTrace logTrace = logger.logCollector().collect(logCollection);
 		String logMessage = logger.logBuilder().build(logTrace);
 		logger.logPublisher().publish(logMessage);
 	}

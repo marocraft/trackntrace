@@ -25,9 +25,9 @@ import com.github.marocraft.trackntrace.annotation.Trace;
 import com.github.marocraft.trackntrace.aspect.AnnotationAspect;
 import com.github.marocraft.trackntrace.collect.ILogCollector;
 import com.github.marocraft.trackntrace.context.SpringAOPContext;
-import com.github.marocraft.trackntrace.domain.ILogTrace;
+import com.github.marocraft.trackntrace.domain.LogTrace;
 import com.github.marocraft.trackntrace.domain.LogLevel;
-import com.github.marocraft.trackntrace.domain.LogTraceDefault;
+import com.github.marocraft.trackntrace.domain.DefaultLogTrace;
 import com.github.marocraft.trackntrace.http.Correlater;
 import com.github.marocraft.trackntrace.http.HttpLog;
 import com.github.marocraft.trackntrace.logger.LogCollection;
@@ -75,21 +75,21 @@ public class LogCreationTest {
 
 	@Test
 	public void shouldCreateLogTraceClass() {
-		ILogTrace logTrace = logCollector.collect(collection);
+		LogTrace logTrace = logCollector.collect(collection);
 		Assert.assertNotNull(logTrace);
 	}
 
 	@Test
 	public void shouldCreateLogTraceClassWithData() {
-		LogTraceDefault logTrace = (LogTraceDefault) logCollector.collect(collection);
+		DefaultLogTrace logTrace = (DefaultLogTrace) logCollector.collect(collection);
 		Assert.assertNotNull(logTrace.getClazz());
 	}
 
 	@Test
 	public void shouldLogHaveCorrectFormat() throws IllegalAccessException {
 		
-		LogTraceDefault logTrace = 
-				(LogTraceDefault) logCollector.collect(
+		DefaultLogTrace logTrace = 
+				(DefaultLogTrace) logCollector.collect(
 						collection);
 
 		String log = logBuilder.build(logTrace);

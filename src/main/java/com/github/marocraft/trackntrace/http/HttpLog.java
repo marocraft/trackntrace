@@ -1,18 +1,14 @@
 package com.github.marocraft.trackntrace.http;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
 public class HttpLog implements IHttpLog {
 
-	@Value("")
 	private String httpVerbName;
 
-	@Value("")
 	private String httpStatus;
 
-	@Value("")
 	private String httpUri;
 
 	@Override

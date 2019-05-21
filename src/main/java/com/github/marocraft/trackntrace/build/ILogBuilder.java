@@ -2,7 +2,7 @@ package com.github.marocraft.trackntrace.build;
 
 import org.springframework.stereotype.Component;
 
-import com.github.marocraft.trackntrace.domain.ILogTrace;
+import com.github.marocraft.trackntrace.domain.LogTrace;
 
 /**
  * Interface of log building from a from LogTrace objects
@@ -21,6 +21,6 @@ public interface ILogBuilder {
 	 * @throws IllegalAccessException
 	 */
 	
-	public String build(ILogTrace logTrace) throws IllegalAccessException;
+	public String build(LogTrace logTrace) throws IllegalAccessException;
 	
 }

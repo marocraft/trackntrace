@@ -22,8 +22,8 @@ import lombok.Setter;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Component("logTraceDefault")
-public class LogTraceDefault implements ILogTrace {
+@Component("defaultLogTrace")
+public class DefaultLogTrace extends LogTrace {
 
 	@Mapping(field = "executionTime")
 	private long time;
