@@ -33,7 +33,7 @@ public interface IConfigurationTnT {
 	/**
 	 * Set Logging message pattern
 	 * 
-	 * @param format
+	 * @param size
 	 */
 	public void setThreadPoolsize(int size);
 
