@@ -28,7 +28,6 @@ import com.github.marocraft.trackntrace.logger.Logger;
 import com.github.marocraft.trackntrace.publish.LoggerThread;
 import com.github.marocraft.trackntrace.publish.ThreadPoolManager;
 
-
 /**
  * Annotations Core processing aspect allowing to run the behavior of the
  * framework defined annotations like @Trace
@@ -59,16 +58,14 @@ public class AnnotationAspect {
 
 	@Autowired
 	HttpLog httpverb;
-	
+
 	@Autowired
 	@Qualifier("restLogger")
 	private Logger restLogger;
-	
+
 	@Autowired
 	@Qualifier("defaultLogger")
 	private Logger defaultLogger;
-	
-	
 
 	/**
 	 * Start multi-threading
@@ -118,20 +115,44 @@ public class AnnotationAspect {
 		resolver.process(logCollection);
 	}
 
+	/**
+	 * execute Annoted Method
+	 * 
+	 * @param joinPoint
+	 * @return
+	 * @throws Throwable
+	 */
 	private Object executeAnnotedMethod(final ProceedingJoinPoint joinPoint) throws Throwable {
 		return joinPoint.proceed();
 	}
 
+	/**
+	 * 
+	 * Stop timer to calculate duration
+	 * 
+	 * @param stopWatch
+	 */
 	private void stopTimer(StopWatch stopWatch) {
 		stopWatch.stop();
 	}
 
+	/**
+	 * Start Timer to calculate
+	 * 
+	 * @return
+	 */
 	private StopWatch startTimer() {
 		StopWatch stopWatch = new StopWatch();
 		stopWatch.start();
 		return stopWatch;
 	}
 
+	/**
+	 * Get log Startegy
+	 * 
+	 * @param joinpointSignature
+	 * @return
+	 */
 	private Logger getLogStrategy(MethodSignature joinpointSignature) {
 		if (isRestAnnotated(joinpointSignature)) {
 			return restLogger;
@@ -140,6 +161,12 @@ public class AnnotationAspect {
 		}
 	}
 
+	/**
+	 * Check if the class is annotated with Rest
+	 * 
+	 * @param signature
+	 * @return
+	 */
 	private boolean isRestAnnotated(MethodSignature signature) {
 		Method method = signature.getMethod();
 		Class<?> clazz = method.getDeclaringClass();

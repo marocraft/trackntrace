@@ -10,16 +10,17 @@ package com.github.marocraft.trackntrace.publish;
  */
 public interface ILogPublisher<E> {
 
+	
 	/**
 	 * Add a new message to the queue
 	 * 
-	 * @param logMessage
+	 * @param message
 	 */
 	public void publish(E message);
 
+	
 	/**
 	 * Return current next queue item
-	 * 
 	 * @return
 	 * @throws InterruptedException
 	 */

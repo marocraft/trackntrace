@@ -2,12 +2,11 @@ package com.github.marocraft.trackntrace.collect;
 
 import java.lang.reflect.Method;
 
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
 
 import com.github.marocraft.trackntrace.annotation.Trace;
-import com.github.marocraft.trackntrace.domain.LogTrace;
 import com.github.marocraft.trackntrace.domain.LogLevel;
+import com.github.marocraft.trackntrace.domain.LogTrace;
 import com.github.marocraft.trackntrace.logger.LogCollection;
 
 /**
@@ -20,11 +19,7 @@ public interface ILogCollector {
 	/**
 	 * Collect informations to log
 	 * 
-	 * @param className
-	 * @param methodName
-	 * @param logLevel
-	 * @param executionTime
-	 * @param logMessage
+	 * @param logCollection
 	 * @return
 	 */
 	public LogTrace collect(LogCollection logCollection);
@@ -32,7 +27,7 @@ public interface ILogCollector {
 	/**
 	 * Return Log collector level
 	 * 
-	 * @param joinPoint
+	 * @param signature
 	 * @return
 	 */
 	default LogLevel getLevelFromSignature(MethodSignature signature) {
@@ -44,7 +39,7 @@ public interface ILogCollector {
 	/**
 	 * Return log message
 	 * 
-	 * @param joinPoint
+	 * @param signature
 	 * @return
 	 */
 	default String getMessageFromSignature(MethodSignature signature) {
