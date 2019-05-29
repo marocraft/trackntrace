@@ -10,10 +10,9 @@ import com.github.marocraft.trackntrace.logger.LogCollection;
 public class DefaultLogCollector implements ILogCollector {
 
 	public LogTrace collect(LogCollection logCollection) {
-		return new DefaultLogTrace(
-				logCollection.executionTime(), logCollection.getMethodSignature(), logCollection.getClassName(),
-				logCollection.getLogLevel().name(), null, logCollection.getLogMessage(),
-				logCollection.getTraceId(), logCollection.getSpanId(), logCollection.getCurrentTimestamp());
+		return new DefaultLogTrace(logCollection.executionTime(), logCollection.getMethodSignature(),
+				logCollection.getClassName(), logCollection.getLogLevel().name(), null, logCollection.getLogMessage(),
+				logCollection.getCurrentTimestamp());
 	}
 
 }

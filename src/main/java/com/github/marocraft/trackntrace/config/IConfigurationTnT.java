@@ -37,17 +37,4 @@ public interface IConfigurationTnT {
 	 */
 	public void setThreadPoolsize(int size);
 
-	/**
-	 * Return TraceId
-	 * 
-	 * @return
-	 */
-	public String getTraceidName();
-
-	/**
-	 * Return SpanId
-	 * 
-	 * @return
-	 */
-	public String getSpanIdName();
 }

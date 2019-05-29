@@ -39,12 +39,6 @@ public class RestLogTrace extends LogTrace {
 	@Mapping(field = "logMessage")
 	private String message;
 
-	@Mapping(field = "traceId")
-	private String traceId;
-
-	@Mapping(field = "spanId")
-	private String spanId;
-
 	@Mapping(field = "timeStamps")
 	private String timeStamps;
 

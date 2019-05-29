@@ -10,10 +10,9 @@ import com.github.marocraft.trackntrace.logger.LogCollection;
 public class RestLogCollector implements ILogCollector {
 
 	public LogTrace collect(LogCollection logCollection) {
-		return new RestLogTrace(
-				logCollection.executionTime(), logCollection.getMethodSignature(), logCollection.getClassName(),
-				logCollection.getLogLevel().name(), logCollection.getLogMessage(),
-				logCollection.getTraceId(), logCollection.getSpanId(), logCollection.getCurrentTimestamp(),
-				logCollection.getHttpVerb(), logCollection.getHttpStatus(), logCollection.getHttpURI());
+		return new RestLogTrace(logCollection.executionTime(), logCollection.getMethodSignature(),
+				logCollection.getClassName(), logCollection.getLogLevel().name(), logCollection.getLogMessage(),
+				logCollection.getCurrentTimestamp(), logCollection.getHttpVerb(), logCollection.getHttpStatus(),
+				logCollection.getHttpURI());
 	}
 }

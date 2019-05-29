@@ -8,7 +8,6 @@ import org.springframework.util.StopWatch;
 
 import com.github.marocraft.trackntrace.domain.LogLevel;
 import com.github.marocraft.trackntrace.http.HttpLog;
-import com.github.marocraft.trackntrace.http.ICorrelater;
 
 public class LogCollection {
 
@@ -18,18 +17,16 @@ public class LogCollection {
 	private LogLevel logLevel;
 	private StopWatch stopWatch;
 	private String logMessage;
-	private ICorrelater correlator;
 	private LocalDateTime localTime;
 	private HttpLog httpLog;
 
-	public LogCollection(String className, Signature signature, StopWatch stopWatch, ICorrelater correlator,
-			LocalDateTime localTime, HttpLog httpLog, LogLevel logLevel, String logMessage) {
+	public LogCollection(String className, Signature signature, StopWatch stopWatch, LocalDateTime localTime,
+			HttpLog httpLog, LogLevel logLevel, String logMessage) {
 		this.className = className;
 		this.methodSignature = signature.getName();
 		this.logLevel = logLevel;
 		this.logMessage = logMessage;
 		this.stopWatch = stopWatch;
-		this.correlator = correlator;
 		this.localTime = localTime;
 		this.httpLog = httpLog;
 	}
@@ -52,14 +49,6 @@ public class LogCollection {
 
 	public String getLogMessage() {
 		return logMessage;
-	}
-
-	public String getTraceId() {
-		return correlator.getTraceId();
-	}
-
-	public String getSpanId() {
-		return correlator.getSpanId();
 	}
 
 	public String getCurrentTimestamp() {
@@ -86,7 +75,6 @@ public class LogCollection {
 	public void setSignature(Signature signature) {
 		this.signature = signature;
 	}
-
 
 	public void setLogLevel(LogLevel logLevel) {
 		this.logLevel = logLevel;

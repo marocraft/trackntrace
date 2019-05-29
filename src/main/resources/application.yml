@@ -9,8 +9,6 @@ tnt:
     "logLevel": "{{logLevel}}",
     "executionTime": "{{executionTime}}",
     "logMessage": "{{logMessage}}",
-    "traceId": "{{traceId}}",
-    "spanId": "{{spanId}}",
     "timeStamps": "{{timeStamps}}"}
    rest: >
     {"methodName": "{{methodName}}",
@@ -18,8 +16,6 @@ tnt:
     "logLevel": "{{logLevel}}",
     "executionTime": "{{executionTime}}",
     "logMessage": "{{logMessage}}",
-    "traceId": "{{traceId}}",
-    "spanId": "{{spanId}}",
     "timeStamps": "{{timeStamps}}",
     "httpVerb": "{{httpVerb}}",
     "httpStatus": "{{httpStatus}}",
@@ -27,6 +23,3 @@ tnt:
   output: json
  multithread:
   poolsize: 1
- correlationid:
-  traceid: "X-B3-TraceId"
-  spanid: "X-B3-SpanId"
