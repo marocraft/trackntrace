@@ -31,10 +31,8 @@ import com.github.marocraft.trackntrace.logger.LogCollection;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = SpringAOPContext.class)
-//@PrepareOnlyThisForTest({Method.class})
 public class LogCreationTest {
 
-	
 	@Autowired
 	@Qualifier("defaultLogBuilder")
 	ILogBuilder logBuilder;
@@ -42,27 +40,6 @@ public class LogCreationTest {
 	@Autowired
 	@Qualifier("defaultLogCollector")
 	ILogCollector logCollector;
-	
-	JoinPoint joinPoint=Mockito.mock(JoinPoint.class);
-	MethodSignature signature=Mockito.mock(MethodSignature.class);
-	Method method=PowerMockito.mock(Method.class);
-	Trace trace =PowerMockito.mock(Trace.class);
-	
-	LogCollection collection;
-	@Before
-	public void beforeTest() {
-		 Mockito.when(joinPoint.getSignature()).thenReturn(signature);
-		 Mockito.when(signature.getName()).thenReturn("clazz");
-		 Mockito.when(signature.getMethod()).thenReturn(method);
-		 Mockito.when(trace.level()).thenReturn(LogLevel.CRITICAL);
-		 String date = "2019/05/16-13:07:12";
-		 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd-HH:mm:ss");
-		 LocalDateTime dateTime = LocalDateTime.parse(date, formatter);
-		 collection= new LogCollection("clazz", joinPoint.getSignature(),new StopWatch(""),new Correlater("", ""), dateTime, new HttpLog(), LogLevel.CRITICAL, "my message");
-		 collection.setLogLevel(LogLevel.CRITICAL);
-		 
-	}
-	
 
 	JoinPoint joinPoint = Mockito.mock(JoinPoint.class);
 	MethodSignature signature = Mockito.mock(MethodSignature.class);

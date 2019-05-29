@@ -25,7 +25,7 @@ public class RestLogBuilder implements ILogBuilder {
 	@Autowired
 	@Qualifier("configurationTnTRest")
 	IConfigurationTnT configRest;
-	
+
 	@Autowired
 	CommonUtils commonUtils;
 

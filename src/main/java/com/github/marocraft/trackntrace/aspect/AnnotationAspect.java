@@ -59,17 +59,6 @@ public class AnnotationAspect {
 
 	@Autowired
 	HttpLog httpverb;
-
-	@Autowired
-	@Qualifier("restLogger")
-	private Logger restLogger;
-
-	@Autowired
-	@Qualifier("defaultLogger")
-	private Logger defaultLogger;
-
-	@Autowired
-	HttpLog httpverb;
 	
 	@Autowired
 	@Qualifier("restLogger")

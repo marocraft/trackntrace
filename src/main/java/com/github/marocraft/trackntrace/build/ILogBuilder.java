@@ -2,7 +2,7 @@ package com.github.marocraft.trackntrace.build;
 
 import org.springframework.stereotype.Component;
 
-import com.github.marocraft.trackntrace.domain.ILogTrace;
+import com.github.marocraft.trackntrace.domain.LogTrace;
 
 /**
  * Interface of log building from a from LogTrace objects

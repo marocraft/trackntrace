@@ -76,10 +76,6 @@ public class LogCollection {
 		this.signature = signature;
 	}
 
-<<<<<<< HEAD
-
-=======
->>>>>>> feature/project-refact
 	public void setLogLevel(LogLevel logLevel) {
 		this.logLevel = logLevel;
 	}
