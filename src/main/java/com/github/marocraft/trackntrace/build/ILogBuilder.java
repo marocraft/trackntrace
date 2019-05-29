@@ -21,6 +21,6 @@ public interface ILogBuilder {
 	 * @throws IllegalAccessException
 	 */
 	
-	public String build(ILogTrace logTrace) throws IllegalAccessException;
+	public String build(LogTrace logTrace) throws IllegalAccessException;
 	
 }

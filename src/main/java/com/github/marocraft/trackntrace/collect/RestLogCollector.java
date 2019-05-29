@@ -2,18 +2,17 @@ package com.github.marocraft.trackntrace.collect;
 
 import org.springframework.stereotype.Component;
 
-import com.github.marocraft.trackntrace.domain.ILogTrace;
-import com.github.marocraft.trackntrace.domain.LogTraceRest;
+import com.github.marocraft.trackntrace.domain.LogTrace;
+import com.github.marocraft.trackntrace.domain.RestLogTrace;
 import com.github.marocraft.trackntrace.logger.LogCollection;
 
 @Component("restLogCollector")
 public class RestLogCollector implements ILogCollector {
 
-	public ILogTrace collect(LogCollection logCollection) {
-		return new LogTraceRest(
-				logCollection.executionTime(), logCollection.getMethodSignature(), logCollection.getClassName(),
-				logCollection.getLogLevel().name(), logCollection.getLogMessage(),
-				logCollection.getTraceId(), logCollection.getSpanId(), logCollection.getCurrentTimestamp(),
-				logCollection.getHttpVerb(), logCollection.getHttpStatus(), logCollection.getHttpURI());
+	public LogTrace collect(LogCollection logCollection) {
+		return new RestLogTrace(logCollection.executionTime(), logCollection.getMethodSignature(),
+				logCollection.getClassName(), logCollection.getLogLevel().name(), logCollection.getLogMessage(),
+				logCollection.getCurrentTimestamp(), logCollection.getHttpVerb(), logCollection.getHttpStatus(),
+				logCollection.getHttpURI());
 	}
 }

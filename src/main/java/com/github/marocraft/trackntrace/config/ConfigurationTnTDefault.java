@@ -28,12 +28,6 @@ public class ConfigurationTnTDefault implements IConfigurationTnT {
 
 	@Value("${tnt.multithread.poolsize:1}")
 	Integer threadPoolSize;
-	
-	@Value("${tnt.correlationid.traceid}")
-	private String traceId;
-	
-	@Value("${tnt.correlationid.spanid}")
-	private String spanId;
 
 	public ConfigurationTnTDefault(String format, String output, Integer threadPoolSize) {
 		super();
@@ -70,16 +64,5 @@ public class ConfigurationTnTDefault implements IConfigurationTnT {
 	@Override
 	public void setThreadPoolsize(int size) {
 		threadPoolSize = size;
-	}
-
-	@Override
-	public String getTraceidName() {
-		
-		return traceId;
-	}
-
-	@Override
-	public String getSpanIdName() {
-		return spanId;
 	}
 }

@@ -20,12 +20,6 @@ public class ConfigurationTnTRest implements IConfigurationTnT {
 	@Value("${tnt.multithread.poolsize:1}")
 	Integer threadPoolSize;
 
-	@Value("${tnt.correlationid.traceid}")
-	private String traceId;
-
-	@Value("${tnt.correlationid.spanid}")
-	private String spanId;
-
 	public ConfigurationTnTRest(String format, String output, Integer threadPoolSize) {
 		super();
 		this.format = format;
@@ -61,16 +55,5 @@ public class ConfigurationTnTRest implements IConfigurationTnT {
 	@Override
 	public void setThreadPoolsize(int size) {
 		threadPoolSize = size;
-	}
-
-	@Override
-	public String getTraceidName() {
-
-		return traceId;
-	}
-
-	@Override
-	public String getSpanIdName() {
-		return spanId;
 	}
 }

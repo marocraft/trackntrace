@@ -36,7 +36,7 @@ public class CommonUtils {
 	public String replace(String format, String field, ILogTrace logTrace) throws IllegalAccessException {
 		Object valueOfField = valueOf(field, logTrace);
 		
-		return format.replaceAll("\"\\{\\{" + field + "\\}\\}\"", "\"" + valueOfField.toString() + "\"") + "";
+		return format.replaceAll("\"\\{\\{" + field + "\\}\\}\"", "\"" + valueOfField + "\"") + "";
 	}
 
 	public List<Variable> extractVariables(String expression) {

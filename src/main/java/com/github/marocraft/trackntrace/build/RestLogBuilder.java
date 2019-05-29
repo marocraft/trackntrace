@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import com.github.marocraft.trackntrace.config.IConfigurationTnT;
-import com.github.marocraft.trackntrace.domain.ILogTrace;
+import com.github.marocraft.trackntrace.domain.LogTrace;
 import com.github.marocraft.trackntrace.domain.Variable;
 import com.github.marocraft.trackntrace.utils.CommonUtils;
 
@@ -37,8 +37,8 @@ public class RestLogBuilder implements ILogBuilder {
 	 * @throws IllegalAccessException
 	 */
 	@Override
-	@Qualifier("logTraceRest")
-	public String build(ILogTrace logTrace) throws IllegalAccessException {
+	@Qualifier("restLogTrace")
+	public String build(LogTrace logTrace) throws IllegalAccessException {
 		String format = configRest.getFormat();
 		List<Variable> variables = commonUtils.extractVariables(format);
 		for (Variable variable : variables) {

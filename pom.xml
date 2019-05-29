@@ -63,15 +63,14 @@
 		<junit.version>4.12</junit.version>
 		<spring.version>5.1.5.RELEASE</spring.version>
 		<spring-test.version>${spring.version}</spring-test.version>
+		<spring-cloud-sleuth.version>2.1.1.RELEASE</spring-cloud-sleuth.version>
 		<aop.version>1.8.11</aop.version>
 		<slf4j.version>1.7.25</slf4j.version>
 		<jacoco-maven-plugin.version>0.8.2</jacoco-maven-plugin.version>
 		<jacoco.it.execution.data.file>${project.build.directory}/jacoco-it.exec</jacoco.it.execution.data.file>
 		<jacoco.ut.execution.data.file>${project.build.directory}/jacoco.exec</jacoco.ut.execution.data.file>
 	</properties>
-
 	<dependencies>
-
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aop</artifactId>
@@ -164,10 +163,31 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- <dependency>
+		<!-- <dependency> <groupId>org.mockito</groupId> <artifactId>mockito-all</artifactId> 
+			<version>1.9.5</version> <scope>test</scope> </dependency> -->
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-api-mockito</artifactId>
+			<version>1.7.0RC4</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-module-junit4</artifactId>
+			<version>1.7.0RC4</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-all</artifactId>
-			<version>1.9.5</version>
+			<version>1.10.19</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>2.1.0</version>
 			<scope>test</scope>
 		</dependency> -->
 		<dependency>

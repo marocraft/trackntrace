@@ -2,8 +2,6 @@ package com.github.marocraft.trackntrace.aspect;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -17,7 +15,7 @@ import com.github.marocraft.trackntrace.annotation.TestService;
 import com.github.marocraft.trackntrace.build.ILogBuilder;
 import com.github.marocraft.trackntrace.config.IConfigurationTnT;
 import com.github.marocraft.trackntrace.context.SpringAOPContext;
-import com.github.marocraft.trackntrace.domain.LogTraceDefault;
+import com.github.marocraft.trackntrace.domain.DefaultLogTrace;
 import com.github.marocraft.trackntrace.publish.ILogPublisher;
 import com.github.marocraft.trackntrace.publish.ThreadPoolManager;
 import com.github.marocraft.trackntrace.utils.CommonUtils;
@@ -49,11 +47,11 @@ public class AspectAnnotationTest {
 	@Test
 	public void shouldBuildLogs()
 			throws IOException, InterruptedException, FileNotFoundException, IllegalAccessException {
-		LogTraceDefault logTrace = new LogTraceDefault(234, "sleep", "com.github.marocraft.trackntrace.TestService", "NORMAL", "234",
-				"new message", "", "","");
+		DefaultLogTrace logTrace = new DefaultLogTrace(234, "sleep", "com.github.marocraft.trackntrace.TestService", "NORMAL", "234",
+				"new message","");
 		String log = logBuilder.build(logTrace);
 		Assert.assertEquals(
-				"{\"methodName\": \"sleep\",\"className\": \"com.github.marocraft.trackntrace.TestService\",\"logLevel\": \"NORMAL\",\"executionTime\": \"234\",\"logMessage\": \"new message\",\"traceId\": \"\",\"spanId\": \"\",\"timeStamps\": \"\"}",
+				"{\"methodName\": \"sleep\",\"className\": \"com.github.marocraft.trackntrace.TestService\",\"logLevel\": \"NORMAL\",\"executionTime\": \"234\",\"logMessage\": \"new message\",\"timeStamps\": \"\"}",
 				log);
 	}
 

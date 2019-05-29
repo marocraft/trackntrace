@@ -22,12 +22,12 @@ import com.github.marocraft.trackntrace.collect.ILogCollector;
 import com.github.marocraft.trackntrace.config.IConfigurationTnT;
 import com.github.marocraft.trackntrace.domain.LogLevel;
 import com.github.marocraft.trackntrace.http.HttpLog;
-import com.github.marocraft.trackntrace.http.ICorrelater;
 import com.github.marocraft.trackntrace.logger.LogCollection;
 import com.github.marocraft.trackntrace.logger.LogResolver;
 import com.github.marocraft.trackntrace.logger.Logger;
 import com.github.marocraft.trackntrace.publish.LoggerThread;
 import com.github.marocraft.trackntrace.publish.ThreadPoolManager;
+
 
 /**
  * Annotations Core processing aspect allowing to run the behavior of the
@@ -58,7 +58,15 @@ public class AnnotationAspect {
 	ApplicationContext applicationContext;
 
 	@Autowired
-	ICorrelater correlator;
+	HttpLog httpverb;
+
+	@Autowired
+	@Qualifier("restLogger")
+	private Logger restLogger;
+
+	@Autowired
+	@Qualifier("defaultLogger")
+	private Logger defaultLogger;
 
 	@Autowired
 	HttpLog httpverb;
@@ -112,11 +120,10 @@ public class AnnotationAspect {
 	private void generateLog(final JoinPoint joinPoint, StopWatch stopWatch) throws IllegalAccessException {
 		MethodSignature signature = (MethodSignature) joinPoint.getSignature();
 		Object clazz = joinPoint.getTarget();
-		String logMessage= logCollector.getMessageFromSignature(signature);
-		LogLevel logLevel=logCollector.getLevelFromSignature(signature);
-		LogCollection logCollection = new LogCollection(
-				clazz.getClass().getName(), signature,
-				stopWatch, correlator, LocalDateTime.now(), httpverb,logLevel , logMessage);
+		String logMessage = logCollector.getMessageFromSignature(signature);
+		LogLevel logLevel = logCollector.getLevelFromSignature(signature);
+		LogCollection logCollection = new LogCollection(clazz.getClass().getName(), signature, stopWatch,
+				LocalDateTime.now(), httpverb, logLevel, logMessage);
 
 		LogResolver resolver = new LogResolver(getLogStrategy(signature));
 		resolver.process(logCollection);
@@ -135,20 +142,21 @@ public class AnnotationAspect {
 		stopWatch.start();
 		return stopWatch;
 	}
-	
+
 	private Logger getLogStrategy(MethodSignature joinpointSignature) {
-		if(isRestAnnotated(joinpointSignature)) {
+		if (isRestAnnotated(joinpointSignature)) {
 			return restLogger;
 		} else {
 			return defaultLogger;
 		}
 	}
-	
+
 	private boolean isRestAnnotated(MethodSignature signature) {
 		Method method = signature.getMethod();
-		Class<?> clazz= method.getDeclaringClass();
+		Class<?> clazz = method.getDeclaringClass();
 		for (Annotation annotation : clazz.getAnnotations()) {
-			if ("org.springframework.web.bind.annotation.RestController".equals(annotation.annotationType().getName())) {
+			if ("org.springframework.web.bind.annotation.RestController"
+					.equals(annotation.annotationType().getName())) {
 				return true;
 			}
 		}

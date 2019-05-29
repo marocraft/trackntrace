@@ -38,8 +38,8 @@ public class DefaultLogBuilder implements ILogBuilder {
 	 * @throws IllegalAccessException
 	 */
 	@Override
-	@Qualifier("logtraceDefault")
-	public String build(ILogTrace logTrace) throws IllegalAccessException {
+	@Qualifier("defaultLogTrace")
+	public String build(LogTrace logTrace) throws IllegalAccessException {
 		String format = config.getFormat();
 		List<Variable> variables = commonUtils.extractVariables(format);
 		for (Variable variable : variables) {

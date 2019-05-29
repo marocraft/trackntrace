@@ -26,11 +26,8 @@ import com.github.marocraft.trackntrace.utils.CommonUtils;
  * @author Khalid ELABBADI
  *
  */
-@Component
+ @Component
 public class CorrelationIdInterceptor implements Filter {
-
-	@Autowired
-	ICorrelater correlator;
 
 	@Autowired
 	IHttpLog httpLog;
@@ -59,50 +56,19 @@ public class CorrelationIdInterceptor implements Filter {
 			httpLog.setHttpVerb(httpServletRequest.getMethod());
 			httpLog.setHttpStatus(httpServletResponse.getStatus() + "");
 			String uri = httpServletRequest.getRequestURI();
-			
 			if (httpServletRequest.getQueryString() != null) {
 				uri = uri + "?" + httpServletRequest.getQueryString();
 			}
 			httpLog.setHttpURI(uri);
+
 			
-			processTraceId(httpServletRequest, configTnt.getTraceidName());
-			processSpanId(httpServletRequest, configTnt.getSpanIdName());
-
-			httpServletResponse.setHeader(configTnt.getTraceidName(), correlator.getTraceId());
-			httpServletResponse.setHeader(configTnt.getSpanIdName(), correlator.getSpanId());
+			// continue
+			chain.doFilter(httpServletRequest, httpServletResponse);
 		}
 
-		// continue
-		chain.doFilter(request, response);
 	}
 
-	/**
-	 * Create traceId if it does not exist
-	 * 
-	 * @param headerId
-	 * @param request
-	 */
-	public void processTraceId(HttpServletRequest request, String headerId) {
-		if (request.getHeader(headerId) == null) {
-			correlator.setTraceId(commonUtils.uniqid());
-		} else {
-			correlator.setTraceId(request.getHeader(headerId));
-		}
-	}
 
-	/**
-	 * Create sapnid if it does not exist
-	 * 
-	 * @param headerId
-	 * @param request
-	 */
-	public void processSpanId(HttpServletRequest request, String headerId) {
-		if (request.getHeader(headerId) == null) {
-			correlator.setSpanId(commonUtils.uniqid());
-		} else {
-			correlator.setSpanId(request.getHeader(headerId));
-		}
-	}
 
 	@Override
 	public void init(FilterConfig arg0) throws ServletException {
