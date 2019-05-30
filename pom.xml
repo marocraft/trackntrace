@@ -12,7 +12,7 @@
 
 	<name>TracknTrace</name>
 	<description>Intercept method calls and produce logs</description>
-
+	<url>com.github.marocraft.trackntrace</url>
 	<developers>
 		<developer>
 			<id>HT</id>
