@@ -6,7 +6,7 @@
 
 	<groupId>com.github.marocraft.trackntrace</groupId>
 	<artifactId>tnt-core</artifactId>
-	<version>0.0.3</version>
+	<version>0.1.0</version>
 
 	<packaging>jar</packaging>
 
@@ -341,7 +341,7 @@
 						<extensions>true</extensions>
 						<configuration>
 							<serverid>ossrh</serverid>
-							<nexusurl>https://oss.sonatype.org/</nexusurl>
+							<nexusUrl>https://oss.sonatype.org/</nexusUrl>
 							<autoreleaseafterclose>true</autoreleaseafterclose>
 						</configuration>
 					</plugin>
