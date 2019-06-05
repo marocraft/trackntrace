@@ -58,7 +58,7 @@ public class LogCreationTest {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd-HH:mm:ss");
 		LocalDateTime dateTime = LocalDateTime.parse(date, formatter);
 		collection = new LogCollection("clazz", joinPoint.getSignature(), new StopWatch(""),
-				dateTime, new HttpLog(), LogLevel.CRITICAL, "my message");
+				dateTime, new HttpLog(), LogLevel.CRITICAL, "my message","");
 		collection.setLogLevel(LogLevel.CRITICAL);
 
 	}
@@ -82,7 +82,7 @@ public class LogCreationTest {
 
 		String log = logBuilder.build(logTrace);
 		assertEquals(
-				"{\"methodName\": \"clazz\",\"className\": \"clazz\",\"logLevel\": \"CRITICAL\",\"executionTime\": \"0\",\"logMessage\": \"my message\",\"timeStamps\": \"2019/05/16-13:07:12\"}",
+				"{\"methodName\": \"clazz\",\"className\": \"clazz\",\"logLevel\": \"CRITICAL\",\"executionTime\": \"0\",\"logMessage\": \"my message\",\"timeStamps\": \"2019/05/16-13:07:12\",\"traceId\": \"\"}",
 				log);
 	}
 }

@@ -22,6 +22,7 @@ import com.github.marocraft.trackntrace.collect.ILogCollector;
 import com.github.marocraft.trackntrace.config.IConfigurationTnT;
 import com.github.marocraft.trackntrace.domain.LogLevel;
 import com.github.marocraft.trackntrace.http.HttpLog;
+import com.github.marocraft.trackntrace.http.bean.CorrelationId;
 import com.github.marocraft.trackntrace.logger.LogCollection;
 import com.github.marocraft.trackntrace.logger.LogResolver;
 import com.github.marocraft.trackntrace.logger.Logger;
@@ -67,6 +68,8 @@ public class AnnotationAspect {
 	@Qualifier("defaultLogger")
 	private Logger defaultLogger;
 
+	@Autowired
+	CorrelationId correlationId;
 	/**
 	 * Start multi-threading
 	 * 
@@ -109,7 +112,7 @@ public class AnnotationAspect {
 		String logMessage = logCollector.getMessageFromSignature(signature);
 		LogLevel logLevel = logCollector.getLevelFromSignature(signature);
 		LogCollection logCollection = new LogCollection(clazz.getClass().getName(), signature, stopWatch,
-				LocalDateTime.now(), httpverb, logLevel, logMessage);
+				LocalDateTime.now(), httpverb, logLevel, logMessage, correlationId.getTraceId());
 
 		LogResolver resolver = new LogResolver(getLogStrategy(signature));
 		resolver.process(logCollection);

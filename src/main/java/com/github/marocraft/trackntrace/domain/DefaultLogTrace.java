@@ -46,4 +46,7 @@ public class DefaultLogTrace extends LogTrace {
 	@Mapping(field = "timeStamps")
 	private String timeStamps;
 	
+	@Mapping(field = "traceId")
+	private String traceId;
+	
 }

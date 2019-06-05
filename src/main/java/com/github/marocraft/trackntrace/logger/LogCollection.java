@@ -19,9 +19,10 @@ public class LogCollection {
 	private String logMessage;
 	private LocalDateTime localTime;
 	private HttpLog httpLog;
+	private String traceId;
 
 	public LogCollection(String className, Signature signature, StopWatch stopWatch, LocalDateTime localTime,
-			HttpLog httpLog, LogLevel logLevel, String logMessage) {
+			HttpLog httpLog, LogLevel logLevel, String logMessage, String traceId) {
 		this.className = className;
 		this.methodSignature = signature.getName();
 		this.logLevel = logLevel;
@@ -29,6 +30,7 @@ public class LogCollection {
 		this.stopWatch = stopWatch;
 		this.localTime = localTime;
 		this.httpLog = httpLog;
+		this.traceId = traceId;
 	}
 
 	public String getClassName() {
@@ -78,6 +80,14 @@ public class LogCollection {
 
 	public void setLogLevel(LogLevel logLevel) {
 		this.logLevel = logLevel;
+	}
+
+	public String getTraceId() {
+		return traceId;
+	}
+
+	public void setTraceId(String traceId) {
+		this.traceId = traceId;
 	}
 
 }
