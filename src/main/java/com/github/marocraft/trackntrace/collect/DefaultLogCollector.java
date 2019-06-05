@@ -12,7 +12,7 @@ public class DefaultLogCollector implements ILogCollector {
 	public LogTrace collect(LogCollection logCollection) {
 		return new DefaultLogTrace(logCollection.executionTime(), logCollection.getMethodSignature(),
 				logCollection.getClassName(), logCollection.getLogLevel().name(), null, logCollection.getLogMessage(),
-				logCollection.getCurrentTimestamp());
+				logCollection.getCurrentTimestamp(),logCollection.getTraceId());
 	}
 
 }

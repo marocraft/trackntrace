@@ -13,6 +13,6 @@ public class RestLogCollector implements ILogCollector {
 		return new RestLogTrace(logCollection.executionTime(), logCollection.getMethodSignature(),
 				logCollection.getClassName(), logCollection.getLogLevel().name(), logCollection.getLogMessage(),
 				logCollection.getCurrentTimestamp(), logCollection.getHttpVerb(), logCollection.getHttpStatus(),
-				logCollection.getHttpURI());
+				logCollection.getHttpURI(),logCollection.getTraceId());
 	}
 }

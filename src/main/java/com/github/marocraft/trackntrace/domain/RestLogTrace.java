@@ -50,5 +50,8 @@ public class RestLogTrace extends LogTrace {
 	
 	@Mapping(field = "httpURI")
 	private String httpURI;
+	
+	@Mapping(field = "traceId")
+	private String traceId;
 
 }
