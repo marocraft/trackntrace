@@ -63,54 +63,6 @@ public class CorrelationIdInterceptor implements Filter {
 				uri = uri + "?" + httpServletRequest.getQueryString();
 			}
 			httpLog.setHttpURI(uri);
-
-//			//wrapper
-//			ResponseRequestWrapper responseRequestWrapper= new ResponseRequestWrapper(httpServletRequest);
-//			
-//			//all headers
-//			Collection<String> respheaders = httpServletResponse.getHeaderNames();
-//			respheaders.forEach(header->System.out.println("resp all headers before: "+header));
-//			
-//			Enumeration<String> reqheaders = httpServletRequest.getHeaderNames();
-//			while (reqheaders.hasMoreElements()) {
-//				String header = (String) reqheaders.nextElement();
-//				System.out.println("req all headers  before: "+header);
-//				
-//			}
-//			
-//			String traceIdReq= httpServletRequest.getHeader("x-b3-traceid");
-//			if(!StringUtils.isEmpty(traceIdReq)) {
-//				//responseRequestWrapper.addHeader("x-b3-traceid", "2222");
-//				System.out.println("req trace id: "+traceIdReq);
-//			}
-//			
-//			String traceIdRes= httpServletResponse.getHeader("x-b3-traceid");
-//			if(!StringUtils.isEmpty(traceIdRes)) {
-//				
-//				System.out.println("res trace id: "+traceIdRes);
-//			}else {
-//				httpServletResponse.addHeader("x-b3-traceid", "222");
-//				System.out.println("correlationid added: 222");
-//			}
-//			
-//			
-//			if(!StringUtils.isEmpty(traceIdReq)) {
-//				System.out.println("req trace id: "+traceIdReq);
-//			}
-//				
-//			if(!StringUtils.isEmpty(traceIdRes)) {
-//				System.out.println("res trace id: "+traceIdRes);
-//			}
-//			//all headers
-//			Collection<String> respheaders2 = httpServletResponse.getHeaderNames();
-//			respheaders2.forEach(header->System.out.println("resp all headers: "+header));
-//			
-//			Enumeration<String> reqheaders2 = httpServletRequest.getHeaderNames();
-//			while (reqheaders2.hasMoreElements()) {
-//				String header = (String) reqheaders2.nextElement();
-//				System.out.println("req all headers: "+header);
-//				
-//			}
 			chain.doFilter(httpServletRequest, httpServletResponse);
 		}
 

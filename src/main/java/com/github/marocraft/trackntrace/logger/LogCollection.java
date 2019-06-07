@@ -20,9 +20,11 @@ public class LogCollection {
 	private LocalDateTime localTime;
 	private HttpLog httpLog;
 	private String traceId;
+	private String spanId;
+	private String parentId;
 
 	public LogCollection(String className, Signature signature, StopWatch stopWatch, LocalDateTime localTime,
-			HttpLog httpLog, LogLevel logLevel, String logMessage, String traceId) {
+			HttpLog httpLog, LogLevel logLevel, String logMessage, String traceId,String spanId,String parentId) {
 		this.className = className;
 		this.methodSignature = signature.getName();
 		this.logLevel = logLevel;
@@ -31,6 +33,8 @@ public class LogCollection {
 		this.localTime = localTime;
 		this.httpLog = httpLog;
 		this.traceId = traceId;
+		this.spanId=spanId;
+		this.parentId=parentId;
 	}
 
 	public String getClassName() {
@@ -88,6 +92,22 @@ public class LogCollection {
 
 	public void setTraceId(String traceId) {
 		this.traceId = traceId;
+	}
+
+	public String getSpanId() {
+		return spanId;
+	}
+
+	public void setSpanId(String spanId) {
+		this.spanId = spanId;
+	}
+
+	public String getParentId() {
+		return parentId;
+	}
+
+	public void setParentId(String parentId) {
+		this.parentId = parentId;
 	}
 
 }

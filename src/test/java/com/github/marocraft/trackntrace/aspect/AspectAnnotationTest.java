@@ -48,10 +48,10 @@ public class AspectAnnotationTest {
 	public void shouldBuildLogs()
 			throws IOException, InterruptedException, FileNotFoundException, IllegalAccessException {
 		DefaultLogTrace logTrace = new DefaultLogTrace(234, "sleep", "com.github.marocraft.trackntrace.TestService", "NORMAL", "234",
-				"new message","","");
+				"new message","","", "", "");
 		String log = logBuilder.build(logTrace);
 		Assert.assertEquals(
-				"{\"methodName\": \"sleep\",\"className\": \"com.github.marocraft.trackntrace.TestService\",\"logLevel\": \"NORMAL\",\"executionTime\": \"234\",\"logMessage\": \"new message\",\"timeStamps\": \"\",\"traceId\": \"\"}",
+				"{\"methodName\": \"sleep\",\"className\": \"com.github.marocraft.trackntrace.TestService\",\"logLevel\": \"NORMAL\",\"executionTime\": \"234\",\"logMessage\": \"new message\",\"timeStamps\": \"\",\"traceId\": \"\",\"spanId\": \"\",\"parentId\": \"\"}",
 				log);
 	}
 

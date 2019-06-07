@@ -53,5 +53,11 @@ public class RestLogTrace extends LogTrace {
 	
 	@Mapping(field = "traceId")
 	private String traceId;
+	
+	@Mapping(field = "spanId")
+	private String spanId;
+	
+	@Mapping(field = "parentId")
+	private String parentId;
 
 }

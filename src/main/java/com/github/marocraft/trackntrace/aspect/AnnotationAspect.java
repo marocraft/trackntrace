@@ -112,7 +112,7 @@ public class AnnotationAspect {
 		String logMessage = logCollector.getMessageFromSignature(signature);
 		LogLevel logLevel = logCollector.getLevelFromSignature(signature);
 		LogCollection logCollection = new LogCollection(clazz.getClass().getName(), signature, stopWatch,
-				LocalDateTime.now(), httpverb, logLevel, logMessage, correlationId.getTraceId());
+				LocalDateTime.now(), httpverb, logLevel, logMessage, correlationId.getTraceId(), correlationId.getSpanId(), correlationId.getParentId());
 
 		LogResolver resolver = new LogResolver(getLogStrategy(signature));
 		resolver.process(logCollection);

@@ -10,7 +10,9 @@ tnt:
     "executionTime": "{{executionTime}}",
     "logMessage": "{{logMessage}}",
     "timeStamps": "{{timeStamps}}",
-    "traceId": "{{traceId}}"}
+    "traceId": "{{traceId}}",
+    "spanId": "{{spanId}}",
+    "parentId": "{{parentId}}"}
    rest: >
     {"methodName": "{{methodName}}",
     "className": "{{className}}",
@@ -21,7 +23,9 @@ tnt:
     "httpVerb": "{{httpVerb}}",
     "httpStatus": "{{httpStatus}}",
     "httpURI": "{{httpURI}}",
-    "traceId": "{{traceId}}"}
+    "traceId": "{{traceId}}",
+    "spanId": "{{spanId}}",
+    "parentId": "{{parentId}}"}
   output: json
  multithread:
   poolsize: 1

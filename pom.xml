@@ -63,7 +63,6 @@
 		<junit.version>4.12</junit.version>
 		<spring.version>5.1.5.RELEASE</spring.version>
 		<spring-test.version>${spring.version}</spring-test.version>
-		<spring-cloud-sleuth.version>2.1.1.RELEASE</spring-cloud-sleuth.version>
 		<aop.version>1.8.11</aop.version>
 		<slf4j.version>1.7.25</slf4j.version>
 		<jacoco-maven-plugin.version>0.8.2</jacoco-maven-plugin.version>
