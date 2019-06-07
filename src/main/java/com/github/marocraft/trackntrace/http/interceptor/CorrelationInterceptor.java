@@ -33,6 +33,9 @@ public class CorrelationInterceptor implements ClientHttpRequestInterceptor {
 			throws IOException {
 		HttpHeaders headers = request.getHeaders();
 		headers.set(CorrelationFilter.CORRELATION_HEADER_NAME, correlationId.getTraceId());
+		headers.set(CorrelationFilter.SPAN_ID, correlationId.getSpanId());
+		headers.set(CorrelationFilter.SAMPLED_STATE, "0");
+		headers.set(CorrelationFilter.PARENT_ID, correlationId.getParentId());
 		return execution.execute(request, body);
 	}
 }

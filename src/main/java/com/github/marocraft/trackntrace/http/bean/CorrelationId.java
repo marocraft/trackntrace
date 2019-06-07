@@ -20,5 +20,6 @@ import lombok.Setter;
 @Scope(scopeName="request",proxyMode=ScopedProxyMode.TARGET_CLASS)
 public class CorrelationId {
 	private String traceId;
-
+	private String spanId;
+	private String parentId;
 }
