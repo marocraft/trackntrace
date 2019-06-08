@@ -22,6 +22,8 @@ import com.github.marocraft.trackntrace.domain.Variable;
 @Component
 public class CommonUtils {
 
+	public static final char[] HEX_DIGITS = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
+
 	/**
 	 * Replace each field in the template by its value
 	 * 
@@ -77,5 +79,41 @@ public class CommonUtils {
 
 	public String uniqid() {
 		return UUID.randomUUID().toString();
+	}
+
+	/** Inspired by {@code okio.Buffer.writeLong} */
+	public static String toLowerHex(long v) {
+		char[] data = new char[16];
+		writeHexLong(data, 0, v);
+		return new String(data);
+	}
+
+	static void writeHexByte(char[] data, int pos, byte b) {
+		data[pos + 0] = CommonUtils.HEX_DIGITS[(b >> 4) & 0xf];
+		data[pos + 1] = CommonUtils.HEX_DIGITS[b & 0xf];
+	}
+
+	/** Inspired by {@code okio.Buffer.writeLong} */
+	public static void writeHexLong(char[] data, int pos, long v) {
+		writeHexByte(data, pos + 0, (byte) ((v >>> 56L) & 0xff));
+		writeHexByte(data, pos + 2, (byte) ((v >>> 48L) & 0xff));
+		writeHexByte(data, pos + 4, (byte) ((v >>> 40L) & 0xff));
+		writeHexByte(data, pos + 6, (byte) ((v >>> 32L) & 0xff));
+		writeHexByte(data, pos + 8, (byte) ((v >>> 24L) & 0xff));
+		writeHexByte(data, pos + 10, (byte) ((v >>> 16L) & 0xff));
+		writeHexByte(data, pos + 12, (byte) ((v >>> 8L) & 0xff));
+		writeHexByte(data, pos + 14, (byte) (v & 0xff));
+	}
+
+	public static long randomLong() {
+		return java.util.concurrent.ThreadLocalRandom.current().nextLong();
+	}
+
+	public static long nextId() {
+		long nextId = randomLong();
+		while (nextId == 0L) {
+			nextId = randomLong();
+		}
+		return nextId;
 	}
 }

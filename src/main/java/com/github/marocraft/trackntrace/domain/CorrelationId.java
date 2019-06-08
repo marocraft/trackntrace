@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.github.marocraft.trackntrace.http.bean;
+package com.github.marocraft.trackntrace.domain;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;

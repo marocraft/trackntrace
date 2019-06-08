@@ -1,4 +1,4 @@
-package com.github.marocraft.trackntrace.http;
+package com.github.marocraft.trackntrace.http.filter;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import com.github.marocraft.trackntrace.config.IConfigurationTnT;
+import com.github.marocraft.trackntrace.http.IHttpLog;
 import com.github.marocraft.trackntrace.utils.CommonUtils;
 
 /**
@@ -30,13 +31,13 @@ import com.github.marocraft.trackntrace.utils.CommonUtils;
  *
  */
  @Component
-public class CorrelationIdInterceptor implements Filter {
+public class HttpLogsFilter implements Filter {
 
 	@Autowired
 	IHttpLog httpLog;
 
 	@Autowired
-	@Qualifier("configurationTnTDefault")
+	@Qualifier("configurationTnTRest")
 	IConfigurationTnT configTnt;
 
 	@Autowired

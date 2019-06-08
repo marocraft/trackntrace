@@ -36,5 +36,12 @@ public interface IConfigurationTnT {
 	 * @param size
 	 */
 	public void setThreadPoolsize(int size);
+	
+	
+	public String getSpanIdName();
+	
+	public String getTraceIdName();
+	
+	public String getParentSpanIdName();
 
 }
