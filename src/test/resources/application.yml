@@ -29,3 +29,8 @@ tnt:
   output: json
  multithread:
   poolsize: 1
+ correlation:
+  traceid: x-b3-traceid
+  spanid: x-b3-spanid
+  parentspanid: x-b3-parentspanid
+  

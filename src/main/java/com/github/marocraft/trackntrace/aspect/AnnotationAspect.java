@@ -20,9 +20,9 @@ import org.springframework.util.StopWatch;
 
 import com.github.marocraft.trackntrace.collect.ILogCollector;
 import com.github.marocraft.trackntrace.config.IConfigurationTnT;
+import com.github.marocraft.trackntrace.domain.CorrelationId;
 import com.github.marocraft.trackntrace.domain.LogLevel;
 import com.github.marocraft.trackntrace.http.HttpLog;
-import com.github.marocraft.trackntrace.http.bean.CorrelationId;
 import com.github.marocraft.trackntrace.logger.LogCollection;
 import com.github.marocraft.trackntrace.logger.LogResolver;
 import com.github.marocraft.trackntrace.logger.Logger;
