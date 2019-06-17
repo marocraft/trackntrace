@@ -35,11 +35,6 @@ public class CorrelationFilter implements Filter {
 	@Autowired
 	CorrelationId correlationId;
 
-	public static final String CORRELATION_HEADER_NAME = "x-b3-traceid";
-	public static final String SPAN_ID = "x-b3-spanid";
-	public static final String PARENT_ID = "x-b3-parentspanid";
-	public static final String SAMPLED_STATE = "x-b3-sampled";
-	
 	@Autowired
 	@Qualifier("configurationTnTRest")
 	IConfigurationTnT config;
