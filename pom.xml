@@ -6,7 +6,7 @@
 
 	<groupId>com.github.marocraft.trackntrace</groupId>
 	<artifactId>tnt-core</artifactId>
-	<version>0.2.0-snapshot</version>
+	<version>0.2.0</version>
 	<packaging>jar</packaging>
 	<name>TracknTrace</name>
 	<description>Intercept method calls and produce logs</description>
