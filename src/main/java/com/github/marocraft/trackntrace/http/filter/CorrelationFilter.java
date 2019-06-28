@@ -4,8 +4,6 @@
 package com.github.marocraft.trackntrace.http.filter;
 
 import java.io.IOException;
-import java.util.Enumeration;
-import java.util.UUID;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -17,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -30,7 +27,6 @@ import com.github.marocraft.trackntrace.utils.CommonUtils;
  *
  */
 @Component
-@Order(1)
 public class CorrelationFilter implements Filter {
 	@Autowired
 	CorrelationId correlationId;
