@@ -6,9 +6,12 @@ import java.lang.reflect.Method;
 import java.time.LocalDateTime;
 
 import javax.annotation.PostConstruct;
+import javax.xml.ws.http.HTTPException;
 
+import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -42,7 +45,8 @@ import com.github.marocraft.trackntrace.publish.ThreadPoolManager;
 @Aspect
 @Component
 public class AnnotationAspect {
-
+	
+	private String messageException;
 	@Autowired
 	@Qualifier("configurationTnTDefault")
 	IConfigurationTnT config;
@@ -58,7 +62,11 @@ public class AnnotationAspect {
 	ApplicationContext applicationContext;
 
 	@Autowired
-	HttpLog httpverb;
+	HttpLog httpLog;
+
+	JoinPoint globalJoinpoint;
+
+	StopWatch stopWatch;
 
 	@Autowired
 	@Qualifier("restLogger")
@@ -70,6 +78,7 @@ public class AnnotationAspect {
 
 	@Autowired
 	CorrelationId correlationId;
+
 	/**
 	 * Start multi-threading
 	 * 
@@ -91,10 +100,11 @@ public class AnnotationAspect {
 	 */
 	@Around(value = "@annotation(com.github.marocraft.trackntrace.annotation.Trace)")
 	public Object whenAnnotatedWithTrace(final ProceedingJoinPoint joinPoint) throws Throwable {
-		StopWatch stopWatch = startTimer();
+		globalJoinpoint = joinPoint;
+		stopWatch = startTimer();
 		Object proceed = executeAnnotedMethod(joinPoint);
 		stopTimer(stopWatch);
-		generateLog(joinPoint, stopWatch);
+		generateLog(joinPoint, stopWatch,"");
 		return proceed;
 	}
 
@@ -106,13 +116,17 @@ public class AnnotationAspect {
 	 * @throws IllegalAccessException
 	 * @throws IOException
 	 */
-	private void generateLog(final JoinPoint joinPoint, StopWatch stopWatch) throws IllegalAccessException {
+	private void generateLog(final JoinPoint joinPoint, StopWatch stopWatch,String exceptionMessage) throws IllegalAccessException {
 		MethodSignature signature = (MethodSignature) joinPoint.getSignature();
 		Object clazz = joinPoint.getTarget();
 		String logMessage = logCollector.getMessageFromSignature(signature);
 		LogLevel logLevel = logCollector.getLevelFromSignature(signature);
+		if(!StringUtils.isEmpty(exceptionMessage)) {
+			logMessage=logMessage+" - Exception: "+exceptionMessage;
+		}
 		LogCollection logCollection = new LogCollection(clazz.getClass().getName(), signature, stopWatch,
-				LocalDateTime.now(), httpverb, logLevel, logMessage, correlationId.getTraceId(), correlationId.getSpanId(), correlationId.getParentId());
+				LocalDateTime.now(), httpLog, logLevel, logMessage, correlationId.getTraceId(),
+				correlationId.getSpanId(), correlationId.getParentId());
 
 		LogResolver resolver = new LogResolver(getLogStrategy(signature));
 		resolver.process(logCollection);
@@ -126,6 +140,7 @@ public class AnnotationAspect {
 	 * @throws Throwable
 	 */
 	private Object executeAnnotedMethod(final ProceedingJoinPoint joinPoint) throws Throwable {
+
 		return joinPoint.proceed();
 	}
 
@@ -180,5 +195,18 @@ public class AnnotationAspect {
 			}
 		}
 		return false;
+	}
+
+	@AfterThrowing(pointcut = "@annotation(com.github.marocraft.trackntrace.annotation.Trace)", throwing = "ex")
+	public void logAfterThrowingAllMethods(Exception ex) throws IllegalAccessException {
+		stopTimer(stopWatch);
+		try {
+			HTTPException httpEx = (HTTPException) ex;
+			httpLog.setHttpStatus(""+httpEx.getStatusCode());
+		} catch (Exception exx) {
+			httpLog.setHttpStatus("500");
+		}finally {
+			generateLog(globalJoinpoint, stopWatch,ex.toString());
+		}
 	}
 }

@@ -17,7 +17,6 @@ import org.springframework.stereotype.Component;
 
 import com.github.marocraft.trackntrace.config.IConfigurationTnT;
 import com.github.marocraft.trackntrace.domain.CorrelationId;
-import com.github.marocraft.trackntrace.http.filter.CorrelationFilter;
 
 /**
  * 
@@ -42,6 +41,9 @@ public class CorrelationInterceptor implements ClientHttpRequestInterceptor {
 		headers.set(configTnt.getSpanIdName(), correlationId.getSpanId());
 		headers.set("x-b3-sampled", "0");
 		headers.set(configTnt.getParentSpanIdName(), correlationId.getParentId());
+		ClientHttpResponse response = execution.execute(request, body);
+		System.out.println("mon status: "+response.getStatusCode().value());
+		
 		return execution.execute(request, body);
 	}
 }
