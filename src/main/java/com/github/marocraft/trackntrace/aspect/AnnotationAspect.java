@@ -45,8 +45,9 @@ import com.github.marocraft.trackntrace.publish.ThreadPoolManager;
 @Aspect
 @Component
 public class AnnotationAspect {
-	
-	private String messageException;
+
+	private static final Object REST_CONTROLLER_ANNOTATION = "org.springframework.web.bind.annotation.RestController";
+
 	@Autowired
 	@Qualifier("configurationTnTDefault")
 	IConfigurationTnT config;
@@ -98,13 +99,14 @@ public class AnnotationAspect {
 	 * @param joinPoint
 	 * @throws Throwable
 	 */
-	@Around(value = "@annotation(com.github.marocraft.trackntrace.annotation.Trace)")
+	@Around("@annotation(com.github.marocraft.trackntrace.annotation.Trace)")
 	public Object whenAnnotatedWithTrace(final ProceedingJoinPoint joinPoint) throws Throwable {
 		globalJoinpoint = joinPoint;
 		stopWatch = startTimer();
 		Object proceed = executeAnnotedMethod(joinPoint);
 		stopTimer(stopWatch);
-		generateLog(joinPoint, stopWatch,"");
+		generateLog(joinPoint, stopWatch, "");
+
 		return proceed;
 	}
 
@@ -116,13 +118,14 @@ public class AnnotationAspect {
 	 * @throws IllegalAccessException
 	 * @throws IOException
 	 */
-	private void generateLog(final JoinPoint joinPoint, StopWatch stopWatch,String exceptionMessage) throws IllegalAccessException {
+	private void generateLog(final JoinPoint joinPoint, StopWatch stopWatch, String exceptionMessage)
+			throws IllegalAccessException {
 		MethodSignature signature = (MethodSignature) joinPoint.getSignature();
 		Object clazz = joinPoint.getTarget();
 		String logMessage = logCollector.getMessageFromSignature(signature);
 		LogLevel logLevel = logCollector.getLevelFromSignature(signature);
-		if(!StringUtils.isEmpty(exceptionMessage)) {
-			logMessage=logMessage+" - Exception: "+exceptionMessage;
+		if (!StringUtils.isEmpty(exceptionMessage)) {
+			logMessage = logMessage + " - Exception: " + exceptionMessage;
 		}
 		LogCollection logCollection = new LogCollection(clazz.getClass().getName(), signature, stopWatch,
 				LocalDateTime.now(), httpLog, logLevel, logMessage, correlationId.getTraceId(),
@@ -160,8 +163,9 @@ public class AnnotationAspect {
 	 * @return
 	 */
 	private StopWatch startTimer() {
-		StopWatch stopWatch = new StopWatch();
+		stopWatch = new StopWatch();
 		stopWatch.start();
+
 		return stopWatch;
 	}
 
@@ -189,24 +193,27 @@ public class AnnotationAspect {
 		Method method = signature.getMethod();
 		Class<?> clazz = method.getDeclaringClass();
 		for (Annotation annotation : clazz.getAnnotations()) {
-			if ("org.springframework.web.bind.annotation.RestController"
-					.equals(annotation.annotationType().getName())) {
+			if (REST_CONTROLLER_ANNOTATION.equals(annotation.annotationType().getName())) {
 				return true;
 			}
 		}
+
 		return false;
 	}
 
 	@AfterThrowing(pointcut = "@annotation(com.github.marocraft.trackntrace.annotation.Trace)", throwing = "ex")
 	public void logAfterThrowingAllMethods(Exception ex) throws IllegalAccessException {
-		stopTimer(stopWatch);
+		if (stopWatch.isRunning()) {
+			stopTimer(stopWatch);
+		}
+
 		try {
 			HTTPException httpEx = (HTTPException) ex;
-			httpLog.setHttpStatus(""+httpEx.getStatusCode());
+			httpLog.setHttpStatus("" + httpEx.getStatusCode());
 		} catch (Exception exx) {
 			httpLog.setHttpStatus("500");
-		}finally {
-			generateLog(globalJoinpoint, stopWatch,ex.toString());
+		} finally {
+			generateLog(globalJoinpoint, stopWatch, ex.toString());
 		}
 	}
 }

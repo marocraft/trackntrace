@@ -6,6 +6,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import org.springframework.web.bind.annotation.Mapping;
+
 import com.github.marocraft.trackntrace.domain.LogLevel;
 
 /**
@@ -21,15 +23,18 @@ import com.github.marocraft.trackntrace.domain.LogLevel;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface Trace {
-	
+
 	/**
 	 * Add a message to log as string
+	 * 
 	 * @return
 	 */
 	public String message() default "";
 
 	/**
-	 * Specify a logging level for logging as {@link com.github.marocraft.trackntrace.domain.LogLevel}
+	 * Specify a logging level for logging as
+	 * {@link com.github.marocraft.trackntrace.domain.LogLevel}
+	 * 
 	 * @return
 	 */
 	public LogLevel level() default LogLevel.TRIVIAL;
