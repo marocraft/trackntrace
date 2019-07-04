@@ -1,5 +1,7 @@
 # <img src="src/docs/images/trackntrace.png" width="96" height="96"> TracknTrace Framework
 
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.apache.struts/struts2-core/badge.svg)](hhttps://search.maven.org/artifact/com.github.marocraft.trackntrace/tnt-core/0.2.0)
+
 ## Project description
 
 Spring Module for Log generation through AOP
@@ -15,38 +17,58 @@ TnT is a java framework that offers centralization and aggregation of the format
 
     ``` xml
     <dependency>
-        <groupId>com.github.marocraft.trackntrace</groupId>
-        <artifactId>tnt-core</artifactId>
-        <version>0.0.3-SNAPSHOT</version>
+       <groupId>com.github.marocraft.trackntrace</groupId>
+       <artifactId>tnt-core</artifactId>
+      <version>0.2.0</version>
     </dependency>
     ```
 
-2. Configure your application.yml or application.properties file to costumize the template format :
+2. Configure your application.yml or application.properties file to costumize the template format, TNT suports both .yml and .properties files so you can choose between them:
 
         application.properties:
 
-    ``` json
-    tnt.logging.format={"methodName": "{{methodName}}","className": "{{className}}","logLevel": "{{logLevel}}","executionTime": "{{executionTime}}","logMessage": "{{logMessage}}","traceId": "{{traceId}}","spanId": "{{spanId}}"}
-    tnt.logging.output=json
-    tnt.multithread.poolsize=1
-    ```
-
         application.yml:
 
-    ```json
+    ```YML
     tnt:
-    multithread:
-    poolsize: 1
-    logging:
-    format: {"methodName": "{{methodName}}","className": "{{className}}","logLevel": "{{logLevel}}","executionTime": "{{executionTime}}","logMessage": "{{logMessage}}","traceId": "{{traceId}}","spanId": "{{spanId}}"}
-    output: json
+     logging:
+      format:
+       default: >
+        {"methodName": "{{methodName}}",
+        "className": "{{className}}",
+        "logLevel": "{{logLevel}}",
+        "executionTime": "{{executionTime}}",
+        "logMessage": "{{logMessage}}",
+        "timeStamps": "{{timeStamps}}",
+        "traceId": "{{traceId}}",
+        "applicationName: "{{manking}}"}
+      rest: >
+       {"methodName": "{{methodName}}",
+       "className": "{{className}}",
+       "logLevel": "{{logLevel}}",
+       "executionTime": "{{executionTime}}",
+       "logMessage": "{{logMessage}}",
+       "timeStamps": "{{timeStamps}}",
+       "httpVerb": "{{httpVerb}}",
+       "httpStatus": "{{httpStatus}}",
+       "httpURI": "{{httpURI}}",
+       "traceId": "{{traceId}}",
+       "applicationName": "my application"}
+      output: json
+     multithread:
+      poolsize: 1
+     correlation:
+      traceid: x-b3-traceid
     ```
 
-    - tnt.logging.format: is the log format that will be diplsayed or written
+    - tnt.logging.default.format: is the log format that will be diplsayed or written
 
-    - tnt.logging.output: is the output type forinstance the onely disponible type is json
+    - tnt.logging.default.output: is the output type forinstance the onely disponible type is json
+
+    - tnt.logging.default.applicationName: is a static variable that ,its value is the application name
 
     - tnt.multithread.poolsize: is the number of thread that will be started
+
 
 3. Add the annotation @EnableTracknTrace to your main class:
 
