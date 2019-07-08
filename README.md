@@ -65,9 +65,11 @@ TnT is a java framework that offers centralization and aggregation of the format
 
     - tnt.logging.default.output: is the output type forinstance the onely disponible type is json
 
-    - tnt.logging.default.applicationName: is a static variable that ,its value is the application name
+    - tnt.logging.default.applicationName: is a static field, its value is the application name
 
     - tnt.multithread.poolsize: is the number of thread that will be started
+
+    You can also add your own static fields such as applicationName, and yne can remove any field you want from the format
 
 
 3. Add the annotation @EnableTracknTrace to your main class:
@@ -150,7 +152,7 @@ TnT is a java framework that offers centralization and aggregation of the format
 ## Maintainers
 
 - Sallah KOKAINA
-- Houseine TASSA
+- Housseine TASSA
 - Khalid ELABBADI
 - Badr Eddine ZINOUN
 - Sanaa HSAKOU
