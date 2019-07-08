@@ -24,7 +24,7 @@ public class LogCollection {
 	private String parentId;
 
 	public LogCollection(String className, Signature signature, StopWatch stopWatch, LocalDateTime localTime,
-			HttpLog httpLog, LogLevel logLevel, String logMessage, String traceId,String spanId,String parentId) {
+			HttpLog httpLog, LogLevel logLevel, String logMessage, String traceId, String spanId, String parentId) {
 		this.className = className;
 		this.methodSignature = signature.getName();
 		this.logLevel = logLevel;
@@ -33,8 +33,8 @@ public class LogCollection {
 		this.localTime = localTime;
 		this.httpLog = httpLog;
 		this.traceId = traceId;
-		this.spanId=spanId;
-		this.parentId=parentId;
+		this.spanId = spanId;
+		this.parentId = parentId;
 	}
 
 	public String getClassName() {
@@ -58,7 +58,8 @@ public class LogCollection {
 	}
 
 	public String getCurrentTimestamp() {
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd-HH:mm:ss");
+		System.out.println();
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.nnnnnnnnn");
 		return localTime.format(dtf);
 	}
 
@@ -108,6 +109,11 @@ public class LogCollection {
 
 	public void setParentId(String parentId) {
 		this.parentId = parentId;
+	}
+
+	public String getPublicIpAddress() {
+		return httpLog.getIp();
+
 	}
 
 }

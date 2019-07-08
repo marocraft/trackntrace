@@ -1,8 +1,6 @@
 package com.github.marocraft.trackntrace.http.filter;
 
 import java.io.IOException;
-import java.util.Collection;
-import java.util.Enumeration;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -13,10 +11,8 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import com.github.marocraft.trackntrace.config.IConfigurationTnT;
@@ -31,7 +27,7 @@ import com.github.marocraft.trackntrace.utils.CommonUtils;
  * @author Khalid ELABBADI
  *
  */
- @Component
+@Component
 public class HttpLogsFilter implements Filter {
 
 	@Autowired
@@ -65,12 +61,25 @@ public class HttpLogsFilter implements Filter {
 				uri = uri + "?" + httpServletRequest.getQueryString();
 			}
 			httpLog.setHttpURI(uri);
+			httpLog.setIp(getPublicIpAdress(httpServletRequest));
 			chain.doFilter(httpServletRequest, httpServletResponse);
 		}
 
 	}
 
-
+	public String getPublicIpAdress(HttpServletRequest request) {
+		String ip = request.getHeader("x-forwarded-for");
+		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+			ip = request.getHeader("Proxy-Client-IP");
+		}
+		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+			ip = request.getHeader("WL-Proxy-Client-IP");
+		}
+		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+			ip = request.getRemoteAddr();
+		}
+		return ip;
+	}
 
 	@Override
 	public void init(FilterConfig arg0) throws ServletException {

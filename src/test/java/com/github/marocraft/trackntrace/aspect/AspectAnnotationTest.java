@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.github.marocraft.trackntrace.annotation.TestService;
 import com.github.marocraft.trackntrace.build.ILogBuilder;
 import com.github.marocraft.trackntrace.config.IConfigurationTnT;
 import com.github.marocraft.trackntrace.context.SpringAOPContext;
@@ -36,9 +35,6 @@ public class AspectAnnotationTest {
 	ILogBuilder logBuilder;
 
 	@Autowired
-	TestService testService;
-
-	@Autowired
 	ThreadPoolManager threadPoolManager;
 
 	@Autowired
@@ -47,11 +43,11 @@ public class AspectAnnotationTest {
 	@Test
 	public void shouldBuildLogs()
 			throws IOException, InterruptedException, FileNotFoundException, IllegalAccessException {
-		DefaultLogTrace logTrace = new DefaultLogTrace(234, "sleep", "com.github.marocraft.trackntrace.TestService", "NORMAL", "234",
-				"new message","","", "", "");
+		DefaultLogTrace logTrace = new DefaultLogTrace(234, "sleep", "com.github.marocraft.trackntrace.TestService",
+				"NORMAL", "234", "new message", "", "", "", "", "");
 		String log = logBuilder.build(logTrace);
 		Assert.assertEquals(
-				"{\"methodName\": \"sleep\",\"className\": \"com.github.marocraft.trackntrace.TestService\",\"logLevel\": \"NORMAL\",\"executionTime\": \"234\",\"logMessage\": \"new message\",\"timeStamps\": \"\",\"traceId\": \"\",\"spanId\": \"\",\"parentId\": \"\"}",
+				"{\"methodName\": \"sleep\",\"className\": \"com.github.marocraft.trackntrace.TestService\",\"logLevel\": \"NORMAL\",\"executionTime\": \"234\",\"logMessage\": \"new message\",\"timeStamps\": \"\",\"traceId\": \"\",\"spanId\": \"\",\"parentId\": \"\",\"ip\": \"\"}",
 				log);
 	}
 
@@ -65,5 +61,5 @@ public class AspectAnnotationTest {
 //	public void shouldLog() {
 //		testService.sleep(200);
 //	}
-	
+
 }

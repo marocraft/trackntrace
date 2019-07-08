@@ -47,17 +47,20 @@ public class RestLogTrace extends LogTrace {
 
 	@Mapping(field = "httpStatus")
 	private String httpStatus;
-	
+
 	@Mapping(field = "httpURI")
 	private String httpURI;
-	
+
 	@Mapping(field = "traceId")
 	private String traceId;
-	
+
 	@Mapping(field = "spanId")
 	private String spanId;
-	
+
 	@Mapping(field = "parentId")
 	private String parentId;
+
+	@Mapping(field = "ip")
+	private String ip;
 
 }

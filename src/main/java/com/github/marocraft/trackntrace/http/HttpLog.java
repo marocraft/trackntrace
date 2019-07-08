@@ -11,9 +11,19 @@ public class HttpLog implements IHttpLog {
 
 	private String httpUri;
 
+	private String ip;
+
 	@Override
 	public String getHttpVerb() {
 		return httpVerbName;
+	}
+
+	public String getIp() {
+		return ip;
+	}
+
+	public void setIp(String ip) {
+		this.ip = ip;
 	}
 
 	@Override
