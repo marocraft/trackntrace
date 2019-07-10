@@ -1,6 +1,6 @@
 # <img src="src/docs/images/trackntrace.png" width="96" height="96"> TracknTrace Framework
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.apache.struts/struts2-core/badge.svg)](hhttps://search.maven.org/artifact/com.github.marocraft.trackntrace/tnt-core/0.2.0)
+[![Maven Central](https://img.shields.io/maven-central/v/com.github.marocraft.trackntrace/tnt-core.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.github.marocraft.trackntrace%22%20AND%20a:%22tnt-core%22)
 
 ## Project description
 
