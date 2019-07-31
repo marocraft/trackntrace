@@ -3,6 +3,8 @@ package com.github.marocraft.trackntrace.aspect;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.time.Clock;
+import java.time.Duration;
 import java.time.LocalDateTime;
 
 import javax.annotation.PostConstruct;
@@ -120,6 +122,9 @@ public class AnnotationAspect {
 	 */
 	private void generateLog(final JoinPoint joinPoint, StopWatch stopWatch, String exceptionMessage)
 			throws IllegalAccessException {
+		Clock baseClock = Clock.systemUTC();
+		Duration duration = Duration.ofNanos(10);
+		Clock clock = Clock.tick(baseClock, duration);
 		MethodSignature signature = (MethodSignature) joinPoint.getSignature();
 		Object clazz = joinPoint.getTarget();
 		String logMessage = logCollector.getMessageFromSignature(signature);
@@ -128,7 +133,7 @@ public class AnnotationAspect {
 			logMessage = logMessage + " - Exception: " + exceptionMessage;
 		}
 		LogCollection logCollection = new LogCollection(clazz.getClass().getName(), signature, stopWatch,
-				LocalDateTime.now(), httpLog, logLevel, logMessage, correlationId.getTraceId(),
+				LocalDateTime.now(clock), httpLog, logLevel, logMessage, correlationId.getTraceId(),
 				correlationId.getSpanId(), correlationId.getParentId());
 
 		LogResolver resolver = new LogResolver(getLogStrategy(signature));

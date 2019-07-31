@@ -1,5 +1,3 @@
-spring:
- profiles.active: RUN
 tnt:
  logging:
   format:
@@ -12,7 +10,8 @@ tnt:
     "timeStamps": "{{timeStamps}}",
     "traceId": "{{traceId}}",
     "spanId": "{{spanId}}",
-    "parentId": "{{parentId}}"}
+    "parentId": "{{parentId}}",
+    "ip": "{{ip}}"}
    rest: >
     {"methodName": "{{methodName}}",
     "className": "{{className}}",
@@ -25,7 +24,8 @@ tnt:
     "httpURI": "{{httpURI}}",
     "traceId": "{{traceId}}",
     "spanId": "{{spanId}}",
-    "parentId": "{{parentId}}"}
+    "parentId": "{{parentId}}",
+    "ip": "{{ip}}"}
   output: json
  multithread:
   poolsize: 1

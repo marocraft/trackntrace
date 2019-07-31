@@ -13,4 +13,7 @@ public interface IHttpLog {
 
 	public void setHttpStatus(String httpStatus);
 
+	public String getIp();
+
+	public void setIp(String ip);
 }

@@ -4,7 +4,7 @@
 		<file>./logstnt/logs2.txt</file>
 
 		<encoder>
-			<pattern>%X{logs}</pattern>
+			<pattern>%msg%n</pattern>
 		</encoder>
 	</appender>
 	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
@@ -20,7 +20,7 @@
 	<appender name="STDOUT-TNT"
 		class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
-			<pattern>%X{logs}</pattern>
+			<pattern> %msg%n</pattern>
 		</encoder>
 	</appender>
 	<appender name="STDOUT"
@@ -31,10 +31,10 @@
 			</Pattern>
 		</encoder>
 	</appender>
-	<logger name="ma.craft.trackntrace" level="info"
+	<logger name="com.github.marocraft.trackntrace" level="INFO"
 		additivity="false">
-		<appender-ref ref="FILE" />
-		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FILE-TNT" />
+		<appender-ref ref="STDOUT-TNT" />
 	</logger>
 
 	<root level="info">

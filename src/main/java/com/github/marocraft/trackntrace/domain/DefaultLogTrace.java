@@ -45,14 +45,17 @@ public class DefaultLogTrace extends LogTrace {
 
 	@Mapping(field = "timeStamps")
 	private String timeStamps;
-	
+
 	@Mapping(field = "traceId")
 	private String traceId;
-	
+
 	@Mapping(field = "spanId")
 	private String spanId;
-	
+
 	@Mapping(field = "parentId")
 	private String parentId;
-	
+
+	@Mapping(field = "ip")
+	private String ip;
+
 }

@@ -54,11 +54,11 @@ public class LogCreationTest {
 		Mockito.when(signature.getName()).thenReturn("clazz");
 		Mockito.when(signature.getMethod()).thenReturn(method);
 		Mockito.when(trace.level()).thenReturn(LogLevel.CRITICAL);
-		String date = "2019/05/16-13:07:12";
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd-HH:mm:ss");
+		String date = "2019-05-16T13:07:12.123456785";
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.nnnnnnnnn");
 		LocalDateTime dateTime = LocalDateTime.parse(date, formatter);
-		collection = new LogCollection("clazz", joinPoint.getSignature(), new StopWatch(""),
-				dateTime, new HttpLog(), LogLevel.CRITICAL, "my message","", "", "");
+		collection = new LogCollection("clazz", joinPoint.getSignature(), new StopWatch(""), dateTime, new HttpLog(),
+				LogLevel.CRITICAL, "my message", "", "", "");
 		collection.setLogLevel(LogLevel.CRITICAL);
 
 	}
@@ -82,7 +82,8 @@ public class LogCreationTest {
 
 		String log = logBuilder.build(logTrace);
 		assertEquals(
-				"{\"methodName\": \"clazz\",\"className\": \"clazz\",\"logLevel\": \"CRITICAL\",\"executionTime\": \"0\",\"logMessage\": \"my message\",\"timeStamps\": \"2019/05/16-13:07:12\",\"traceId\": \"\",\"spanId\": \"\",\"parentId\": \"\"}",
+				"{\"methodName\": \"clazz\",\"className\": \"clazz\",\"logLevel\": \"CRITICAL\",\"executionTime\": \"0\",\"logMessage\": \"my message\",\"timeStamps\": \"2019-05-16T13:07:12.123456785\",\"traceId\": \"\",\"spanId\": \"\",\"parentId\": \"\",\"ip\": \"null\"}",
 				log);
 	}
+
 }
