@@ -143,12 +143,6 @@ TnT is a java framework that offers centralization and aggregation of the format
     {"methodName": "getTntLogs","className": "com.bnpparibas.raiserframework.demotnt.RestControllerTnT","logLevel": "IMPORTANT","executionTime": "4","logMessage": "","traceId": "d769eada-8f61-496f-be3e-d623790dca59","spanId": "31d79f00-9ba8-4de8-9cad-ff84dfbf230d"}
     ```
 
-## Features
-
-    - [X] Business logging: Automatic Logger for Business Layer
-    - [X] Rest logging: Automatic Logger for REST Layer
-    - [X] Data logging: Automatic Logger for Data Layer
-
 ## Maintainers
 
 - Sallah KOKAINA
