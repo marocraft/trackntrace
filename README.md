@@ -147,6 +147,7 @@ TnT is a java framework that offers centralization and aggregation of the format
  -Configure TnT with a .yml or .properties file.
 
  -Annotation @Trace to log a method.
+ 
  -Inoformations that will be logged by default:
 
 	* Method name
@@ -156,8 +157,9 @@ TnT is a java framework that offers centralization and aggregation of the format
 	* Log Level
 	* log message
 	* correlation id
-	* geoip
- - les informations Rest à loguer:
+	* geoip.
+	
+ -HttpRest informations that will be logged:
 
 	* Method name
 	* Class Name
@@ -167,11 +169,13 @@ TnT is a java framework that offers centralization and aggregation of the format
 	* log message
 	* correlation id
 	* geoip
-	* http Verb
-	* http Status
-	* http URI
+	* Http Verb
+	* Http Status
+	* Http URI
+
 
  - Static Fields
+ 
  - Nombre of threads is configurable
 
 ## Maintainers
