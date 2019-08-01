@@ -83,7 +83,7 @@ TnT is a java framework that offers centralization and aggregation of the format
 
     @SpringBootApplication
     @EnableTracknTrace
-    @ComponentScan(basePackages = { "com.bnpparibas" })
+    @ComponentScan(basePackages = { "com.organisation" })
     public class DemoTnt {
         public static void main(String[] args) {
             SpringApplication.run(DemoTnt.class, args);
@@ -140,8 +140,39 @@ TnT is a java framework that offers centralization and aggregation of the format
 6. Result
 
     ``` json
-    {"methodName": "getTntLogs","className": "com.bnpparibas.raiserframework.demotnt.RestControllerTnT","logLevel": "IMPORTANT","executionTime": "4","logMessage": "","traceId": "d769eada-8f61-496f-be3e-d623790dca59","spanId": "31d79f00-9ba8-4de8-9cad-ff84dfbf230d"}
+    {"methodName": "getTntLogs","className": "com.organisation.framework.demotnt.RestControllerTnT","logLevel": "IMPORTANT","executionTime": "4","logMessage": "","traceId": "d769eada-8f61-496f-be3e-d623790dca59","spanId": "31d79f00-9ba8-4de8-9cad-ff84dfbf230d"}
     ```
+## Release-Notes
+
+ -Configure TnT with a .yml or .properties file.
+
+ -Annotation @Trace to log a method.
+ -Inoformations that will be logged by default:
+
+	* Method name
+	* Class Name
+	* Execution Time
+	* TimeStamps
+	* Log Level
+	* log message
+	* correlation id
+	* geoip
+ - les informations Rest à loguer:
+
+	* Method name
+	* Class Name
+	* Execution Time
+	* TimeStamps
+	* Log Level
+	* log message
+	* correlation id
+	* geoip
+	* http Verb
+	* http Status
+	* http URI
+
+ - Static Fields
+ - Nombre of threads is configurable
 
 ## Maintainers
 
