@@ -1,6 +1,10 @@
 package com.github.marocraft.trackntrace.logger;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 import org.aspectj.lang.Signature;
@@ -58,9 +62,9 @@ public class LogCollection {
 	}
 
 	public String getCurrentTimestamp() {
-		System.out.println();
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.nnnnnnnnn");
-		return localTime.format(dtf);
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.nnnnnnnnn X");
+		ZonedDateTime zonedDateTime = ZonedDateTime.of(localTime, ZoneOffset.systemDefault().getRules().getOffset(Instant.now()));
+		return zonedDateTime.format(dtf);
 	}
 
 	public String getHttpVerb() {
