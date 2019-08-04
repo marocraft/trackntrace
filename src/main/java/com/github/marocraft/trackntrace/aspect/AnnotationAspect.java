@@ -6,6 +6,7 @@ import java.lang.reflect.Method;
 import java.time.Clock;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 import javax.annotation.PostConstruct;
 import javax.xml.ws.http.HTTPException;
@@ -122,7 +123,7 @@ public class AnnotationAspect {
 	 */
 	private void generateLog(final JoinPoint joinPoint, StopWatch stopWatch, String exceptionMessage)
 			throws IllegalAccessException {
-		Clock baseClock = Clock.systemUTC();
+		Clock baseClock = Clock.systemDefaultZone();
 		Duration duration = Duration.ofNanos(10);
 		Clock clock = Clock.tick(baseClock, duration);
 		MethodSignature signature = (MethodSignature) joinPoint.getSignature();

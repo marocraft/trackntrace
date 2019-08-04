@@ -3,7 +3,10 @@ package com.github.marocraft.trackntrace.build;
 import static org.junit.Assert.assertEquals;
 
 import java.lang.reflect.Method;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 import org.aspectj.lang.JoinPoint;
@@ -79,10 +82,14 @@ public class LogCreationTest {
 	public void shouldLogHaveCorrectFormat() throws IllegalAccessException {
 
 		DefaultLogTrace logTrace = (DefaultLogTrace) logCollector.collect(collection);
-
+		String timeOffset = ZoneOffset.systemDefault().getRules().getOffset(Instant.now()).toString();
+		if(timeOffset.length()>2) {
+			timeOffset=timeOffset.substring(0, 3);
+		}
 		String log = logBuilder.build(logTrace);
 		assertEquals(
-				"{\"methodName\": \"clazz\",\"className\": \"clazz\",\"logLevel\": \"CRITICAL\",\"executionTime\": \"0\",\"logMessage\": \"my message\",\"timeStamps\": \"2019-05-16T13:07:12.123456785\",\"traceId\": \"\",\"spanId\": \"\",\"parentId\": \"\",\"ip\": \"null\"}",
+				"{\"methodName\": \"clazz\",\"className\": \"clazz\",\"logLevel\": \"CRITICAL\",\"executionTime\": \"0\",\"logMessage\": \"my message\",\"timeStamps\": \"2019-05-16T13:07:12.123456785 "
+						+ timeOffset + "\",\"traceId\": \"\",\"spanId\": \"\",\"parentId\": \"\",\"ip\": \"null\"}",
 				log);
 	}
 
