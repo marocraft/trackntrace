@@ -22,24 +22,28 @@ package com.github.marocraft.trackntrace.domain;
 public enum LogLevel {
 
 	/**
+	 * Define that the being logged message is an error
+	 */
+	ERROR,
+	/**
 	 * Define that the being logged message is critical and should not be ignored
 	 */
-	CRITICAL,
+	WARN,
 
 	/**
 	 * Define that the being logged message is important and need special care
 	 */
-	IMPORTANT,
+	INFO,
 
 	/**
 	 * Define that the being logged message is normal and no real attention is
 	 * required
 	 */
-	NORMAL,
+	DEBUG,
 
 	/**
 	 * Define that the being logged message is for information only and no attention
 	 * is required
 	 */
-	TRIVIAL;
+	TRACE;
 }

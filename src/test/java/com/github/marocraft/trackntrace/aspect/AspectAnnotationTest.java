@@ -54,7 +54,7 @@ public class AspectAnnotationTest {
 
 	public void shouldNotPublishLogs() throws IOException, InterruptedException, FileNotFoundException {
 		logPublisher.clear();
-		logPublisher.publish(null);
+		logPublisher.publish(null, null);
 		Assert.assertEquals(0, logPublisher.size());
 	}
 
