@@ -1,5 +1,10 @@
 package com.github.marocraft.trackntrace.publish;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
@@ -25,11 +30,43 @@ public class LoggerThread implements Runnable {
 
 	@Override
 	public void run() {
-		String msg = null;
+		HashMap<String, String> msg = null;
 		try {
 			if (publisher != null) {
 				while ((msg = publisher.get()) != null) {
-					log.info(msg);
+					Iterator<Entry<String, String>> hmIterator = msg.entrySet().iterator();
+					String logMessage = "";
+
+					String logLevel = "";
+					while (hmIterator.hasNext()) {
+						Map.Entry mapElement = (Map.Entry) hmIterator.next();
+
+						logLevel = (String) mapElement.getValue();
+						logMessage = (String) mapElement.getKey();
+
+					}
+
+					switch (logLevel) {
+					case "TRACE":
+						log.trace(logMessage);
+						break;
+					case "DEBUG":
+						log.debug(logMessage);
+						break;
+					case "INFO":
+						log.info(logMessage);
+						break;
+					case "WARN":
+						log.warn(logMessage);
+						break;
+					case "ERROR":
+						log.error(logMessage);
+						break;
+
+					default:
+						break;
+					}
+
 					Thread.sleep(10);
 				}
 			}

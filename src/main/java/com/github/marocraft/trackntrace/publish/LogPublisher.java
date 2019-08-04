@@ -1,5 +1,6 @@
 package com.github.marocraft.trackntrace.publish;
 
+import java.util.HashMap;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -21,19 +22,21 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class LogPublisher implements ILogPublisher<String> {
 
-	private BlockingQueue<String> logQueue = new LinkedBlockingQueue<>(50);
+	private BlockingQueue<HashMap<String, String>> logQueue = new LinkedBlockingQueue<>(50);
 
 	@Override
-	public void publish(String message) {
+	public void publish(String message,String loglevel) {
 		try {
-			logQueue.put(message);
+			HashMap<String, String>logElement= new HashMap<String, String>();
+			logElement.put(message, loglevel);
+			logQueue.put(logElement);
 		} catch (Exception ex) {
 			log.error(message, ex);
 		}
 	}
 
 	@Override
-	public String get() throws InterruptedException {
+	public HashMap<String, String> get() throws InterruptedException {
 		return logQueue.take();
 	}
 

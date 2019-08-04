@@ -1,5 +1,7 @@
 package com.github.marocraft.trackntrace.publish;
 
+import java.util.HashMap;
+
 /**
  * Interface for log publishing
  * 
@@ -15,8 +17,9 @@ public interface ILogPublisher<E> {
 	 * Add a new message to the queue
 	 * 
 	 * @param message
+	 * @param string 
 	 */
-	public void publish(E message);
+	public void publish(E message, String string);
 
 	
 	/**
@@ -24,7 +27,7 @@ public interface ILogPublisher<E> {
 	 * @return
 	 * @throws InterruptedException
 	 */
-	public E get() throws InterruptedException;
+	public HashMap<E, String> get() throws InterruptedException;
 
 	/**
 	 * Clear all queue items

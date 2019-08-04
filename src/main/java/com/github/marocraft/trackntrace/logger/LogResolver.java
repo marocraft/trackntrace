@@ -12,6 +12,6 @@ public class LogResolver {
 	public void process(LogCollection logCollection) throws IllegalAccessException {
 		LogTrace logTrace = logger.logCollector().collect(logCollection);
 		String logMessage = logger.logBuilder().build(logTrace);
-		logger.logPublisher().publish(logMessage);
+		logger.logPublisher().publish(logMessage,logCollection.getLogLevel().name());
 	}
 }

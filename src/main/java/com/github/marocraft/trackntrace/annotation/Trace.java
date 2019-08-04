@@ -37,5 +37,5 @@ public @interface Trace {
 	 * 
 	 * @return
 	 */
-	public LogLevel level() default LogLevel.TRIVIAL;
+	public LogLevel level() default LogLevel.INFO;
 }
