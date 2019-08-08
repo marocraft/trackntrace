@@ -21,7 +21,6 @@ import com.github.marocraft.trackntrace.domain.LogLevel;
 public class ILogCollectorTest {
 
 	ILogCollector iLogCollector = new DefaultLogCollector();;
-
 	MethodSignature signature;
 
 	@Before
