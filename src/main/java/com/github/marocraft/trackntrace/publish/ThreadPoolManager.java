@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 
 import com.github.marocraft.trackntrace.config.IConfigurationTnT;
 
+import lombok.Getter;
+
 /**
  * Logging running threads management and orchestration.
  * 
@@ -17,13 +19,14 @@ import com.github.marocraft.trackntrace.config.IConfigurationTnT;
  *
  */
 @Component
+@Getter
 public class ThreadPoolManager {
 
 	@Autowired
 	@Qualifier("configurationTnTDefault")
 	IConfigurationTnT config;
 
-	ExecutorService executorService;
+	private ExecutorService executorService;
 
 	public void initialize() {
 		executorService = Executors.newFixedThreadPool(config.getThreadPoolsize());

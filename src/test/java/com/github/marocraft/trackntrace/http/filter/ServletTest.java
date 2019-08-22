@@ -25,6 +25,6 @@ public class ServletTest extends HttpServlet {
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		//doGet(request, response);
+
 	}
 }
