@@ -45,12 +45,6 @@ public class FormatTest {
 	}
 
 	@Test
-	public void shouldHaveRightNumberTemplateVariables() {
-		int nbrFieldsFromTemplateFile = commonUtils.getNumberOfVariablesFromFormatFile(format);
-		Assert.assertEquals(5, nbrFieldsFromTemplateFile);
-	}
-
-	@Test
 	public void shouldHaveNoVariables() {
 		List<Variable> variables = commonUtils.extractVariables("No variables here");
 		Assert.assertNotNull(variables);

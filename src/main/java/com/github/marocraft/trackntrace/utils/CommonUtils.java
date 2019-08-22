@@ -3,7 +3,6 @@ package com.github.marocraft.trackntrace.utils;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -59,7 +58,7 @@ public class CommonUtils {
 		return variables;
 	}
 
-	public Object valueOf(String fieldName, LogTrace trace) throws IllegalAccessException {
+	private Object valueOf(String fieldName, LogTrace trace) throws IllegalAccessException {
 		Field[] clazzFields = trace.getClass().getDeclaredFields();
 		for (Field clazzField : clazzFields) {
 			Mapping annotation = clazzField.getAnnotation(Mapping.class);
@@ -72,16 +71,6 @@ public class CommonUtils {
 		return null;
 	}
 
-	public int getNumberOfVariablesFromFormatFile(String expression) {
-		List<Variable> variables = extractVariables(expression);
-		return variables.size();
-	}
-
-	public String uniqid() {
-		return UUID.randomUUID().toString();
-	}
-
-	/** Inspired by {@code okio.Buffer.writeLong} */
 	public static String toLowerHex(long v) {
 		char[] data = new char[16];
 		writeHexLong(data, 0, v);
@@ -93,8 +82,7 @@ public class CommonUtils {
 		data[pos + 1] = CommonUtils.HEX_DIGITS[b & 0xf];
 	}
 
-	/** Inspired by {@code okio.Buffer.writeLong} */
-	public static void writeHexLong(char[] data, int pos, long v) {
+	private static void writeHexLong(char[] data, int pos, long v) {
 		writeHexByte(data, pos + 0, (byte) ((v >>> 56L) & 0xff));
 		writeHexByte(data, pos + 2, (byte) ((v >>> 48L) & 0xff));
 		writeHexByte(data, pos + 4, (byte) ((v >>> 40L) & 0xff));
@@ -105,7 +93,7 @@ public class CommonUtils {
 		writeHexByte(data, pos + 14, (byte) (v & 0xff));
 	}
 
-	public static long randomLong() {
+	private static long randomLong() {
 		return java.util.concurrent.ThreadLocalRandom.current().nextLong();
 	}
 
