@@ -66,7 +66,22 @@
 		<jacoco-maven-plugin.version>0.8.2</jacoco-maven-plugin.version>
 		<jacoco.it.execution.data.file>${project.build.directory}/jacoco-it.exec</jacoco.it.execution.data.file>
 		<jacoco.ut.execution.data.file>${project.build.directory}/jacoco.exec</jacoco.ut.execution.data.file>
-		<sonar.exclusions>**/com/github/marocraft/trackntrace/domain/**/*,</sonar.exclusions>
+		<sonar.exclusions>
+			**/com/github/marocraft/trackntrace/domain/**,
+			**/com/github/marocraft/trackntrace/annotation/**,
+			**/com/github/marocraft/trackntrace/aspect/**,
+			**/com/github/marocraft/trackntrace/build/ILogBuilder.java,
+			**/com/github/marocraft/trackntrace/config/**,
+			**/com/github/marocraft/trackntrace/enums/**,
+			**/com/github/marocraft/trackntrace/http/configuration/**,
+			**/com/github/marocraft/trackntrace/http/filter/CorrelationFilter.java,
+			**/com/github/marocraft/trackntrace/http/interceptor/**,
+			**/com/github/marocraft/trackntrace/http/HttpLog.java,
+			**/com/github/marocraft/trackntrace/http/IHttpLog.java,
+			**/com/github/marocraft/trackntrace/logger/**,
+			**/com/github/marocraft/trackntrace/publish/ILogPublisher.java,
+			**/com/github/marocraft/trackntrace/TracknTraceComponentsActivator.java
+		</sonar.exclusions>
 	</properties>
 	<dependencies>
 		<dependency>
