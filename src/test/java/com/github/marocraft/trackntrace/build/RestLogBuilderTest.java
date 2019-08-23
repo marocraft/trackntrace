@@ -1,3 +1,6 @@
+/**
+ * 
+ */
 package com.github.marocraft.trackntrace.build;
 
 import static org.junit.Assert.assertEquals;
@@ -10,7 +13,6 @@ import java.time.format.DateTimeFormatter;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,33 +27,33 @@ import org.springframework.util.StopWatch;
 import com.github.marocraft.trackntrace.annotation.Trace;
 import com.github.marocraft.trackntrace.collect.ILogCollector;
 import com.github.marocraft.trackntrace.context.SpringAOPContext;
-import com.github.marocraft.trackntrace.domain.DefaultLogTrace;
 import com.github.marocraft.trackntrace.domain.LogLevel;
-import com.github.marocraft.trackntrace.domain.LogTrace;
+import com.github.marocraft.trackntrace.domain.RestLogTrace;
 import com.github.marocraft.trackntrace.http.HttpLog;
 import com.github.marocraft.trackntrace.logger.LogCollection;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = SpringAOPContext.class)
-public class LogCreationTest {
+public class RestLogBuilderTest {
 
+	@Qualifier("restLogBuilder")
 	@Autowired
-	@Qualifier("defaultLogBuilder")
-	ILogBuilder logBuilder;
-
+	RestLogBuilder restLogBuilder;
+	
 	@Autowired
-	@Qualifier("defaultLogCollector")
+	@Qualifier("restLogCollector")
 	ILogCollector logCollector;
-
+	
+	LogCollection collection;
+	
 	JoinPoint joinPoint = Mockito.mock(JoinPoint.class);
 	MethodSignature signature = Mockito.mock(MethodSignature.class);
 	Method method = PowerMockito.mock(Method.class);
 	Trace trace = PowerMockito.mock(Trace.class);
-
-	LogCollection collection;
-
+	
 	@Before
 	public void beforeTest() {
+		
 		Mockito.when(joinPoint.getSignature()).thenReturn(signature);
 		Mockito.when(signature.getName()).thenReturn("clazz");
 		Mockito.when(signature.getMethod()).thenReturn(method);
@@ -64,31 +66,17 @@ public class LogCreationTest {
 		collection.setLogLevel(LogLevel.ERROR);
 
 	}
-
 	@Test
-	public void shouldCreateLogTraceClass() {
-		LogTrace logTrace = logCollector.collect(collection);
-		Assert.assertNotNull(logTrace);
-	}
+	public void shouldBuildLogsAsString() throws IllegalAccessException {
 
-	@Test
-	public void shouldCreateLogTraceClassWithData() {
-		DefaultLogTrace logTrace = (DefaultLogTrace) logCollector.collect(collection);
-		Assert.assertNotNull(logTrace.getClazz());
-	}
-
-	@Test
-	public void shouldLogHaveCorrectFormat() throws IllegalAccessException {
-
-		DefaultLogTrace logTrace = (DefaultLogTrace) logCollector.collect(collection);
+		RestLogTrace logTrace = (RestLogTrace) logCollector.collect(collection);
 		String timeOffset = ZoneOffset.systemDefault().getRules().getOffset(Instant.now()).toString();
 		if(timeOffset.length()>2) {
 			timeOffset=timeOffset.substring(0, 3);
 		}
-		String log = logBuilder.build(logTrace);
+		String log = restLogBuilder.build(logTrace);
 		assertEquals(
-				"{\"methodName\": \"clazz\",\"className\": \"clazz\",\"logLevel\": \"ERROR\",\"executionTime\": \"0\",\"logMessage\": \"my message\",\"timeStamps\": \"2019-05-16T13:07:12.123456785 "
-						+ timeOffset + "\",\"traceId\": \"\",\"spanId\": \"\",\"parentId\": \"\",\"ip\": \"null\"}",
+				"{\"methodName\": \"clazz\",\"className\": \"clazz\",\"logLevel\": \"ERROR\",\"executionTime\": \"0\",\"logMessage\": \"my message\",\"timeStamps\": \"2019-05-16T13:07:12.123456785 +01\",\"httpVerb\": \"null\",\"httpStatus\": \"null\",\"httpURI\": \"null\",\"traceId\": \"\",\"spanId\": \"\",\"parentId\": \"\",\"ip\": \"null\"}",
 				log);
 	}
 
