@@ -77,7 +77,7 @@ public class CommonUtils {
 		return new String(data);
 	}
 
-	static void writeHexByte(char[] data, int pos, byte b) {
+	private static void writeHexByte(char[] data, int pos, byte b) {
 		data[pos + 0] = CommonUtils.HEX_DIGITS[(b >> 4) & 0xf];
 		data[pos + 1] = CommonUtils.HEX_DIGITS[b & 0xf];
 	}

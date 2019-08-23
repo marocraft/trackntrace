@@ -52,6 +52,17 @@ public class CommonUtilsTest {
 
 	}
 	
+	
+	@Test
+	public void shouldReturnRandomLong() {
+		assertNotNull(CommonUtils.nextId());
+	}
+	
+	@Test
+	public void shouldConvertLongToLowerHex() {
+		assertNotNull(CommonUtils.toLowerHex(CommonUtils.nextId()));
+	}
+	
 	public void testMethod() {
 		
 	}

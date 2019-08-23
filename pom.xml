@@ -80,6 +80,7 @@
 			**/com/github/marocraft/trackntrace/http/IHttpLog.java,
 			**/com/github/marocraft/trackntrace/logger/**,
 			**/com/github/marocraft/trackntrace/publish/ILogPublisher.java,
+			**/com/github/marocraft/trackntrace/publish/LoggerThread.java,
 			**/com/github/marocraft/trackntrace/TracknTraceComponentsActivator.java
 		</sonar.exclusions>
 	</properties>
