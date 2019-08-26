@@ -27,7 +27,7 @@ public class LogPublisher implements ILogPublisher<String> {
 	@Override
 	public void publish(String message,String loglevel) {
 		try {
-			HashMap<String, String>logElement= new HashMap<String, String>();
+			HashMap<String, String>logElement= new HashMap<>();
 			logElement.put(message, loglevel);
 			logQueue.put(logElement);
 		} catch (Exception ex) {

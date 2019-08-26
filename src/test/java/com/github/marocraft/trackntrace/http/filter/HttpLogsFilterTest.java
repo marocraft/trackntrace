@@ -22,14 +22,14 @@ public class HttpLogsFilterTest {
 	HttpServletRequest httpServletRequest;
 	HttpServletResponse httpServletResponse;
 	HttpLogsFilter httpLogsFilter;
-	ServletTest servlet;
+	TestServlet servlet;
 	
 	@Before
 	public void before() {
 	httpServletRequest=Mockito.mock(HttpServletRequest.class);
 	httpServletResponse=Mockito.mock(HttpServletResponse.class);
 	httpLogsFilter= new HttpLogsFilter();
-	servlet= new ServletTest();
+	servlet= new TestServlet();
 	
 	}
 	

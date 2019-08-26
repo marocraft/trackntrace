@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  */
 @WebServlet()
-public class ServletTest extends HttpServlet {
+public class TestServlet extends HttpServlet {
 
 	/**
 	 * 
