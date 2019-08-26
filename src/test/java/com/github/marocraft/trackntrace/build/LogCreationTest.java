@@ -99,19 +99,5 @@ public class LogCreationTest {
 						+ timeOffset + "\",\"traceId\": \"\",\"spanId\": \"\",\"parentId\": \"\",\"ip\": \"null\"}",
 				log);
 	}
-	
-	@Test
-	public void shouldBuildLogsAsString() throws IllegalAccessException {
-
-		RestLogTrace logTrace = (RestLogTrace) restLogCollector.collect(collection);
-		String timeOffset = ZoneOffset.systemDefault().getRules().getOffset(Instant.now()).toString();
-		if(timeOffset.length()>2) {
-			timeOffset=timeOffset.substring(0, 3);
-		}
-		String log = restLogBuilder.build(logTrace);
-		assertEquals(
-				"{\"methodName\": \"clazz\",\"className\": \"clazz\",\"logLevel\": \"ERROR\",\"executionTime\": \"0\",\"logMessage\": \"my message\",\"timeStamps\": \"2019-05-16T13:07:12.123456785 +01\",\"httpVerb\": \"null\",\"httpStatus\": \"null\",\"httpURI\": \"null\",\"traceId\": \"\",\"spanId\": \"\",\"parentId\": \"\",\"ip\": \"null\"}",
-				log);
-	}
 
 }

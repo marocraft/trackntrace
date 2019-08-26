@@ -76,7 +76,8 @@ public class RestLogBuilderTest {
 		}
 		String log = restLogBuilder.build(logTrace);
 		assertEquals(
-				"{\"methodName\": \"clazz\",\"className\": \"clazz\",\"logLevel\": \"ERROR\",\"executionTime\": \"0\",\"logMessage\": \"my message\",\"timeStamps\": \"2019-05-16T13:07:12.123456785 +01\",\"httpVerb\": \"null\",\"httpStatus\": \"null\",\"httpURI\": \"null\",\"traceId\": \"\",\"spanId\": \"\",\"parentId\": \"\",\"ip\": \"null\"}",
+				"{\"methodName\": \"clazz\",\"className\": \"clazz\",\"logLevel\": \"ERROR\",\"executionTime\": \"0\",\"logMessage\": \"my message\",\"timeStamps\": \"2019-05-16T13:07:12.123456785 " + 
+				timeOffset + "\",\"httpVerb\": \"null\",\"httpStatus\": \"null\",\"httpURI\": \"null\",\"traceId\": \"\",\"spanId\": \"\",\"parentId\": \"\",\"ip\": \"null\"}",
 				log);
 	}
 

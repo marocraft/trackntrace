@@ -64,6 +64,7 @@ public class LogCollection {
 	public String getCurrentTimestamp() {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.nnnnnnnnn X");
 		ZonedDateTime zonedDateTime = ZonedDateTime.of(localTime, ZoneOffset.systemDefault().getRules().getOffset(Instant.now()));
+		
 		return zonedDateTime.format(dtf);
 	}
 
