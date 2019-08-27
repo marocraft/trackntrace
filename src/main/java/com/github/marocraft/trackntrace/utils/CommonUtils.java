@@ -21,7 +21,8 @@ import com.github.marocraft.trackntrace.domain.Variable;
 @Component
 public class CommonUtils {
 
-	public static final char[] HEX_DIGITS = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
+	public static final char[] HEX_DIGITS = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e',
+			'f' };
 
 	/**
 	 * Replace each field in the template by its value
@@ -30,12 +31,13 @@ public class CommonUtils {
 	 * @param field
 	 * @param logTrace
 	 * @return
-	 * @throws IllegalAccessException
+	 * @throws Exception 
 	 */
-	public String replace(String format, String field, LogTrace logTrace) throws IllegalAccessException {
+	public String replace(String format, String field, LogTrace logTrace) throws Exception {
 		Object valueOfField = valueOf(field, logTrace);
-
-		return format.replaceAll("\"\\{\\{" + field + "\\}\\}\"", "\"" + valueOfField + "\"") + "";
+		if (format != null)
+			return format.replaceAll("\"\\{\\{" + field + "\\}\\}\"", "\"" + valueOfField + "\"") + "";
+		throw new Exception("the template is not correct"); 
 	}
 
 	public List<Variable> extractVariables(String expression) {
@@ -59,16 +61,18 @@ public class CommonUtils {
 	}
 
 	private Object valueOf(String fieldName, LogTrace trace) throws IllegalAccessException {
-		Field[] clazzFields = trace.getClass().getDeclaredFields();
-		for (Field clazzField : clazzFields) {
-			Mapping annotation = clazzField.getAnnotation(Mapping.class);
-			if (annotation != null && annotation.field().equals(fieldName)) {
-				clazzField.setAccessible(true);
-				return clazzField.get(trace);
+		if (trace != null) {
+			Field[] clazzFields = trace.getClass().getDeclaredFields();
+			for (Field clazzField : clazzFields) {
+				Mapping annotation = clazzField.getAnnotation(Mapping.class);
+				if (annotation != null && annotation.field().equals(fieldName)) {
+					clazzField.setAccessible(true);
+					return clazzField.get(trace);
+				}
 			}
 		}
-
 		return null;
+
 	}
 
 	public static String toLowerHex(long v) {
