@@ -42,7 +42,12 @@ public class DefaultLogBuilder implements ILogBuilder {
 		String format = config.getFormat();
 		List<Variable> variables = commonUtils.extractVariables(format);
 		for (Variable variable : variables) {
-			format = commonUtils.replace(format, variable.getName(), logTrace);
+			try {
+				format = commonUtils.replace(format, variable.getName(), logTrace);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 		return format;
