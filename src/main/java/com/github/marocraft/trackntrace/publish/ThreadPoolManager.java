@@ -24,7 +24,7 @@ public class ThreadPoolManager {
 
 	@Autowired
 	@Qualifier("configurationTnTDefault")
-	IConfigurationTnT config;
+	private IConfigurationTnT config;
 
 	private ExecutorService executorService;
 
