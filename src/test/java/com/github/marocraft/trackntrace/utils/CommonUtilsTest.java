@@ -51,8 +51,6 @@ public class CommonUtilsTest {
 					log);
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
 
 	}
