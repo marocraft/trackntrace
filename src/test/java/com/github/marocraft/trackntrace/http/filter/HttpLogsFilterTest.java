@@ -3,8 +3,12 @@
  */
 package com.github.marocraft.trackntrace.http.filter;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.StringReader;
 
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,17 +16,29 @@ import javax.servlet.http.HttpServletResponse;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.github.marocraft.trackntrace.context.SpringAOPContext;
 
 /**
  * 
  *
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = SpringAOPContext.class)
 public class HttpLogsFilterTest {
 	HttpServletRequest httpServletRequest;
 	HttpServletResponse httpServletResponse;
 	HttpLogsFilter httpLogsFilter;
 	TestServlet servlet;
+	
+	@Autowired
+	HttpLogsFilter filter;
+	
 	MutableHttpServletRequest mutableHttpServletRequest;
 
 	@Before
@@ -116,5 +132,20 @@ public class HttpLogsFilterTest {
 
 		Assert.assertEquals(mutableHttpServletRequest.getRemoteAddr(), httpLogsFilter.getPublicIpAdress(mutableHttpServletRequest));
 	}	
+	
+	
+    @Test
+    public void testDoFilter() throws ServletException, IOException {
+        HttpServletRequest mockReq = Mockito.mock(HttpServletRequest.class);
+        HttpServletResponse mockResp = Mockito.mock(HttpServletResponse.class);
+        FilterChain mockFilterChain = Mockito.mock(FilterChain.class);
+        FilterConfig mockFilterConfig = Mockito.mock(FilterConfig.class);
+        Mockito.when(mockReq.getRequestURI()).thenReturn("/");
+        BufferedReader br = new BufferedReader(new StringReader("test"));
+        Mockito.when(mockReq.getReader()).thenReturn(br);
+        filter.init(mockFilterConfig);
+        filter.doFilter(mockReq, mockResp, mockFilterChain);
+        filter.destroy();
+    }
 
 }
