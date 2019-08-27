@@ -3,12 +3,11 @@
  */
 package com.github.marocraft.trackntrace.http.filter;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.StringReader;
+import static org.junit.Assert.assertEquals;
 
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
+import java.io.IOException;
+import java.net.URLEncoder;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +18,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -35,10 +37,10 @@ public class HttpLogsFilterTest {
 	HttpServletResponse httpServletResponse;
 	HttpLogsFilter httpLogsFilter;
 	TestServlet servlet;
-	
+
 	@Autowired
 	HttpLogsFilter filter;
-	
+
 	MutableHttpServletRequest mutableHttpServletRequest;
 
 	@Before
@@ -86,10 +88,9 @@ public class HttpLogsFilterTest {
 			e.printStackTrace();
 		}
 
-		
 		Assert.assertEquals("10.78.243.193", httpLogsFilter.getPublicIpAdress(mutableHttpServletRequest));
 	}
-	
+
 	/**
 	 * Test method for
 	 * {@link com.github.marocraft.trackntrace.http.filter.HttpLogsFilter#getPublicIpAdress(javax.servlet.http.HttpServletRequest)}.
@@ -109,9 +110,8 @@ public class HttpLogsFilterTest {
 		}
 
 		Assert.assertEquals("10.78.243.193", httpLogsFilter.getPublicIpAdress(mutableHttpServletRequest));
-	}	
-	
-	
+	}
+
 	/**
 	 * Test method for
 	 * {@link com.github.marocraft.trackntrace.http.filter.HttpLogsFilter#getPublicIpAdress(javax.servlet.http.HttpServletRequest)}.
@@ -130,22 +130,18 @@ public class HttpLogsFilterTest {
 			e.printStackTrace();
 		}
 
-		Assert.assertEquals(mutableHttpServletRequest.getRemoteAddr(), httpLogsFilter.getPublicIpAdress(mutableHttpServletRequest));
-	}	
-	
-	
-    @Test
-    public void testDoFilter() throws ServletException, IOException {
-        HttpServletRequest mockReq = Mockito.mock(HttpServletRequest.class);
-        HttpServletResponse mockResp = Mockito.mock(HttpServletResponse.class);
-        FilterChain mockFilterChain = Mockito.mock(FilterChain.class);
-        FilterConfig mockFilterConfig = Mockito.mock(FilterConfig.class);
-        Mockito.when(mockReq.getRequestURI()).thenReturn("/");
-        BufferedReader br = new BufferedReader(new StringReader("test"));
-        Mockito.when(mockReq.getReader()).thenReturn(br);
-        filter.init(mockFilterConfig);
-        filter.doFilter(mockReq, mockResp, mockFilterChain);
-        filter.destroy();
-    }
+		Assert.assertEquals(mutableHttpServletRequest.getRemoteAddr(),
+				httpLogsFilter.getPublicIpAdress(mutableHttpServletRequest));
+	}
+
+	public void testRedirect() throws Exception {
+		final MockHttpSession session = new MockHttpSession();
+		final MockHttpServletRequest request = new MockHttpServletRequest();
+		final MockHttpServletResponse response = new MockHttpServletResponse();
+		request.setSession(session);
+		this.filter.doFilter(request, response, null);
+		assertEquals("" + "?service=" + URLEncoder.encode("", "UTF-8"), response.getRedirectedUrl());
+		filter.destroy();
+	}
 
 }

@@ -12,7 +12,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
 import com.github.marocraft.trackntrace.context.SpringBasicContext;
 import com.github.marocraft.trackntrace.domain.DefaultLogTrace;
 
@@ -51,10 +50,8 @@ public class CommonUtilsTest {
 					"{\"methodName\": \"public void com.github.marocraft.trackntrace.utils.CommonUtilsTest.testMethod()\",\"className\": \"{{className}}\",\"logLevel\": \"{{logLevel}}\",\"executionTime\": \"{{executionTime}}\",\"logMessage\": \"{{logMessage}}\",\"timeStamps\": \"{{timeStamps}}\",\"traceId\": \"{{traceId}}\",\"spanId\": \"{{spanId}}\",\"parentId\": \"{{parentId}}\",\"ip\": \"{{ip}}\"}",
 					log);
 		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

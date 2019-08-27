@@ -11,6 +11,10 @@ import com.github.marocraft.trackntrace.domain.LogTrace;
 import com.github.marocraft.trackntrace.domain.Variable;
 import com.github.marocraft.trackntrace.utils.CommonUtils;
 
+import ch.qos.logback.classic.Logger;
+import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * Build a log line from a from LogTrace object
  * 
@@ -19,6 +23,7 @@ import com.github.marocraft.trackntrace.utils.CommonUtils;
  * @author Khalid ELABBADI
  *
  */
+@Slf4j
 @Component("defaultLogBuilder")
 public class DefaultLogBuilder implements ILogBuilder {
 
@@ -44,9 +49,9 @@ public class DefaultLogBuilder implements ILogBuilder {
 		for (Variable variable : variables) {
 			try {
 				format = commonUtils.replace(format, variable.getName(), logTrace);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			} catch (IllegalArgumentException e) {
+				log.error("Invalid arguments");
+				
 			}
 		}
 
