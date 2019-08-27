@@ -11,8 +11,6 @@ import com.github.marocraft.trackntrace.domain.LogTrace;
 import com.github.marocraft.trackntrace.domain.Variable;
 import com.github.marocraft.trackntrace.utils.CommonUtils;
 
-import ch.qos.logback.classic.Logger;
-import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 
 /**
