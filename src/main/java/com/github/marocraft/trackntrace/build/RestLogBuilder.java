@@ -11,6 +11,8 @@ import com.github.marocraft.trackntrace.domain.LogTrace;
 import com.github.marocraft.trackntrace.domain.Variable;
 import com.github.marocraft.trackntrace.utils.CommonUtils;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * Build a log line from a from LogTrace object
  * 
@@ -19,6 +21,7 @@ import com.github.marocraft.trackntrace.utils.CommonUtils;
  * @author Khalid ELABBADI
  *
  */
+@Slf4j
 @Component("restLogBuilder")
 public class RestLogBuilder implements ILogBuilder {
 
@@ -45,8 +48,7 @@ public class RestLogBuilder implements ILogBuilder {
 			try {
 				format = commonUtils.replace(format, variable.getName(), logTrace);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				log.debug("Invalid Arguments");
 			}
 		}
 

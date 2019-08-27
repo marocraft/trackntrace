@@ -31,13 +31,14 @@ public class CommonUtils {
 	 * @param field
 	 * @param logTrace
 	 * @return
+	 * @throws IllegalAccessException 
 	 * @throws Exception 
 	 */
-	public String replace(String format, String field, LogTrace logTrace) throws Exception {
+	public String replace(String format, String field, LogTrace logTrace) throws IllegalArgumentException, IllegalAccessException {
 		Object valueOfField = valueOf(field, logTrace);
 		if (format != null)
 			return format.replaceAll("\"\\{\\{" + field + "\\}\\}\"", "\"" + valueOfField + "\"") + "";
-		throw new Exception("the template is not correct"); 
+		throw new IllegalArgumentException("the template is not correct"); 
 	}
 
 	public List<Variable> extractVariables(String expression) {
