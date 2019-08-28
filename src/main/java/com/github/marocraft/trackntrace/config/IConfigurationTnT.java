@@ -33,7 +33,7 @@ public interface IConfigurationTnT {
 	/**
 	 * Set Logging message pattern
 	 * 
-	 * @param Integer to eddit size of the thread pool
+	 * @param size Integer to eddit size of the thread pool
 	 */
 	public void setThreadPoolsize(int size);
 	
