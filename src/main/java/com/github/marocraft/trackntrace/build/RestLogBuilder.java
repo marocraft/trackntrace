@@ -32,9 +32,9 @@ public class RestLogBuilder implements ILogBuilder {
 	/**
 	 * Construct logs from LogTrace object
 	 * 
-	 * @param logTrace
-	 * @return
-	 * @throws IllegalAccessException
+	 * @param logTrace a trace of logs
+	 * @return a string of logs
+	 * @throws IllegalAccessException An IllegalAccessException is thrown when an application tries to reflectively create an instance (other than an array), set or get a field, or invoke a method
 	 */
 	@Override
 	@Qualifier("restLogTrace")
