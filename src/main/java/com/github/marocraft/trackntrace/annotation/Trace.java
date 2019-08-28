@@ -6,8 +6,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.springframework.web.bind.annotation.Mapping;
-
 import com.github.marocraft.trackntrace.domain.LogLevel;
 
 /**
@@ -27,7 +25,7 @@ public @interface Trace {
 	/**
 	 * Add a message to log as string
 	 * 
-	 * @return
+	 * @return the message from the Trace annotation parameter
 	 */
 	public String message() default "";
 
@@ -35,7 +33,7 @@ public @interface Trace {
 	 * Specify a logging level for logging as
 	 * {@link com.github.marocraft.trackntrace.domain.LogLevel}
 	 * 
-	 * @return
+	 * @return returns the log level
 	 */
 	public LogLevel level() default LogLevel.INFO;
 }

@@ -100,8 +100,9 @@ public class AnnotationAspect {
 	 * Collect data about annotated methods execution and generate a specific based
 	 * template
 	 * 
-	 * @param joinPoint
-	 * @throws Throwable
+	 * @param joinPoint is a param that contains information about methods and classes
+	 * @throws Throwable class is the superclass of all errors and exceptions in the Java language
+	 * @return proceed
 	 */
 	@Around("@annotation(com.github.marocraft.trackntrace.annotation.Trace)")
 	public Object whenAnnotatedWithTrace(final ProceedingJoinPoint joinPoint) throws Throwable {

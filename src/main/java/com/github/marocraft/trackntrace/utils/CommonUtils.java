@@ -27,12 +27,11 @@ public class CommonUtils {
 	/**
 	 * Replace each field in the template by its value
 	 * 
-	 * @param format
-	 * @param field
-	 * @param logTrace
-	 * @return
-	 * @throws IllegalAccessException 
-	 * @throws Exception 
+	 * @param format is the format of logs
+	 * @param field is the field that will be replaced by its own value
+	 * @param logTrace the trace of logs
+	 * @return the trace of logs with values
+	 * @throws IllegalAccessException An IllegalAccessException is thrown when an application tries to reflectively create an instance (other than an array), set or get a field, or invoke a method
 	 */
 	public String replace(String format, String field, LogTrace logTrace) throws IllegalAccessException {
 		Object valueOfField = valueOf(field, logTrace);
