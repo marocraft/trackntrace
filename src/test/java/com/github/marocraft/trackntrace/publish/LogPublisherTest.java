@@ -33,7 +33,7 @@ public class LogPublisherTest {
 
 		try {
 			logPublisher.publish("logs", "INFO");
-			HashMap<String, String> log = logPublisher.get();
+			HashMap<String, String> log = (HashMap<String, String>) logPublisher.get();
 			assertNotNull(log);
 			assertEquals(1, log.size());
 			assertEquals("INFO", log.get("logs"));

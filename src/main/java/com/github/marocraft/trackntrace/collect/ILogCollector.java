@@ -19,16 +19,16 @@ public interface ILogCollector {
 	/**
 	 * Collect informations to log
 	 * 
-	 * @param logCollection
-	 * @return
+	 * @param logCollection contains information that will be logged.
+	 * @return Logtrace is a trace of logs.
 	 */
 	public LogTrace collect(LogCollection logCollection);
 
 	/**
 	 * Return Log collector level
 	 * 
-	 * @param signature
-	 * @return
+	 * @param signature is the method signature that is annotated with Trace Annotation
+	 * @return the log level 
 	 */
 	default LogLevel getLevelFromSignature(MethodSignature signature) {
 		Method method = signature.getMethod();
@@ -39,8 +39,8 @@ public interface ILogCollector {
 	/**
 	 * Return log message
 	 * 
-	 * @param signature
-	 * @return
+	 * @param signature is the method signature that is annotated with Trace Annotation
+	 * @return the message from the annotation Trace parameters
 	 */
 	default String getMessageFromSignature(MethodSignature signature) {
 		Method method = signature.getMethod();
