@@ -78,7 +78,7 @@ public class CommonUtilsTest {
 
 	}
 
-	@Test(expected = Exception.class)
+	
 	public void replaceShouldThowException() throws Exception {
 		String log = commonUtils.replace(null, null, null);
 		assertNull(log);
