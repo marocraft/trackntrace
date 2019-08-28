@@ -3,11 +3,12 @@
  */
 package com.github.marocraft.trackntrace.http.filter;
 
-import static org.junit.Assert.assertEquals;
-
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.net.URLEncoder;
+import java.io.StringReader;
 
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,9 +19,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.mock.web.MockHttpServletResponse;
-import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -37,6 +35,7 @@ public class HttpLogsFilterTest {
 	HttpServletResponse httpServletResponse;
 	HttpLogsFilter httpLogsFilter;
 	TestServlet servlet;
+	
 
 	@Autowired
 	HttpLogsFilter filter;
@@ -134,13 +133,25 @@ public class HttpLogsFilterTest {
 				httpLogsFilter.getPublicIpAdress(mutableHttpServletRequest));
 	}
 
-	public void testRedirect() throws Exception {
-		final MockHttpSession session = new MockHttpSession();
-		final MockHttpServletRequest request = new MockHttpServletRequest();
-		final MockHttpServletResponse response = new MockHttpServletResponse();
-		request.setSession(session);
-		this.filter.doFilter(request, response, null);
-		assertEquals("" + "?service=" + URLEncoder.encode("", "UTF-8"), response.getRedirectedUrl());
+	@Test
+	public void testFilter() {
+		HttpServletRequest mockReq = Mockito.mock(HttpServletRequest.class);
+		HttpServletResponse mockResp = Mockito.mock(HttpServletResponse.class);
+		FilterChain mockFilterChain = Mockito.mock(FilterChain.class);
+		FilterConfig mockFilterConfig = Mockito.mock(FilterConfig.class);
+		Mockito.when(mockReq.getRequestURI()).thenReturn("/");
+
+		BufferedReader br = new BufferedReader(new StringReader("test"));
+		try {
+			Mockito.when(mockReq.getReader()).thenReturn(br);
+			filter.init(mockFilterConfig);
+			filter.doFilter(mockReq, mockResp, mockFilterChain);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ServletException e) {
+			e.printStackTrace();
+		}
+
 		filter.destroy();
 	}
 
