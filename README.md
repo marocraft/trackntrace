@@ -2,6 +2,7 @@
 
 [![Maven Central](https://img.shields.io/maven-central/v/com.github.marocraft.trackntrace/tnt-core.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.github.marocraft.trackntrace%22%20AND%20a:%22tnt-core%22)
 [![Build Status](https://travis-ci.org/marocraft/trackntrace.svg?branch=develop)](https://travis-ci.org/marocraft/trackntrace)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=track-n-trace&metric=alert_status)](https://sonarcloud.io/dashboard?id=track-n-trace)
 
 ## Project description
 
