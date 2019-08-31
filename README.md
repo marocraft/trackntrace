@@ -1,6 +1,7 @@
 # <img src="src/docs/images/trackntrace.png" width="96" height="96"> TracknTrace Framework
 
 [![Maven Central](https://img.shields.io/maven-central/v/com.github.marocraft.trackntrace/tnt-core.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.github.marocraft.trackntrace%22%20AND%20a:%22tnt-core%22)
+[![Build Status](https://travis-ci.org/marocraft/trackntrace.svg?branch=develop)](https://travis-ci.org/marocraft/trackntrace)
 
 ## Project description
 
