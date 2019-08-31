@@ -3,6 +3,14 @@
 [![Maven Central](https://img.shields.io/maven-central/v/com.github.marocraft.trackntrace/tnt-core.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.github.marocraft.trackntrace%22%20AND%20a:%22tnt-core%22)
 [![Build Status](https://travis-ci.org/marocraft/trackntrace.svg?branch=develop)](https://travis-ci.org/marocraft/trackntrace)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=track-n-trace&metric=alert_status)](https://sonarcloud.io/dashboard?id=track-n-trace)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=track-n-trace&metric=bugs)](https://sonarcloud.io/dashboard?id=track-n-trace)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=track-n-trace&metric=code_smells)](https://sonarcloud.io/dashboard?id=track-n-trace)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=track-n-trace&metric=coverage)](https://sonarcloud.io/dashboard?id=track-n-trace)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=track-n-trace&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=track-n-trace)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=track-n-trace&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=track-n-trace)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=track-n-trace&metric=alert_status)](https://sonarcloud.io/dashboard?id=track-n-trace)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=track-n-trace&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=track-n-trace)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=track-n-trace&metric=security_rating)](https://sonarcloud.io/dashboard?id=track-n-trace)
 
 ## Project description
 
