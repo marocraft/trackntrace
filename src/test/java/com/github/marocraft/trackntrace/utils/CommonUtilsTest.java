@@ -56,7 +56,7 @@ public class CommonUtilsTest {
 	}
 
 	@Test
-	public void replaceShouldReturnNull() {
+	public void replaceShouldNotReturnNull() {
 
 		String log;
 		try {
@@ -78,7 +78,19 @@ public class CommonUtilsTest {
 
 	}
 
-	
+	@Test
+	public void replaceShouldReturnNull() {
+		String log;
+		try {
+			log = commonUtils.replace(null, "methodName", null);
+			assertNull(log);
+			assertEquals(null, log);
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+
+	}
+
 	public void replaceShouldThowException() throws Exception {
 		String log = commonUtils.replace(null, null, null);
 		assertNull(log);
