@@ -196,3 +196,4 @@ TnT is a java framework that offers centralization and aggregation of the format
 - Badr Eddine ZINOUN
 - Sanaa HSAKOU
 - Hassane EL GHACHTOUL
+- Omar Ray
