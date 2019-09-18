@@ -50,7 +50,7 @@ public class CorrelationFilter implements Filter {
 			correlationId.setParentId(spanId);
 
 		} else {
-			correlationId.setParentId(id);
+			correlationId.setParentId("");
 		}
 		correlationId.setSpanId(CommonUtils.toLowerHex(CommonUtils.nextId()));
 		chain.doFilter(request, response);
@@ -58,6 +58,7 @@ public class CorrelationFilter implements Filter {
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
+		
 	}
 
 	@Override

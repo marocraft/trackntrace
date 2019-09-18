@@ -3,7 +3,6 @@ package com.github.marocraft.trackntrace.utils;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,21 +21,23 @@ import com.github.marocraft.trackntrace.domain.Variable;
 @Component
 public class CommonUtils {
 
-	public static final char[] HEX_DIGITS = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
+	public static final char[] HEX_DIGITS = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e',
+			'f' };
 
 	/**
 	 * Replace each field in the template by its value
 	 * 
-	 * @param format
-	 * @param field
-	 * @param logTrace
-	 * @return
-	 * @throws IllegalAccessException
+	 * @param format is the format of logs
+	 * @param field is the field that will be replaced by its own value
+	 * @param logTrace the trace of logs
+	 * @return the trace of logs with values
+	 * @throws IllegalAccessException An IllegalAccessException is thrown when an application tries to reflectively create an instance (other than an array), set or get a field, or invoke a method
 	 */
 	public String replace(String format, String field, LogTrace logTrace) throws IllegalAccessException {
 		Object valueOfField = valueOf(field, logTrace);
-
-		return format.replaceAll("\"\\{\\{" + field + "\\}\\}\"", "\"" + valueOfField + "\"") + "";
+		if (format != null)
+			return format.replaceAll("\"\\{\\{" + field + "\\}\\}\"", "\"" + valueOfField + "\"") + "";
+		return null;
 	}
 
 	public List<Variable> extractVariables(String expression) {
@@ -59,42 +60,33 @@ public class CommonUtils {
 		return variables;
 	}
 
-	public Object valueOf(String fieldName, LogTrace trace) throws IllegalAccessException {
-		Field[] clazzFields = trace.getClass().getDeclaredFields();
-		for (Field clazzField : clazzFields) {
-			Mapping annotation = clazzField.getAnnotation(Mapping.class);
-			if (annotation != null && annotation.field().equals(fieldName)) {
-				clazzField.setAccessible(true);
-				return clazzField.get(trace);
+	private Object valueOf(String fieldName, LogTrace trace) throws IllegalAccessException {
+		if (trace != null) {
+			Field[] clazzFields = trace.getClass().getDeclaredFields();
+			for (Field clazzField : clazzFields) {
+				Mapping annotation = clazzField.getAnnotation(Mapping.class);
+				if (annotation != null && annotation.field().equals(fieldName)) {
+					clazzField.setAccessible(true);
+					return clazzField.get(trace);
+				}
 			}
 		}
-
 		return null;
+
 	}
 
-	public int getNumberOfVariablesFromFormatFile(String expression) {
-		List<Variable> variables = extractVariables(expression);
-		return variables.size();
-	}
-
-	public String uniqid() {
-		return UUID.randomUUID().toString();
-	}
-
-	/** Inspired by {@code okio.Buffer.writeLong} */
 	public static String toLowerHex(long v) {
 		char[] data = new char[16];
 		writeHexLong(data, 0, v);
 		return new String(data);
 	}
 
-	static void writeHexByte(char[] data, int pos, byte b) {
+	private static void writeHexByte(char[] data, int pos, byte b) {
 		data[pos + 0] = CommonUtils.HEX_DIGITS[(b >> 4) & 0xf];
 		data[pos + 1] = CommonUtils.HEX_DIGITS[b & 0xf];
 	}
 
-	/** Inspired by {@code okio.Buffer.writeLong} */
-	public static void writeHexLong(char[] data, int pos, long v) {
+	private static void writeHexLong(char[] data, int pos, long v) {
 		writeHexByte(data, pos + 0, (byte) ((v >>> 56L) & 0xff));
 		writeHexByte(data, pos + 2, (byte) ((v >>> 48L) & 0xff));
 		writeHexByte(data, pos + 4, (byte) ((v >>> 40L) & 0xff));
@@ -105,7 +97,7 @@ public class CommonUtils {
 		writeHexByte(data, pos + 14, (byte) (v & 0xff));
 	}
 
-	public static long randomLong() {
+	private static long randomLong() {
 		return java.util.concurrent.ThreadLocalRandom.current().nextLong();
 	}
 

@@ -6,7 +6,7 @@
 
 	<groupId>com.github.marocraft.trackntrace</groupId>
 	<artifactId>tnt-core</artifactId>
-	<version>0.2.2-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<packaging>jar</packaging>
 	<name>TracknTrace</name>
 	<description>Intercept method calls and produce logs</description>
@@ -66,6 +66,23 @@
 		<jacoco-maven-plugin.version>0.8.2</jacoco-maven-plugin.version>
 		<jacoco.it.execution.data.file>${project.build.directory}/jacoco-it.exec</jacoco.it.execution.data.file>
 		<jacoco.ut.execution.data.file>${project.build.directory}/jacoco.exec</jacoco.ut.execution.data.file>
+		<sonar.exclusions>
+			**/com/github/marocraft/trackntrace/domain/**,
+			**/com/github/marocraft/trackntrace/annotation/**,
+			**/com/github/marocraft/trackntrace/aspect/**,
+			**/com/github/marocraft/trackntrace/build/ILogBuilder.java,
+			**/com/github/marocraft/trackntrace/config/**,
+			**/com/github/marocraft/trackntrace/enums/**,
+			**/com/github/marocraft/trackntrace/http/configuration/**,
+			**/com/github/marocraft/trackntrace/http/filter/CorrelationFilter.java,
+			**/com/github/marocraft/trackntrace/http/interceptor/**,
+			**/com/github/marocraft/trackntrace/http/HttpLog.java,
+			**/com/github/marocraft/trackntrace/http/IHttpLog.java,
+			**/com/github/marocraft/trackntrace/logger/**,
+			**/com/github/marocraft/trackntrace/publish/ILogPublisher.java,
+			**/com/github/marocraft/trackntrace/publish/LoggerThread.java,
+			**/com/github/marocraft/trackntrace/TracknTraceComponentsActivator.java
+		</sonar.exclusions>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -164,9 +181,6 @@
 			<version>1.18.4</version>
 			<scope>provided</scope>
 		</dependency>
-
-		<!-- <dependency> <groupId>org.mockito</groupId> <artifactId>mockito-all</artifactId> 
-			<version>1.9.5</version> <scope>test</scope> </dependency> -->
 		<dependency>
 			<groupId>org.powermock</groupId>
 			<artifactId>powermock-api-mockito</artifactId>

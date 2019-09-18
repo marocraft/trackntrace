@@ -32,9 +32,9 @@ public class DefaultLogBuilder implements ILogBuilder {
 	/**
 	 * Construct logs from LogTrace object
 	 * 
-	 * @param logTrace
-	 * @return
-	 * @throws IllegalAccessException
+	 * @param logTrace that will be logged
+	 * @return Strings of logs
+	 * @throws IllegalAccessException  An IllegalAccessException is thrown when an application tries to reflectively create an instance (other than an array), set or get a field, or invoke a method
 	 */
 	@Override
 	@Qualifier("defaultLogTrace")

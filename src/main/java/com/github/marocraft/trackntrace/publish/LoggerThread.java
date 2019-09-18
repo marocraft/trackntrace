@@ -2,7 +2,6 @@ package com.github.marocraft.trackntrace.publish;
 
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
 import java.util.Map.Entry;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,16 +32,16 @@ public class LoggerThread implements Runnable {
 		HashMap<String, String> msg = null;
 		try {
 			if (publisher != null) {
-				while ((msg = publisher.get()) != null) {
+				while ((msg = (HashMap<String, String>) publisher.get()) != null) {
 					Iterator<Entry<String, String>> hmIterator = msg.entrySet().iterator();
 					String logMessage = "";
 
 					String logLevel = "";
 					while (hmIterator.hasNext()) {
-						Map.Entry mapElement = (Map.Entry) hmIterator.next();
+						Entry<String, String> mapElement = hmIterator.next();
 
-						logLevel = (String) mapElement.getValue();
-						logMessage = (String) mapElement.getKey();
+						logLevel = mapElement.getValue();
+						logMessage = mapElement.getKey();
 
 					}
 
