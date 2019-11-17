@@ -1,10 +1,5 @@
 package com.github.marocraft.trackntrace.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 /**
  * Data transfer object for variables
  * 
@@ -12,12 +7,43 @@ import lombok.Setter;
  * @author Sallah KOKAINA
  *
  */
-@Setter
-@Getter
-@NoArgsConstructor
-@AllArgsConstructor
 public class Variable {
 	private String name;
 	private int start;
 	private int end;
+
+	public Variable() {
+		super();
+	}
+
+	public Variable(String name, int start, int end) {
+		super();
+		this.name = name;
+		this.start = start;
+		this.end = end;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getStart() {
+		return start;
+	}
+
+	public void setStart(int start) {
+		this.start = start;
+	}
+
+	public int getEnd() {
+		return end;
+	}
+
+	public void setEnd(int end) {
+		this.end = end;
+	}
 }

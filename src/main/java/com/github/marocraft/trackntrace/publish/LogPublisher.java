@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import lombok.Getter;
@@ -19,9 +21,8 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Getter
 @Component("logPublisher")
-@Slf4j
 public class LogPublisher implements ILogPublisher<String> {
-
+	private final Logger log = LoggerFactory.getLogger(LoggerThread.class);
 	private BlockingQueue<HashMap<String, String>> logQueue = new LinkedBlockingQueue<>(50);
 
 	@Override

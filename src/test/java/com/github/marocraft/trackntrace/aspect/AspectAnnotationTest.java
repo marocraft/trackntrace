@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.github.marocraft.trackntrace.annotation.TestService;
 import com.github.marocraft.trackntrace.build.ILogBuilder;
 import com.github.marocraft.trackntrace.config.IConfigurationTnT;
 import com.github.marocraft.trackntrace.context.SpringAOPContext;
@@ -22,7 +23,9 @@ import com.github.marocraft.trackntrace.utils.CommonUtils;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = SpringAOPContext.class)
 public class AspectAnnotationTest {
-
+	@Autowired
+	TestService testService;
+	
 	@Autowired
 	@Qualifier("configurationTnTDefault")
 	IConfigurationTnT config;

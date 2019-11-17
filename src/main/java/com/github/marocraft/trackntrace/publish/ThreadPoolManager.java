@@ -19,7 +19,6 @@ import lombok.Getter;
  *
  */
 @Component
-@Getter
 public class ThreadPoolManager {
 
 	@Autowired
@@ -39,4 +38,10 @@ public class ThreadPoolManager {
 	public void shutdown() {
 		executorService.shutdown();
 	}
+
+	public ExecutorService getExecutorService() {
+		return executorService;
+	}
+	
+	
 }

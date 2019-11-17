@@ -28,7 +28,6 @@ import com.github.marocraft.trackntrace.context.SpringAOPContext;
 import com.github.marocraft.trackntrace.domain.DefaultLogTrace;
 import com.github.marocraft.trackntrace.domain.LogLevel;
 import com.github.marocraft.trackntrace.domain.LogTrace;
-import com.github.marocraft.trackntrace.domain.RestLogTrace;
 import com.github.marocraft.trackntrace.http.HttpLog;
 import com.github.marocraft.trackntrace.logger.LogCollection;
 
